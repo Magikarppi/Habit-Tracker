@@ -1,8 +1,12 @@
 const mongoose = require('mongoose')
 
 const habitSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  completions: { type: Array }
+  name: { type: String, minlength: 2, required: true },
+  completions: { type: Array },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 })
 
 habitSchema.set('toJSON', {
