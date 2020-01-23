@@ -5,6 +5,8 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const config = require('./utils/config')
 const morgan = require('morgan')
+
+const middleware = require('./utils/middleware')
 const habitRouter = require('./controllers/habit')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
@@ -33,6 +35,7 @@ mongoose
 
 app.use(cors())
 app.use(bodyParser.json())
+app.use(middleware.tokenExtractor)
 
 app.use('/api/habits', habitRouter)
 app.use('/api/users', usersRouter)
