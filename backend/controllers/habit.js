@@ -24,6 +24,8 @@ habitRouter.post('/', async (request, response) => {
 
   const user = await User.findById(decodedToken.id)
 
+  console.log('request body:', request.body)
+
   const habit = new Habit({
     ...request.body,
     user: user._id

@@ -9,7 +9,8 @@ loginRouter.post('/', async (request, response) => {
   console.log('request.body', request.body)
 
   try {
-  const user = await User.findOne({ username: request.body.username })
+  const user = await User.findOne({ username: request.body.username }).populate('habits')
+  console.log('user', user)
   const passwordCorrect = user === null 
     ? false
     : await bcryptjs.compare(request.body.password.toString(), user.passwordHash)
@@ -27,7 +28,7 @@ loginRouter.post('/', async (request, response) => {
 
     const token = jwt.sign(userForToken, config.SECRET)
 
-    response.status(200).send({ token, username: user.username, id: user._id})
+    response.status(200).send({ token, username: user.username, habits: user.habits, id: user._id})
   } catch (exception) {
     console.log(exception)
     response.status(401).send({ error: exception.message })

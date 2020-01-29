@@ -7,8 +7,25 @@ export const setToken = (newToken) => {
 }
 
 export const getAll = async () => {
-  const response = await fetch(baseUrl)
-  const responseData = await response.json()
-  console.log('responseData', responseData)
-  return responseData
+  try {
+    const response = await fetch(baseUrl)
+    const responseData = await response.json()
+    console.log('responseData', responseData)
+    return responseData  
+  } catch (exception) {
+    console.log(exception)
+  }
+}
+
+export const create = async (data) => {
+  try {
+    const response = await fetch(baseUrl, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json', 'Authorization': token }
+    })
+    return response.json()
+  } catch (exception) {
+    console.log(exception)
+  }
 }
