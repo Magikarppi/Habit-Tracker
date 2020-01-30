@@ -1,3 +1,5 @@
+Web app project that tracks user's habits. User can add, delete or modify his habits and see a detailed information of a given habit, like habit completion streaks and a calendar view of completed and missed days for the habit.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
