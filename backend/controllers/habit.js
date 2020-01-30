@@ -15,6 +15,14 @@ habitRouter.get('/', async (request, response) => {
   }
 })
 
+// habitRouter.get('/:id', async (request, responsse) => {
+//   try {
+//     const habit = await Habit.findById
+//   } catch (error) {
+    
+//   }
+// })
+
 habitRouter.post('/', async (request, response) => {
   try {
     const decodedToken = jwt.verify(request.token, config.SECRET)

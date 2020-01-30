@@ -11,14 +11,17 @@ import './App.css';
 import { getAll, setToken, create } from './services/habits';
 import { login } from './services/login';
 import { signup } from './services/signup';
+import { getUsers } from './services/users';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import ErrorNotification from './components/ErrorNotification';
 import AddHabit from './components/AddHabit';
+import Habit from './components/Habit';
 import Toggleable from './components/Toggleable';
 import { useField } from './hooks/hooks';
 
 const App = () => {
+  const [allHabits, setAllHabits] = useState([])
   const [habitsToShow, setHabitsToShow] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [showHabitForm, setShowHabitForm] = useState(false);
@@ -29,29 +32,44 @@ const App = () => {
   const [successMessage, setSuccessMessage] = useState('');
 
   const habitName = useField('text');
+  
+  const fetchHabits = async () => {
+    try {
+      const fetchedHabits = await getAll();
+      setAllHabits(fetchedHabits);  
+    } catch (error) {
+      console.log(error)
+    }
+  };
 
-  // useEffect(() => {
-  //   const fetchHabits = async () => {
-  //     const fetchedHabits = await getAll();
-  //     console.log('fetchedHabits:', fetchHabits);
-  //     setHabitsToShow(fetchedHabits);
-  //   };
-  //   fetchHabits();
-  // }, [setHabitsToShow]);
+  // const fetchUsers = async () => {
+  //   try {
+  //     const fetchedUsers = await getUsers();
+  //     console.log('fetchedUsers', fetchedUsers)
+  //     return fetchedUsers
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
+  useEffect(() => {
+    fetchHabits();
+  }, []);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedHabitAppUser');
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      console.log('User in useEffect', user)
-      setLoggedInUser(user);
-      setHabitsToShow(user.habits)
-      setToken(user.token);
+      // const fetchedUsers = fetchUsers();
+        const user = JSON.parse(loggedUserJSON);
+        // const user = fetchedUsers.find(user => user.id === userParsed.id)
+        setLoggedInUser(user);
+        setHabitsToShow(user.habits);
+        setToken(user.token);
     }
-  }, [setLoggedInUser]);
+  }, []);
 
-  console.log('LoggedInUser:', loggedInUser)
-  console.log('habitsToShow:', habitsToShow)
+  console.log('LoggedInUser:', loggedInUser);
+  console.log('habitsToShow:', habitsToShow);
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -119,7 +137,7 @@ const App = () => {
         );
         setToken(responseData.token);
         setLoggedInUser(responseData);
-        setHabitsToShow(responseData.habits)
+        setHabitsToShow(responseData.habits);
       }
     } catch (error) {
       console.log(error);
@@ -140,17 +158,26 @@ const App = () => {
         };
 
         responseData = await create(newHabit);
-      } catch (exception) {}
+      } catch (exception) {
+        console.log(exception)
+      }
       console.log('responseData in handle habit submit', responseData);
       if (responseData) {
-        console.log('I should do something with the response data ?!?!?!');
 
-        setHabitsToShow([...habitsToShow, responseData])
-        console.log('habitsToShow', habitsToShow)
-        habitName.reset()
+        setHabitsToShow([...habitsToShow, responseData]);
+        loggedInUser.habits = loggedInUser.habits.concat(responseData)
+        console.log('loggedinUser ', loggedInUser)
+        fetchHabits()
+        console.log('habitsToShow', habitsToShow);
+        habitName.reset();
+        setShowHabitForm(false);
+        window.localStorage.setItem(
+          'loggedHabitAppUser',
+          JSON.stringify(loggedInUser)
+        );
       }
     } catch (exception) {
-      console.log(exception)
+      console.log(exception);
     }
   };
 
@@ -162,6 +189,8 @@ const App = () => {
     const { reset, ...rest } = obj;
     return rest;
   };
+
+  const habitById = id =>  allHabits.find(habit => habit.id === id)
 
   return (
     <div>
@@ -192,7 +221,9 @@ const App = () => {
                 )}
                 <ul>
                   {habitsToShow.map((habit) => (
-                    <li key={habit.id}>{habit.name}</li>
+                    <li key={habit.id}>
+                      <Link to={`/habits/${habit.id}`}>{habit.name}</Link>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -224,6 +255,7 @@ const App = () => {
               />
             )}
           />
+          <Route path="/habits/:id" render={({ match }) => <Habit habit={habitById(match.params.id)} />} />
         </div>
       </Router>
     </div>
