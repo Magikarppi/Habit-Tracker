@@ -4,41 +4,43 @@ import {
   Link,
   Route,
   Redirect,
-  withRouter
+  withRouter,
+  useHistory
 } from 'react-router-dom';
 
 import './App.css';
-import { getAll, setToken, create } from './services/habits';
+import { getAll, setToken, create, remove } from './services/habits';
 import { login } from './services/login';
 import { signup } from './services/signup';
 import { getUsers } from './services/users';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import ErrorNotification from './components/ErrorNotification';
+import SuccessNotification from './components/SuccessNotification';
 import AddHabit from './components/AddHabit';
 import Habit from './components/Habit';
 import Toggleable from './components/Toggleable';
 import { useField } from './hooks/hooks';
 
-const App = () => {
-  const [allHabits, setAllHabits] = useState([])
+const App = (props) => {
+  const [allHabits, setAllHabits] = useState([]);
   const [habitsToShow, setHabitsToShow] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [showHabitForm, setShowHabitForm] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  // const [habitName, setHabitName] = useState('')
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [redirect, setRedirect] = useState(null);
 
   const habitName = useField('text');
-  
+  const username = useField('text');
+  const password = useField('password');
+
   const fetchHabits = async () => {
     try {
       const fetchedHabits = await getAll();
-      setAllHabits(fetchedHabits);  
+      setAllHabits(fetchedHabits);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -60,50 +62,43 @@ const App = () => {
     const loggedUserJSON = window.localStorage.getItem('loggedHabitAppUser');
     if (loggedUserJSON) {
       // const fetchedUsers = fetchUsers();
-        const user = JSON.parse(loggedUserJSON);
-        // const user = fetchedUsers.find(user => user.id === userParsed.id)
-        setLoggedInUser(user);
-        setHabitsToShow(user.habits);
-        setToken(user.token);
+      const user = JSON.parse(loggedUserJSON);
+      // const user = fetchedUsers.find(user => user.id === userParsed.id)
+      setLoggedInUser(user);
+      setHabitsToShow(user.habits);
+      setToken(user.token);
     }
   }, []);
 
   console.log('LoggedInUser:', loggedInUser);
   console.log('habitsToShow:', habitsToShow);
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
   const handleSignupSubmit = async (e) => {
     console.log('handleSubmit runs');
     e.preventDefault();
 
     const signupData = {
-      username,
-      password
+      username: username.value,
+      password: password.value
     };
 
     try {
       await signup(signupData);
+      setRedirect('/');
+      setRedirect(null);
+      username.reset();
+      password.reset();
     } catch (exception) {
       console.log(exception);
     }
-
-    setUsername('');
-    setPassword('');
   };
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
     const loginData = {
-      username,
-      password
+      username: username.value,
+      password: password.value
     };
     try {
       let responseData = null;
@@ -138,13 +133,15 @@ const App = () => {
         setToken(responseData.token);
         setLoggedInUser(responseData);
         setHabitsToShow(responseData.habits);
+        username.reset();
+        password.reset();
+        setRedirect('/');
+        setRedirect(null);
+        console.log('REDIRECT:', redirect)
       }
     } catch (error) {
       console.log(error);
     }
-
-    setUsername('');
-    setPassword('');
   };
 
   const handleHabitSubmit = async (e) => {
@@ -159,15 +156,14 @@ const App = () => {
 
         responseData = await create(newHabit);
       } catch (exception) {
-        console.log(exception)
+        console.log(exception);
       }
       console.log('responseData in handle habit submit', responseData);
       if (responseData) {
-
         setHabitsToShow([...habitsToShow, responseData]);
-        loggedInUser.habits = loggedInUser.habits.concat(responseData)
-        console.log('loggedinUser ', loggedInUser)
-        fetchHabits()
+        loggedInUser.habits = loggedInUser.habits.concat(responseData);
+        console.log('loggedinUser ', loggedInUser);
+        fetchHabits();
         console.log('habitsToShow', habitsToShow);
         habitName.reset();
         setShowHabitForm(false);
@@ -181,6 +177,36 @@ const App = () => {
     }
   };
 
+  const handleRemove = async (habit) => {
+    console.log('habit in remove', habit);
+    if (window.confirm(`Do you want to delete habit: ${habit.name}?`)) {
+      try {
+        await remove(habit);
+        console.log('removing worked?:::::::::::::::::');
+        setHabitsToShow(habitsToShow.filter((e) => e.id !== habit.id));
+        loggedInUser.habits = loggedInUser.habits.filter(
+          (e) => e.id !== habit.id
+        );
+        window.localStorage.setItem(
+          'loggedHabitAppUser',
+          JSON.stringify(loggedInUser)
+        );
+        setSuccessMessage('Habit deleted');
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 4000);
+        setRedirect('/');
+        setRedirect(null);
+      } catch (exception) {
+        console.log(exception);
+        setErrorMessage('Habit deletion failed');
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 4000);
+      }
+    }
+  };
+
   const toggleHabitForm = () => {
     setShowHabitForm(!showHabitForm);
   };
@@ -190,17 +216,31 @@ const App = () => {
     return rest;
   };
 
-  const habitById = id =>  allHabits.find(habit => habit.id === id)
+  const habitById = (id) => allHabits.find((habit) => habit.id === id);
+
+  console.log('REDIRECT', redirect)
 
   return (
     <div>
       <ErrorNotification errorMessage={errorMessage} />
+      <SuccessNotification successMessage={successMessage} />
       <Router>
         <div>
           <div>
             <Link to="/">Home</Link>
-            <Link to="/signup">Sign up</Link>
-            <Link to="/login">Login</Link>
+
+            {loggedInUser ? (
+              <em>{loggedInUser.username} logged in</em>
+            ) : (
+              <div>
+                <div>
+                  <Link to="/login">Login</Link>
+                </div>
+                <div>
+                  <Link to="/signup">Sign up</Link>
+                </div>
+              </div>
+            )}
           </div>
           <Route
             exact
@@ -234,10 +274,8 @@ const App = () => {
             path="/signup"
             render={() => (
               <Signup
-                username={username}
-                password={password}
-                handleUsernameChange={handleUsernameChange}
-                handlePasswordChange={handlePasswordChange}
+                username={removeReset(username)}
+                password={removeReset(password)}
                 handleSignupSubmit={handleSignupSubmit}
               />
             )}
@@ -245,17 +283,30 @@ const App = () => {
           <Route
             exact
             path="/login"
-            render={() => (
-              <Login
-                username={username}
-                password={password}
-                handleUsernameChange={handleUsernameChange}
-                handlePasswordChange={handlePasswordChange}
-                handleLoginSubmit={handleLoginSubmit}
+            render={() =>
+              redirect ? (
+                <Redirect to={redirect} />
+              ) : (
+                <Login
+                  username={removeReset(username)}
+                  password={removeReset(password)}
+                  handleLoginSubmit={handleLoginSubmit}
+                />
+              )
+            }
+          />
+          <Route
+            path="/habits/:id"
+            render={({ match }) => 
+              redirect ? (
+                <Redirect to={redirect} />
+              ) : (
+              <Habit
+                habit={habitById(match.params.id)}
+                handleRemove={handleRemove}
               />
             )}
           />
-          <Route path="/habits/:id" render={({ match }) => <Habit habit={habitById(match.params.id)} />} />
         </div>
       </Router>
     </div>

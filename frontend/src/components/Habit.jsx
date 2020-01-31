@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Habit = ({ habit }) => {
+const Habit = ({ habit, handleRemove }) => {
   if (!habit) {
     return null
   }
@@ -8,6 +8,7 @@ const Habit = ({ habit }) => {
   return (
     <div>
       {habit.name}
+      <button onClick={() => handleRemove(habit)}>Delete</button>
     </div>
   )
 }

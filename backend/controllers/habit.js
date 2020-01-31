@@ -52,8 +52,8 @@ habitRouter.post('/', async (request, response) => {
 
 habitRouter.delete('/:id', async (request, response) => {
   try {
-    await Habit.findByIdAndRemove(request.params.id);
-    return response.status(204).end();
+      await Habit.findByIdAndRemove(request.params.id);
+      return response.status(204).end();
   } catch (exception) {
     console.log(exception)
     response.status(400).send({ error: exception.message })

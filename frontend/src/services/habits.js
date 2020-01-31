@@ -29,3 +29,13 @@ export const create = async (data) => {
     console.log(exception)
   }
 }
+
+export const remove = async habit => {
+  try {
+    await fetch(`${baseUrl}/${habit.id}`, {
+      method: 'DELETE'
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
