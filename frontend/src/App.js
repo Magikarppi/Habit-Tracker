@@ -23,7 +23,7 @@ import Toggleable from './components/Toggleable';
 import { useField } from './hooks/hooks';
 
 const App = () => {
-  const [allHabits, setAllHabits] = useState([]);
+  // const [allHabits, setAllHabits] = useState([]);
   const [habitsToShow, setHabitsToShow] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [showHabitForm, setShowHabitForm] = useState(false);
@@ -35,14 +35,14 @@ const App = () => {
   const username = useField('text');
   const password = useField('password');
 
-  const fetchHabits = async () => {
-    try {
-      const fetchedHabits = await getAll();
-      setAllHabits(fetchedHabits);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const fetchHabits = async () => {
+  //   try {
+  //     const fetchedHabits = await getAll();
+  //     setAllHabits(fetchedHabits);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // const fetchUsers = async () => {
   //   try {
@@ -54,9 +54,9 @@ const App = () => {
   //   }
   // }
 
-  useEffect(() => {
-    fetchHabits();
-  }, []);
+  // useEffect(() => {
+  //   fetchHabits();
+  // }, []);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedHabitAppUser');
@@ -170,7 +170,7 @@ const App = () => {
         setHabitsToShow([...habitsToShow, responseData]);
         loggedInUser.habits = loggedInUser.habits.concat(responseData);
         console.log('loggedinUser ', loggedInUser);
-        fetchHabits();
+        // fetchHabits();
         console.log('habitsToShow', habitsToShow);
         habitName.reset();
         setShowHabitForm(false);
@@ -264,7 +264,8 @@ const App = () => {
     return rest;
   };
 
-  const habitById = (id) => allHabits.find((habit) => habit.id === id);
+  const habitById = (id) => habitsToShow.find((habit) => habit.id === id);
+  // const habitById = (id) => allHabits.find((habit) => habit.id === id);
 
   console.log('REDIRECT', redirect)
 
@@ -313,7 +314,7 @@ const App = () => {
                 <ul>
                   {habitsToShow.map((habit) => (
                     <li key={habit.id}>
-                      <Link to={`/habits/${habit.id}`}>{habit.name}</Link>
+                      <Link to={`/habits/${habit.id}`}>{habit.name} --- {habit.completions[0] ? habit.completions[0].thisDay : 'o'}</Link>
                       <button onClick={() => handleCompletion(habit)}>Done for today!</button>
                     </li>
                   ))}
