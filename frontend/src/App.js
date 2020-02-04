@@ -314,7 +314,7 @@ const App = () => {
                 <ul>
                   {habitsToShow.map((habit) => (
                     <li key={habit.id}>
-                      <Link to={`/habits/${habit.id}`}>{habit.name} --- {habit.completions[0] ? habit.completions[0].thisDay : 'o'}</Link>
+                      <Link to={`/habits/${habit.id}`}>{habit.name}</Link>
                       <button onClick={() => handleCompletion(habit)}>Done for today!</button>
                     </li>
                   ))}

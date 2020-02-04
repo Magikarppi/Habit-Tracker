@@ -27,6 +27,57 @@ const Habit = ({ habit, handleRemove }) => {
     ],
   ]
 
+  const options = {
+    title: habit.name,
+    noDataPattern: {
+      backgroundColor: '#000000',
+      color: '#000000'
+    },
+    colorAxis: {
+      minValue: 0,
+      colors: ['#00e5ff', '#73ff00']
+    },
+    calendar: {
+      cellSize: 25,
+      cellColor: {
+        stroke: '#e3e3e3',
+        strokeOpacity: 0.5,
+        strokeWidth: 1
+      },
+      focusedCellColor: {
+        stroke: '#d3362d', // white
+        strokeOpacity: 1,
+        strokeWidth: 1,
+      },
+      monthLabel: {
+        fontName: 'Arial',
+        fontSize: 12,
+        color: '#d3362d', // burgundy red
+        bold: true,
+        italic: true
+      },
+      monthOutlineColor: {
+        stroke: '#fad850', // gold
+        strokeOpacity: 0.8,
+        strokeWidth: 3
+      },
+      unusedMonthOutlineColor: {
+        stroke: '#bc5679', // reddish
+        strokeOpacity: 0.8,
+        strokeWidth: 2
+      },
+      underMonthSpace: 16,
+      underYearSpace: 10,
+      yearLabel: {
+        fontName: 'Arial',
+        fontSize: 32,
+        color: '#695508', // mustard
+        bold: true
+      },
+     },
+
+  }
+
   data = data.concat(completionDays)
 
   console.log('completionDays', completionDays)
@@ -39,9 +90,7 @@ const Habit = ({ habit, handleRemove }) => {
         chartType="Calendar"
         loader={<div>Loading Chart</div>}
         data={data}
-        options={{
-          title: habit.name
-        }}
+        options={options}
         rootProps={{ 'data-testid': '1' }}
       />
       <div>
