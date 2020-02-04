@@ -60,4 +60,30 @@ habitRouter.delete('/:id', async (request, response) => {
   }
 })
 
+habitRouter.put('/:id', async (request, response) => {
+  try {
+    // const decodedToken = jwt.verify(request.token, config.SECRET)
+
+    // if (!request.token || !decodedToken.id) {
+    //   return response.status(401).json({ error: 'token missing or invalid'})
+    // }
+
+    // const user = await User.findById(decodedToken.id)
+
+    const habit = {
+      ...request.body
+    }
+
+    const updatedHabit = await Habit.findByIdAndUpdate(request.params.id, habit, {
+      new: true,
+      omitUndefined: true
+    });
+    response.json(updatedHabit.toJSON())
+
+
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 module.exports = habitRouter

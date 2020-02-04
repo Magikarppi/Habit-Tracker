@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 
 import './App.css';
-import { getAll, setToken, create, remove } from './services/habits';
+import { getAll, setToken, create, remove, update } from './services/habits';
 import { login } from './services/login';
 import { signup } from './services/signup';
 import { getUsers } from './services/users';
@@ -22,7 +22,7 @@ import Habit from './components/Habit';
 import Toggleable from './components/Toggleable';
 import { useField } from './hooks/hooks';
 
-const App = (props) => {
+const App = () => {
   const [allHabits, setAllHabits] = useState([]);
   const [habitsToShow, setHabitsToShow] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -144,6 +144,13 @@ const App = (props) => {
     }
   };
 
+  const handleLogout = () => {
+    console.log('Logout runs')
+    window.localStorage.clear()
+    setLoggedInUser(null)
+    setHabitsToShow([]) // ????????
+  }
+
   const handleHabitSubmit = async (e) => {
     e.preventDefault();
 
@@ -207,6 +214,47 @@ const App = (props) => {
     }
   };
 
+  const handleCompletion = async (habit) => {
+    const date = new Date()
+    const thisDay = date.getDate()
+    const thisMonth = date.getMonth()
+    const thisYear = date.getFullYear()
+
+    const todayObj = {
+      thisDay,
+      thisMonth,
+      thisYear
+    }
+
+    const updateHabit = {
+      ...habit,
+      completions: habit.completions.concat(todayObj)
+    }
+
+    console.log('UpdateHabit', updateHabit)
+
+    try {
+      const responseData = await update(updateHabit)
+      console.log('responseData in handleCompletion', responseData)
+      setHabitsToShow(habitsToShow.map(e => e.id === responseData.id ? responseData : e))
+      loggedInUser.habits = loggedInUser.habits.map(e => e.id === responseData.id ? responseData : e)
+      window.localStorage.setItem(
+        'loggedHabitAppUser',
+        JSON.stringify(loggedInUser)
+      );
+      setSuccessMessage('Completion added!');
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 4000);
+    } catch (error) {
+      console.log(error)
+      setErrorMessage('Adding completion failed.');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 4000);
+    }
+  }
+
   const toggleHabitForm = () => {
     setShowHabitForm(!showHabitForm);
   };
@@ -230,7 +278,10 @@ const App = (props) => {
             <Link to="/">Home</Link>
 
             {loggedInUser ? (
+              <>
               <em>{loggedInUser.username} logged in</em>
+              <button onClick={handleLogout}>Log out</button>
+              </>
             ) : (
               <div>
                 <div>
@@ -263,6 +314,7 @@ const App = (props) => {
                   {habitsToShow.map((habit) => (
                     <li key={habit.id}>
                       <Link to={`/habits/${habit.id}`}>{habit.name}</Link>
+                      <button onClick={() => handleCompletion(habit)}>Done for today!</button>
                     </li>
                   ))}
                 </ul>

@@ -39,3 +39,16 @@ export const remove = async habit => {
     console.log(error)
   }
 }
+
+export const update = async habit => {
+  try {
+    const response = await fetch(`${baseUrl}/${habit.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(habit),
+      headers: { 'Content-Type': 'application/json', 'Authorization': token }
+    })
+    return response.json()
+  } catch (exception) {
+    console.log(exception)
+  }
+}
