@@ -19,6 +19,7 @@ import ErrorNotification from './components/ErrorNotification';
 import SuccessNotification from './components/SuccessNotification';
 import AddHabit from './components/AddHabit';
 import Habit from './components/Habit';
+import HabitMoreInfo from './components/HabitMoreInfo';
 import Toggleable from './components/Toggleable';
 import { useField } from './hooks/hooks';
 
@@ -269,6 +270,8 @@ const App = () => {
 
   console.log('REDIRECT', redirect)
 
+  // remove ul?
+
   return (
     <div>
       <ErrorNotification errorMessage={errorMessage} />
@@ -313,10 +316,7 @@ const App = () => {
                 )}
                 <ul>
                   {habitsToShow.map((habit) => (
-                    <li key={habit.id}>
-                      <Link to={`/habits/${habit.id}`}>{habit.name}</Link>
-                      <button onClick={() => handleCompletion(habit)}>Done for today!</button>
-                    </li>
+                    <Habit key={habit.id} habit={habit} handleCompletion={handleCompletion} />
                   ))}
                 </ul>
               </div>
@@ -354,7 +354,7 @@ const App = () => {
               redirect ? (
                 <Redirect to={redirect} />
               ) : (
-              <Habit
+              <HabitMoreInfo
                 habit={habitById(match.params.id)}
                 handleRemove={handleRemove}
               />
