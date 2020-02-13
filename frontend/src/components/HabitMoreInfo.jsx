@@ -1,5 +1,13 @@
 import React from 'react';
 import Chart from 'react-google-charts';
+import {
+  BrowserRouter as Router,
+  Link,
+  Route,
+  Redirect,
+  withRouter,
+  useHistory
+} from 'react-router-dom';
 
 const HabitMoreInfo = ({ habit, handleRemove }) => {
   if (!habit) {
@@ -84,6 +92,7 @@ const HabitMoreInfo = ({ habit, handleRemove }) => {
 
   return (
     <div>
+    <Link to="/">My habits</Link>
       <Chart
         width={750}
         height={350}

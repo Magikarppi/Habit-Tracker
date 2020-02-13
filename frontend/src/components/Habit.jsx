@@ -4,12 +4,7 @@ import { Link } from 'react-router-dom';
 const Habit = ({ habit, handleCompletion }) => {
   const findByMatchingDate = (completions, dateObj) => {
     return completions.filter((completion) => {
-      console.log('completion', completion);
-      console.log('object.keys(dateObj', Object.keys(dateObj));
       return Object.keys(dateObj).every((key) => {
-        console.log('key', key);
-        console.log('completion[key]', completion[key]);
-        console.log('dateObj[key]', dateObj[key]);
         return completion[key] === dateObj[key];
       });
     });
@@ -22,11 +17,9 @@ const Habit = ({ habit, handleCompletion }) => {
     thisYear: today.getFullYear()
   };
 
-  console.log('todayObj', todayObj);
 
   const result = findByMatchingDate(habit.completions, todayObj);
 
-  console.log('result', result);
   return (
     <div>
       <Link to={`/habits/${habit.id}`}>{habit.name}</Link>
