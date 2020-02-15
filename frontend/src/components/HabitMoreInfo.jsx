@@ -8,17 +8,40 @@ import {
   withRouter,
   useHistory
 } from 'react-router-dom';
+import styled from 'styled-components';
+
+const DeleteBtn = styled.button`
+  background: #cfccc2;
+  &:hover {
+    background: #ff711f;
+  }
+  font-size: 0.9em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid #8f8d64;
+  border-radius: 3px;
+  text-align: center;
+`;
+
+const MyHabitsDiv = styled.div`
+  background: rgba(255, 255, 220, 0.5);
+  color: #121200;
+  width: 70px;
+  padding: 0.25em 1em;
+  border: 2px solid #8f8d64;
+  border-radius: 3px;
+`;
 
 const HabitMoreInfo = ({ habit, handleRemove }) => {
   if (!habit) {
     return null;
   }
 
-  console.log('Habit in Habit:::', habit)
-  
-  const completionDays = habit.completions.map(dateObj => {
-    return [new Date(dateObj.thisYear, dateObj.thisMonth, dateObj.thisDay), 1]
-  })
+  console.log('Habit in Habit:::', habit);
+
+  const completionDays = habit.completions.map((dateObj) => {
+    return [new Date(dateObj.thisYear, dateObj.thisMonth, dateObj.thisDay), 1];
+  });
 
   // const dataThatWorks = [
   //   [{ type: 'date', id: 'Date' }, { type: 'number', id: 'Won/Loss' }],
@@ -27,13 +50,13 @@ const HabitMoreInfo = ({ habit, handleRemove }) => {
   //   [new Date(2012, 3, 15), 38024],
   //   [new Date(2013, 2, 10), 38447]
   // ]
-  
+
   let data = [
     [
       { type: 'date', id: 'Date' },
-      { type: 'number', id: 'Completions'}
-    ],
-  ]
+      { type: 'number', id: 'Completions' }
+    ]
+  ];
 
   const options = {
     title: habit.name,
@@ -55,7 +78,7 @@ const HabitMoreInfo = ({ habit, handleRemove }) => {
       focusedCellColor: {
         stroke: '#d3362d', // white
         strokeOpacity: 1,
-        strokeWidth: 1,
+        strokeWidth: 1
       },
       monthLabel: {
         fontName: 'Arial',
@@ -81,18 +104,19 @@ const HabitMoreInfo = ({ habit, handleRemove }) => {
         fontSize: 32,
         color: '#695508', // mustard
         bold: true
-      },
-     },
+      }
+    }
+  };
 
-  }
+  data = data.concat(completionDays);
 
-  data = data.concat(completionDays)
-
-  console.log('completionDays', completionDays)
+  console.log('completionDays', completionDays);
 
   return (
     <div>
-    <Link to="/">My habits</Link>
+      <MyHabitsDiv>
+        <Link to="/">My habits</Link>
+      </MyHabitsDiv>
       <Chart
         width={750}
         height={350}
@@ -103,10 +127,10 @@ const HabitMoreInfo = ({ habit, handleRemove }) => {
         rootProps={{ 'data-testid': '1' }}
       />
       <div>
-        <button onClick={() => handleRemove(habit)}>Delete</button>
+        <DeleteBtn onClick={() => handleRemove(habit)}>Delete</DeleteBtn>
       </div>
     </div>
   );
 };
 
-export default HabitMoreInfo
+export default HabitMoreInfo;

@@ -42,7 +42,7 @@ describe('when there is initially one user at db', () => {
     await user.save()
   })
 
-  test.only('creation succeeds with new username',async () => {
+  test('creation succeeds with new username',async () => {
     console.log('TEST RUNSSSSSS')
     const usersAtStart = await helper.usersInDB()
     console.log('usersAtStart: ', usersAtStart)
@@ -53,7 +53,7 @@ describe('when there is initially one user at db', () => {
     }
 
     await api
-      .post('/api/users/')
+      .post('/api/users')
       .send(newUser)
       .expect(201)
       .expect('Content-Type', /application\/json/)

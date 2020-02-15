@@ -43,6 +43,44 @@ const Wrapper = styled.div`
   text-align: center;
 `
 
+const H1 = styled.h1`
+  background: rgba(255,255,220,0.5);
+  width: 200px;
+  margin: auto;
+`
+
+const Em = styled.em`
+  background: rgba(255,255,220,0.5);
+`
+
+const LogOutBtn = styled.button`
+  background: #fff870;
+  &:hover {
+    background: #85015d;
+  }
+  font-size: 0.9em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid #8f8d64;
+  border-radius: 3px;
+  text-align: center;
+`
+
+const NewHabitBtn = styled.button`
+  background: #f2f5b5;
+  &:hover {
+    background: #e3bf20;
+  }
+  font-size: 0.9em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid #8f8d64;
+  border-radius: 3px;
+  text-align: center;
+`
+
+
+
 const Home = ({
   quote,
   quoteAuthor,
@@ -59,11 +97,11 @@ const Home = ({
   return loggedInUser ? (
     <div>
       <div>
-        <em>{loggedInUser.username} logged in</em>
-        <button onClick={handleLogout}>Log out</button>
+        <Em>{loggedInUser.username} logged in</Em>
+        <LogOutBtn onClick={handleLogout}>Log out</LogOutBtn>
       </div>
       <Wrapper>
-        <h1>Habit tracker</h1>
+        <H1>Habit tracker</H1>
         {showHabitForm ? (
           <div>
             <AddHabit
@@ -73,7 +111,7 @@ const Home = ({
             <button onClick={toggleHabitForm}>cancel</button>
           </div>
         ) : (
-          <button onClick={toggleHabitForm}>Add a new habit</button>
+          <NewHabitBtn onClick={toggleHabitForm}>Add a new habit</NewHabitBtn>
         )}
         <HabitsDiv>
           {habitsToShow.map((habit) => (

@@ -1,5 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+const Div = styled.div`
+  border: 1px solid black;
+  height: 50px;
+`
+
+const DoneBtn = styled.button`
+  background: #fff870;
+  &:hover {
+    background: #a8ff36;
+  }
+  font-size: 0.9em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid #8f8d64;
+  border-radius: 3px;
+  text-align: center;
+`
 
 const Habit = ({ habit, handleCompletion }) => {
   const findByMatchingDate = (completions, dateObj) => {
@@ -17,16 +36,16 @@ const Habit = ({ habit, handleCompletion }) => {
     thisYear: today.getFullYear()
   };
 
-
+  console.log('habit in Habit', habit)
   const result = findByMatchingDate(habit.completions, todayObj);
 
   return (
-    <div>
+    <Div>
       <Link to={`/habits/${habit.id}`}>{habit.name}</Link>
       {result.length > 0 ? null : (
-        <button onClick={() => handleCompletion(habit)}>Done for today!</button>
+        <DoneBtn onClick={() => handleCompletion(habit)}>Done for today!</DoneBtn>
       )}
-    </div>
+    </Div>
   );
 };
 
