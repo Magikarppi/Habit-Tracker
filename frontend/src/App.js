@@ -132,6 +132,7 @@ const App = () => {
       await signup(signupData);
       setRedirect('/');
       setRedirect(null);
+      setSuccessMessage('A new user created! Please log in!')
       username.reset();
       password.reset();
     } catch (exception) {
@@ -348,13 +349,17 @@ const App = () => {
           <Route
             exact
             path="/signup"
-            render={() => (
-              <Signup
-                username={removeReset(username)}
-                password={removeReset(password)}
-                handleSignupSubmit={handleSignupSubmit}
-              />
-            )}
+            render={() =>
+              redirect ? (
+                <Redirect to={redirect} />
+              ) : (
+                <Signup
+                  username={removeReset(username)}
+                  password={removeReset(password)}
+                  handleSignupSubmit={handleSignupSubmit}
+                />
+              )
+            }
           />
           <Route
             exact

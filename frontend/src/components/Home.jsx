@@ -127,6 +127,7 @@ const Home = ({
   ) : (
     <div>
       <Wrapper>
+      <H1>Habit tracker</H1>
         <LogSignDiv>
           <Link to="/login">Login</Link>
         </LogSignDiv>

@@ -62,13 +62,13 @@ const Login = ({ handleLoginSubmit, username, password }) => {
       <div>
         <form onSubmit={handleLoginSubmit}>
           <DivInput>
-            Username <Input {...username} />
+            Username <Input data-cy="login-user-input" {...username} />
           </DivInput>
           <DivInput>
-            Password <Input {...password} />
+            Password <Input data-cy="login-pass-input" {...password} />
           </DivInput>
           <SubmitDiv>
-            <SubmitBtn type="submit">Login</SubmitBtn>
+            <SubmitBtn data-cy="login-submit" type="submit">Login</SubmitBtn>
           </SubmitDiv>
         </form>
       </div>

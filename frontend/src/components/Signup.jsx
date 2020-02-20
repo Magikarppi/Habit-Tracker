@@ -57,12 +57,12 @@ const Signup = ({ username, password, handleSignupSubmit }) => {
       <div>
         <form onSubmit={handleSignupSubmit}>
           <DivInput>
-            Username <Input {...username} />
+            Username <Input data-cy="signup-user-input" {...username} />
           </DivInput>
           <DivInput>
-            Password <Input {...password} />
+            Password <Input data-cy="signup-pass-input" {...password} />
           </DivInput>
-          <SubmitBtn type="submit">Signup</SubmitBtn>
+          <SubmitBtn data-cy="signup-submit" type="submit">Signup</SubmitBtn>
         </form>
       </div>
     </div>
