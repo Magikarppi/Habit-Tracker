@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const Div = styled.div`
   border: 1px solid black;
-  height: 50px;
+  height: 90px;
 `
 
 const DoneBtn = styled.button`
@@ -18,6 +18,18 @@ const DoneBtn = styled.button`
   border: 2px solid #8f8d64;
   border-radius: 3px;
   text-align: center;
+`
+
+const DoneNotif = styled.div`
+  background: #73ff00;
+  width: 50px;
+  font-size: 0.9em;
+  margin: auto;
+  margin-top: 1em;
+  border: 2px solid #000000;
+  border-radius: 3px;
+  text-align: center;
+
 `
 
 const Habit = ({ habit, handleCompletion }) => {
@@ -37,13 +49,15 @@ const Habit = ({ habit, handleCompletion }) => {
   };
 
   console.log('habit in Habit', habit)
-  const result = findByMatchingDate(habit.completions, todayObj);
+  const matchingDates = findByMatchingDate(habit.completions, todayObj);
 
   return (
     <Div>
       <Link to={`/habits/${habit.id}`}>{habit.name}</Link>
-      {result.length > 0 ? null : (
-        <DoneBtn onClick={() => handleCompletion(habit)}>Done for today!</DoneBtn>
+      {matchingDates.length > 0 ? (<DoneNotif>Done!</DoneNotif>) : (
+        <div>
+          <DoneBtn onClick={() => handleCompletion(habit)}>Done for today!</DoneBtn>
+        </div>
       )}
     </Div>
   );

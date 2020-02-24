@@ -14,21 +14,21 @@ usersRouter.get('/', async (request, response) => {
 })
 
 usersRouter.post('/', async (request, response) => {
+  let savedUser = null
   try {
-    const passwordHash = await bcryptjs.hash(request.body.password, 10)
+    const passwordHash = await bcryptjs.hash(request.body.password, 10);
 
     const user = new User({
       ...request.body,
       passwordHash
-    })
+    });
 
-    const savedUser = user.save()
-
-    response.status(201).json(savedUser) //toJSON() ?
+    savedUser = await user.save();
   } catch (exception) {
-    console.log(exception)
-    response.status(400).send({ error: exception.message })
+    console.log(exception);
+    return response.status(400).send({ error: exception.message });
   }
-})
+  return response.status(201).json(savedUser); //toJSON() ?
+});
 
-module.exports = usersRouter
+module.exports = usersRouter;

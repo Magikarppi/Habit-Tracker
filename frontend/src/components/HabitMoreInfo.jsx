@@ -24,9 +24,10 @@ const DeleteBtn = styled.button`
 `;
 
 const MyHabitsDiv = styled.div`
-  background: rgba(255, 255, 220, 0.5);
+  background: rgba(255, 255, 220, 0.8);
+  text-align: center;
   color: #121200;
-  width: 70px;
+  width: 50px;
   padding: 0.25em 1em;
   border: 2px solid #8f8d64;
   border-radius: 3px;
@@ -115,7 +116,7 @@ const HabitMoreInfo = ({ habit, handleRemove }) => {
   return (
     <div>
       <MyHabitsDiv>
-        <Link to="/">My habits</Link>
+        <Link to="/">Back</Link>
       </MyHabitsDiv>
       <Chart
         width={750}

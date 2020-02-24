@@ -129,14 +129,32 @@ const App = () => {
     };
 
     try {
-      await signup(signupData);
-      setRedirect('/');
-      setRedirect(null);
-      setSuccessMessage('A new user created! Please log in!')
-      username.reset();
-      password.reset();
+      const response = await signup(signupData);
+      console.log('response in handleSignup', response)
+      if (response.error) {
+        if (response.error.includes('User validation failed: username: Error, expected `username` to be unique.')) {
+          setErrorMessage('Username is already taken. Please choose another username.')
+          setTimeout(() => {
+            setErrorMessage(null);
+          }, 4000);
+          return;
+        }
+        return;
+      }
+
+      if (response.username) {
+        setRedirect('/');
+        setRedirect(null);
+        setSuccessMessage('A new user created! Please log in!')
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 4000);
+        username.reset();
+        password.reset();
+      }
+
     } catch (exception) {
-      console.log(exception);
+      console.log('exception', exception);
     }
   };
 

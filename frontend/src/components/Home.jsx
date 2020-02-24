@@ -14,7 +14,7 @@ const LoggedInView = styled.div`
 `
 
 const HabitsDiv = styled.div`
-  background: rgba(255,255,220,0.5);
+  background: rgba(255,255,220,0.8);
   width: 300px;
   padding: 10px;
   margin: auto;
@@ -24,7 +24,7 @@ const LogSignDiv = styled.div`
   margin-right: 300px;
   display: inline-block;
   width: 60px;
-  background: rgba(255,255,220,0.5);
+  background: rgba(255,255,220,0.8);
   font-size: 1em;
   margin: 1em;
   padding: 0.25em 1em;
@@ -35,7 +35,7 @@ const LogSignDiv = styled.div`
 const StyledPara = styled.p`
   margin: auto;
   text-shadow: 1px 1px;
-  background: rgba(255,255,220,0.5);
+  background: rgba(255,255,220,0.8);
   text-align: center;
 `
 
@@ -44,13 +44,13 @@ const Wrapper = styled.div`
 `
 
 const H1 = styled.h1`
-  background: rgba(255,255,220,0.5);
+  background: rgba(255,255,220,0.8);
   width: 200px;
   margin: auto;
 `
 
 const Em = styled.em`
-  background: rgba(255,255,220,0.5);
+  background: rgba(255,255,220,0.8);
 `
 
 const LogOutBtn = styled.button`
@@ -64,7 +64,20 @@ const LogOutBtn = styled.button`
   border: 2px solid #8f8d64;
   border-radius: 3px;
   text-align: center;
-`
+`;
+
+const CancelBtn = styled.button`
+background: #cfccc2;
+&:hover {
+  background: #ff711f;
+}
+font-size: 0.9em;
+margin: 1em;
+padding: 0.25em 1em;
+border: 2px solid #8f8d64;
+border-radius: 3px;
+text-align: center;
+`;
 
 const NewHabitBtn = styled.button`
   background: #f2f5b5;
@@ -108,7 +121,7 @@ const Home = ({
               handleHabitSubmit={handleHabitSubmit}
               habitName={habitName}
             />
-            <button onClick={toggleHabitForm}>cancel</button>
+            <CancelBtn onClick={toggleHabitForm}>cancel</CancelBtn>
           </div>
         ) : (
           <NewHabitBtn onClick={toggleHabitForm}>Add a new habit</NewHabitBtn>
