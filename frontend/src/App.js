@@ -1,32 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
-  Link,
   Route,
   Redirect,
-  withRouter,
-  useHistory
+
 } from 'react-router-dom';
-import styled, { createGlobalStyle } from 'styled-components';
 
 import './App.css';
 import { getAll, setToken, create, remove, update } from './services/habits';
 import { login } from './services/login';
 import { signup } from './services/signup';
 import { getQuote } from './services/quote';
-import { getUsers } from './services/users';
+// import { getUsers } from './services/users';
 import Home from './components/Home';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import ErrorNotification from './components/ErrorNotification';
 import SuccessNotification from './components/SuccessNotification';
-import AddHabit from './components/AddHabit';
-import Habit from './components/Habit';
+// import AddHabit from './components/AddHabit';
+// import Habit from './components/Habit';
 import HabitMoreInfo from './components/HabitMoreInfo';
-import Toggleable from './components/Toggleable';
+// import Toggleable from './components/Toggleable';
 import Img1 from './images/caucasian-man-lifting.jpg';
 import Img2 from './images/man_learning_guitar.jpg';
-import Img3 from './images/man_reading.jpg';
+import Img3 from './images/young-man_reading.png';
 import Img4 from './images/walking_outside_small.jpg';
 import Img5 from './images/woman-eating-healthy-vegetarian-dinner.jpg';
 import Img6 from './images/woman_meditating.jpg';
@@ -128,6 +125,14 @@ const App = () => {
       password: password.value
     };
 
+    if (signupData.password.length < 5) {
+      setErrorMessage('Password must be at least five (5) characters long')
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 4000);
+      return;
+    }
+
     try {
       const response = await signup(signupData);
       console.log('response in handleSignup', response)
@@ -139,11 +144,27 @@ const App = () => {
           }, 4000);
           return;
         }
+
+        if (response.error.includes('is shorter than the minimum allowed length') && response.error.includes('username')){
+          setErrorMessage('Username must be at least three (3) characters long')
+          setTimeout(() => {
+            setErrorMessage(null);
+          }, 4000);
+          return;
+        }
+
+        // if (response.error.includes('is shorter than the minimum allowed length') && response.error.includes('password')){
+        //   setErrorMessage('Password must be at least five (5) characters long')
+        //   setTimeout(() => {
+        //     setErrorMessage(null);
+        //   }, 4000);
+        //   return;
+        // }
         return;
       }
 
       if (response.username) {
-        setRedirect('/');
+        setRedirect('/login');
         setRedirect(null);
         setSuccessMessage('A new user created! Please log in!')
         setTimeout(() => {
@@ -165,18 +186,12 @@ const App = () => {
       username: username.value,
       password: password.value
     };
-    try {
-      let responseData = null;
-      try {
-        responseData = await login(loginData);
+    try {  
+        const responseData = await login(loginData);
 
         console.log('responseData:', responseData);
         console.log('responseData.username:', responseData.username);
         console.log(typeof responseData.username);
-      } catch (exception) {
-        console.log('first catch runs');
-        console.log(exception);
-      }
 
       if (responseData.error) {
         if (
@@ -219,19 +234,26 @@ const App = () => {
   const handleHabitSubmit = async (e) => {
     e.preventDefault();
 
-    let responseData = null;
     try {
-      try {
         const newHabit = {
           name: habitName.value
         };
 
-        responseData = await create(newHabit);
-      } catch (exception) {
-        console.log(exception);
-      }
+        const responseData = await create(newHabit);
+
       console.log('responseData in handle habit submit', responseData);
-      if (responseData) {
+      if (responseData.error) {
+        if (responseData.error.includes('is shorter than the minimum allowed length')) {
+          setErrorMessage('Minimum length for a habit name is two (2) characters.')
+          setTimeout(() => {
+            setErrorMessage(null);
+          }, 4000);
+          return;
+        }
+        return;
+      }
+
+      if (responseData.name) {
         setHabitsToShow([...habitsToShow, responseData]);
         loggedInUser.habits = loggedInUser.habits.concat(responseData);
         console.log('loggedinUser ', loggedInUser);

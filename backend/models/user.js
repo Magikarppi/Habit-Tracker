@@ -1,12 +1,12 @@
-const mongoose = require('mongoose')
-const uniqueValidator = require('mongoose-unique-validator')
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
     required: true,
-    minlength: 3,
+    minlength: 3
   },
   passwordHash: String,
   habits: [
@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
       ref: 'Habit'
     }
   ]
-})
+});
 
 userSchema.plugin(uniqueValidator)
 

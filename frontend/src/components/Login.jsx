@@ -2,11 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const BackButton = styled.div`
+const StyledLink = styled(Link)`
+  color: #000000;
   margin-right: 300px;
   display: inline-block;
-  width: 60px;
+  width: 40px;
   background: rgba(255, 255, 220, 0.5);
+  &:hover {
+    background: #fad850;
+  }
   font-size: 1em;
   margin: 1em;
   padding: 0.25em 1em;
@@ -56,9 +60,7 @@ const Input = styled.input`
 const Login = ({ handleLoginSubmit, username, password }) => {
   return (
     <div>
-      <BackButton>
-        <Link to="/">Back</Link>
-      </BackButton>
+        <StyledLink to="/">Back</StyledLink>
       <div>
         <form onSubmit={handleLoginSubmit}>
           <DivInput>

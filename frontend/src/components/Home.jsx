@@ -8,10 +8,6 @@ import styled from 'styled-components';
 import AddHabit from './AddHabit';
 import Habit from './Habit';
 
-const LoggedInView = styled.div`
-  background: linear-gradient(to top, black, #00025c);
-
-`
 
 const HabitsDiv = styled.div`
   background: rgba(255,255,220,0.8);
@@ -20,11 +16,16 @@ const HabitsDiv = styled.div`
   margin: auto;
 `
 
-const LogSignDiv = styled.div`
+const StyledLink = styled(Link)`
+  color: #63006e;
+  font-weight: bold;
   margin-right: 300px;
   display: inline-block;
   width: 60px;
   background: rgba(255,255,220,0.8);
+  &:hover {
+    background: #fad850;
+  }
   font-size: 1em;
   margin: 1em;
   padding: 0.25em 1em;
@@ -32,11 +33,27 @@ const LogSignDiv = styled.div`
   border-radius: 3px;
 `
 
+// const LogSignDiv = styled.div`
+//   margin-right: 300px;
+//   display: inline-block;
+//   width: 60px;
+//   background: rgba(255,255,220,0.8);
+//   font-size: 1em;
+//   margin: 1em;
+//   padding: 0.25em 1em;
+//   border: 2px solid rgba(255,255,220,0.5);
+//   border-radius: 3px;
+// `
+
 const StyledPara = styled.p`
   margin: auto;
   text-shadow: 1px 1px;
   background: rgba(255,255,220,0.8);
   text-align: center;
+  width: 50%;
+  padding: 0.25em 1em;
+  border: 2px solid rgba(55,55,20,0.5);
+  border-radius: 3px;
 `
 
 const Wrapper = styled.div`
@@ -47,10 +64,17 @@ const H1 = styled.h1`
   background: rgba(255,255,220,0.8);
   width: 200px;
   margin: auto;
+  padding: 0.25em 1em;
+  border: 1px solid rgba(55,55,20,0.5);
+  border-radius: 3px;
 `
 
 const Em = styled.em`
   background: rgba(255,255,220,0.8);
+  margin-left: 2%;
+  padding: 0.25em 1em;
+  border: 2px solid rgba(55,55,20,0.5);
+  border-radius: 3px;
 `
 
 const LogOutBtn = styled.button`
@@ -141,12 +165,8 @@ const Home = ({
     <div>
       <Wrapper>
       <H1>Habit tracker</H1>
-        <LogSignDiv>
-          <Link to="/login">Login</Link>
-        </LogSignDiv>
-        <LogSignDiv>
-          <Link to="/signup">Sign up</Link>
-        </LogSignDiv>
+          <StyledLink to="/login">Login</StyledLink>
+          <StyledLink to="/signup">Sign up</StyledLink>
         <StyledPara>{quote} - {quoteAuthor}</StyledPara>
       </Wrapper>
     </div>

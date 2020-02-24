@@ -1,12 +1,7 @@
 import React from 'react';
 import Chart from 'react-google-charts';
 import {
-  BrowserRouter as Router,
   Link,
-  Route,
-  Redirect,
-  withRouter,
-  useHistory
 } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -84,7 +79,7 @@ const HabitMoreInfo = ({ habit, handleRemove }) => {
       monthLabel: {
         fontName: 'Arial',
         fontSize: 12,
-        color: '#d3362d', // burgundy red
+        color: '#fad850', // gold
         bold: true,
         italic: true
       },

@@ -7,6 +7,11 @@ const Div = styled.div`
   height: 90px;
 `
 
+const StyledLink = styled(Link)`
+  color: #000000;
+
+`
+
 const DoneBtn = styled.button`
   background: #fff870;
   &:hover {
@@ -33,6 +38,10 @@ const DoneNotif = styled.div`
 `
 
 const Habit = ({ habit, handleCompletion }) => {
+  if (!habit) {
+    return null
+  };
+
   const findByMatchingDate = (completions, dateObj) => {
     return completions.filter((completion) => {
       return Object.keys(dateObj).every((key) => {
@@ -53,7 +62,7 @@ const Habit = ({ habit, handleCompletion }) => {
 
   return (
     <Div>
-      <Link to={`/habits/${habit.id}`}>{habit.name}</Link>
+      <StyledLink to={`/habits/${habit.id}`}>{habit.name}</StyledLink>
       {matchingDates.length > 0 ? (<DoneNotif>Done!</DoneNotif>) : (
         <div>
           <DoneBtn onClick={() => handleCompletion(habit)}>Done for today!</DoneBtn>
