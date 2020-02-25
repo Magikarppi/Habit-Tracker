@@ -3,22 +3,18 @@ import {
   BrowserRouter as Router,
   Route,
   Redirect,
-
 } from 'react-router-dom';
 
 import './App.css';
-import { getAll, setToken, create, remove, update } from './services/habits';
+import { setToken, create, remove, update } from './services/habits';
 import { login } from './services/login';
 import { signup } from './services/signup';
 import { getQuote } from './services/quote';
-// import { getUsers } from './services/users';
 import Home from './components/Home';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import ErrorNotification from './components/ErrorNotification';
 import SuccessNotification from './components/SuccessNotification';
-// import AddHabit from './components/AddHabit';
-// import Habit from './components/Habit';
 import HabitMoreInfo from './components/HabitMoreInfo';
 // import Toggleable from './components/Toggleable';
 import Img1 from './images/caucasian-man-lifting.jpg';
@@ -32,7 +28,6 @@ import { useField } from './hooks/hooks';
 
 
 const App = () => {
-  // const [allHabits, setAllHabits] = useState([]);
   const [quote, setQuote] = useState('');
   const [quoteAuthor, setQuoteAuthor] = useState('');
   const [habitsToShow, setHabitsToShow] = useState([]);
@@ -69,25 +64,6 @@ const App = () => {
     }
   };
 
-  // const fetchHabits = async () => {
-  //   try {
-  //     const fetchedHabits = await getAll();
-  //     setAllHabits(fetchedHabits);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const fetchUsers = async () => {
-  //   try {
-  //     const fetchedUsers = await getUsers();
-  //     console.log('fetchedUsers', fetchedUsers)
-  //     return fetchedUsers
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
   useEffect(() => {
     fetchQuote();
   }, []);
@@ -96,17 +72,12 @@ const App = () => {
     const rNum = Math.floor(Math.random() * 5);
     console.log('rNum', rNum)
     document.body.background = images[rNum]
-    // return () => {
-    //   cleanup
-    // };
   }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedHabitAppUser');
     if (loggedUserJSON) {
-      // const fetchedUsers = fetchUsers();
       const user = JSON.parse(loggedUserJSON);
-      // const user = fetchedUsers.find(user => user.id === userParsed.id)
       setLoggedInUser(user);
       setHabitsToShow(user.habits);
       setToken(user.token);
@@ -117,7 +88,6 @@ const App = () => {
   console.log('habitsToShow:', habitsToShow);
 
   const handleSignupSubmit = async (e) => {
-    console.log('handleSubmit runs');
     e.preventDefault();
 
     const signupData = {
@@ -205,7 +175,6 @@ const App = () => {
       }
 
       if (responseData.username) {
-        console.log('setting localstorage item');
         window.localStorage.setItem(
           'loggedHabitAppUser',
           JSON.stringify(responseData)
@@ -217,7 +186,6 @@ const App = () => {
         password.reset();
         setRedirect('/');
         setRedirect(null);
-        console.log('REDIRECT:', redirect);
       }
     } catch (error) {
       console.log(error);
@@ -228,7 +196,7 @@ const App = () => {
     console.log('Logout runs');
     window.localStorage.clear();
     setLoggedInUser(null);
-    setHabitsToShow([]); // ????????
+    setHabitsToShow([]);
   };
 
   const handleHabitSubmit = async (e) => {
@@ -356,11 +324,8 @@ const App = () => {
   };
 
   const habitById = (id) => habitsToShow.find((habit) => habit.id === id);
-  // const habitById = (id) => allHabits.find((habit) => habit.id === id);
 
   console.log('REDIRECT', redirect);
-
-  // remove ul?
 
   return (
     <div>
@@ -433,99 +398,6 @@ const App = () => {
       </Router>
     </div>
   );
-
-  // return (
-  //   <div>
-  //     <ErrorNotification errorMessage={errorMessage} />
-  //     <SuccessNotification successMessage={successMessage} />
-  //     <Router>
-  //       <div>
-  //         <div>
-  //           <Link to="/">Home</Link>
-
-  //           {loggedInUser ? (
-  //             <>
-  //             <em>{loggedInUser.username} logged in</em>
-  //             <button onClick={handleLogout}>Log out</button>
-  //             </>
-  //           ) : (
-  //             <div>
-  //               <div>
-  //                 <Link to="/login">Login</Link>
-  //               </div>
-  //               <div>
-  //                 <Link to="/signup">Sign up</Link>
-  //               </div>
-  //             </div>
-  //           )}
-  //         </div>
-  //         <Route
-  //           exact
-  //           path="/"
-  //           render={() => (
-  //             <div>
-  //               <h1>Habitzz brugh</h1>
-  //               {showHabitForm ? (
-  //                 <div>
-  //                   <AddHabit
-  //                     handleHabitSubmit={handleHabitSubmit}
-  //                     habitName={removeReset(habitName)}
-  //                   />
-  //                   <button onClick={toggleHabitForm}>cancel</button>
-  //                 </div>
-  //               ) : (
-  //                 <button onClick={toggleHabitForm}>Add a new habit</button>
-  //               )}
-  //               <ul>
-  //                 {habitsToShow.map((habit) => (
-  //                   <Habit key={habit.id} habit={habit} handleCompletion={handleCompletion} />
-  //                 ))}
-  //               </ul>
-  //             </div>
-  //           )}
-  //         />
-  //         <Route
-  //           exact
-  //           path="/signup"
-  //           render={() => (
-  //             <Signup
-  //               username={removeReset(username)}
-  //               password={removeReset(password)}
-  //               handleSignupSubmit={handleSignupSubmit}
-  //             />
-  //           )}
-  //         />
-  //         <Route
-  //           exact
-  //           path="/login"
-  //           render={() =>
-  //             redirect ? (
-  //               <Redirect to={redirect} />
-  //             ) : (
-  //               <Login
-  //                 username={removeReset(username)}
-  //                 password={removeReset(password)}
-  //                 handleLoginSubmit={handleLoginSubmit}
-  //               />
-  //             )
-  //           }
-  //         />
-  //         <Route
-  //           path="/habits/:id"
-  //           render={({ match }) =>
-  //             redirect ? (
-  //               <Redirect to={redirect} />
-  //             ) : (
-  //             <HabitMoreInfo
-  //               habit={habitById(match.params.id)}
-  //               handleRemove={handleRemove}
-  //             />
-  //           )}
-  //         />
-  //       </div>
-  //     </Router>
-  //   </div>
-  // );
 };
 
 export default App;
