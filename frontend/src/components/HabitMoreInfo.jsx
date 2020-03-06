@@ -110,7 +110,7 @@ const HabitMoreInfo = ({ habit, handleRemove }) => {
 
   return (
     <div>
-      <MyHabitsDiv>
+      <MyHabitsDiv data-cy="back-btn">
         <Link to="/">Back</Link>
       </MyHabitsDiv>
       <Chart
@@ -123,7 +123,7 @@ const HabitMoreInfo = ({ habit, handleRemove }) => {
         rootProps={{ 'data-testid': '1' }}
       />
       <div>
-        <DeleteBtn onClick={() => handleRemove(habit)}>Delete</DeleteBtn>
+        <DeleteBtn data-cy="delete-btn" onClick={() => handleRemove(habit)}>Delete</DeleteBtn>
       </div>
     </div>
   );

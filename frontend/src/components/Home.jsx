@@ -135,22 +135,22 @@ const Home = ({
     <div>
       <div>
         <Em>{loggedInUser.username} logged in</Em>
-        <LogOutBtn onClick={handleLogout}>Log out</LogOutBtn>
+        <LogOutBtn data-testid="logout-btn" onClick={handleLogout}>Log out</LogOutBtn>
       </div>
       <Wrapper>
         <H1>Habit tracker</H1>
         {showHabitForm ? (
-          <div>
+          <div data-testid="habitForm-open-div">
             <AddHabit
               handleHabitSubmit={handleHabitSubmit}
               habitName={habitName}
             />
-            <CancelBtn onClick={toggleHabitForm}>cancel</CancelBtn>
+            <CancelBtn data-cy="habit-form-close" data-testid="habit-form-close-btn" onClick={toggleHabitForm}>cancel</CancelBtn>
           </div>
         ) : (
-          <NewHabitBtn onClick={toggleHabitForm}>Add a new habit</NewHabitBtn>
+          <NewHabitBtn data-cy="habit-form-open" data-testid="habit-form-open-btn" onClick={toggleHabitForm}>Add a new habit</NewHabitBtn>
         )}
-        <HabitsDiv>
+        <HabitsDiv data-testid="habit-div">
           {habitsToShow.map((habit) => (
             <Habit
               key={habit.id}
@@ -165,9 +165,9 @@ const Home = ({
     <div>
       <Wrapper>
       <H1>Habit tracker</H1>
-          <StyledLink to="/login">Login</StyledLink>
-          <StyledLink to="/signup">Sign up</StyledLink>
-        <StyledPara>{quote} - {quoteAuthor}</StyledPara>
+          <StyledLink data-cy="login-btn" data-testid="login-btn" to="/login">Login</StyledLink>
+          <StyledLink data-cy="signup-btn" data-testid="signup-btn" to="/signup">Sign up</StyledLink>
+        <StyledPara data-testid="quotePara">{quote} - {quoteAuthor}</StyledPara>
       </Wrapper>
     </div>
   );

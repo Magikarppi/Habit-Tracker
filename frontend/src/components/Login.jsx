@@ -60,17 +60,17 @@ const Input = styled.input`
 const Login = ({ handleLoginSubmit, username, password }) => {
   return (
     <div>
-        <StyledLink to="/">Back</StyledLink>
+        <StyledLink data-cy="back-btn" to="/">Back</StyledLink>
       <div>
         <form onSubmit={handleLoginSubmit}>
           <DivInput>
-            Username <Input data-cy="login-user-input" {...username} />
+            Username <Input data-cy="login-user-input" data-testid="login-user-input" {...username} />
           </DivInput>
           <DivInput>
-            Password <Input data-cy="login-pass-input" {...password} />
+            Password <Input data-cy="login-pass-input" data-testid="login-pass-input" {...password} />
           </DivInput>
           <SubmitDiv>
-            <SubmitBtn data-cy="login-submit" type="submit">Login</SubmitBtn>
+            <SubmitBtn data-cy="login-submit" data-testid="login-submit" type="submit">Login</SubmitBtn>
           </SubmitDiv>
         </form>
       </div>

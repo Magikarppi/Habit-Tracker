@@ -62,10 +62,10 @@ const Habit = ({ habit, handleCompletion }) => {
 
   return (
     <Div>
-      <StyledLink to={`/habits/${habit.id}`}>{habit.name}</StyledLink>
+      <StyledLink data-cy="habit-link" to={`/habits/${habit.id}`}>{habit.name}</StyledLink>
       {matchingDates.length > 0 ? (<DoneNotif>Done!</DoneNotif>) : (
         <div>
-          <DoneBtn onClick={() => handleCompletion(habit)}>Done for today!</DoneBtn>
+          <DoneBtn data-cy="done-btn" onClick={() => handleCompletion(habit)}>Done for today!</DoneBtn>
         </div>
       )}
     </Div>

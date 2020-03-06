@@ -56,7 +56,6 @@ const App = () => {
       const response = await getQuote();
       const fetchedQuote = response.contents.quotes[0].quote;
       const quoteAuthor = response.contents.quotes[0].author;
-      console.log('fetchedQuote', fetchedQuote);
       setQuote(fetchedQuote);
       setQuoteAuthor(quoteAuthor);
     } catch (error) {
@@ -70,7 +69,6 @@ const App = () => {
 
   useEffect(() => {
     const rNum = Math.floor(Math.random() * 5);
-    console.log('rNum', rNum)
     document.body.background = images[rNum]
   }, [])
 
@@ -105,7 +103,6 @@ const App = () => {
 
     try {
       const response = await signup(signupData);
-      console.log('response in handleSignup', response)
       if (response.error) {
         if (response.error.includes('User validation failed: username: Error, expected `username` to be unique.')) {
           setErrorMessage('Username is already taken. Please choose another username.')
@@ -160,8 +157,6 @@ const App = () => {
         const responseData = await login(loginData);
 
         console.log('responseData:', responseData);
-        console.log('responseData.username:', responseData.username);
-        console.log(typeof responseData.username);
 
       if (responseData.error) {
         if (
@@ -193,7 +188,6 @@ const App = () => {
   };
 
   const handleLogout = () => {
-    console.log('Logout runs');
     window.localStorage.clear();
     setLoggedInUser(null);
     setHabitsToShow([]);
@@ -224,9 +218,6 @@ const App = () => {
       if (responseData.name) {
         setHabitsToShow([...habitsToShow, responseData]);
         loggedInUser.habits = loggedInUser.habits.concat(responseData);
-        console.log('loggedinUser ', loggedInUser);
-        // fetchHabits();
-        console.log('habitsToShow', habitsToShow);
         habitName.reset();
         setShowHabitForm(false);
         window.localStorage.setItem(
@@ -244,7 +235,6 @@ const App = () => {
     if (window.confirm(`Do you want to delete habit: ${habit.name}?`)) {
       try {
         await remove(habit);
-        console.log('removing worked?:::::::::::::::::');
         setHabitsToShow(habitsToShow.filter((e) => e.id !== habit.id));
         loggedInUser.habits = loggedInUser.habits.filter(
           (e) => e.id !== habit.id
@@ -285,8 +275,6 @@ const App = () => {
       ...habit,
       completions: habit.completions.concat(todayObj)
     };
-
-    console.log('UpdateHabit', updateHabit);
 
     try {
       const responseData = await update(updateHabit);

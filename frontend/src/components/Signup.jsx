@@ -60,7 +60,7 @@ const Input = styled.input`
 const Signup = ({ username, password, handleSignupSubmit }) => {
   return (
     <div>
-        <StyledLink to="/">Back</StyledLink>
+        <StyledLink data-cy="back-btn" to="/">Back</StyledLink>
       <div>
         <form onSubmit={handleSignupSubmit}>
           <DivInput>

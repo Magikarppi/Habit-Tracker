@@ -1,4 +1,4 @@
-let token = null;
+let token = 'Bearer 13r1331k31j3r3rj';
 
 Cypress.Commands.add("resetDB", () => {
   cy.request('POST', 'http://localhost:3003/api/testing/reset')
@@ -52,19 +52,6 @@ Cypress.Commands.add('addHabit', () => {
     headers: { 'Content-Type': 'application/json', 'Authorization': token }
   })
 })
-// Cypress.Commands.add("loginMock", () => {
-//   const user = {
-//     username: 'TestDude',
-//     password: 'passw'
-//   }
-//   cy.request({
-//     method: 'POST',
-//     url: 'http://localhost:3000/api/login',
-//     body: JSON.stringify(user),
-//     headers: { 'Content-Type': 'application/json' }
-//   })
-//   .then((response) => window.localStorage.setItem('loggedHabitAppUser', JSON.stringify(response.body)))
-// })
 
 // Cypress.Commands.add("signupMock", () => {
 //   const user = {
