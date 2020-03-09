@@ -6,17 +6,6 @@ export const setToken = (newToken) => {
   token = `bearer ${newToken}`
 }
 
-export const getAll = async () => {
-  try {
-    const response = await fetch(baseUrl)
-    const responseData = await response.json()
-    console.log('responseData', responseData)
-    return responseData  
-  } catch (exception) {
-    console.log(exception)
-  }
-}
-
 export const create = async (data) => {
   try {
     const response = await fetch(baseUrl, {

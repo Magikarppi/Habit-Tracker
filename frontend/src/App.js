@@ -16,7 +16,6 @@ import Login from './components/Login';
 import ErrorNotification from './components/ErrorNotification';
 import SuccessNotification from './components/SuccessNotification';
 import HabitMoreInfo from './components/HabitMoreInfo';
-// import Toggleable from './components/Toggleable';
 import Img1 from './images/caucasian-man-lifting.jpg';
 import Img2 from './images/man_learning_guitar.jpg';
 import Img3 from './images/young-man_reading.png';

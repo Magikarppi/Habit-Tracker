@@ -20,6 +20,9 @@ const DeleteBtn = styled.button`
 
 const MyHabitsDiv = styled.div`
   background: rgba(255, 255, 220, 0.8);
+  &:hover {
+    background: #e3bf20;
+  }
   text-align: center;
   color: #121200;
   width: 50px;

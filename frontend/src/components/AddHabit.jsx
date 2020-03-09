@@ -48,7 +48,7 @@ const AddHabit = ({ handleHabitSubmit, habitName }) => {
           name: <Input data-cy="habitname-input" {...habitName} />
         </DivInput>
         <SubmitDiv>
-          <SubmitBtn data-cy="habit-submit" type="submit">
+          <SubmitBtn data-cy="habit-submit" data-testid="habit-submit" type="submit">
             Add
           </SubmitBtn>
         </SubmitDiv>

@@ -57,10 +57,22 @@ const Input = styled.input`
   text-align: center;
 `;
 
+const H3 = styled.h3`
+  background: rgba(255,255,220,0.8);
+  width: 200px;
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 0.25em 1em;
+  border: 1px solid rgba(55,55,20,0.5);
+  border-radius: 3px;
+  text-align: center;
+`
+
 const Signup = ({ username, password, handleSignupSubmit }) => {
   return (
     <div>
         <StyledLink data-cy="back-btn" to="/">Back</StyledLink>
+        <H3>Sign up</H3>
       <div>
         <form onSubmit={handleSignupSubmit}>
           <DivInput>
