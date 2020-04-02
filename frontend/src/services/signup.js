@@ -7,7 +7,6 @@ export const signup = async (data) => {
       body: JSON.stringify(data),
       headers: { 'Content-Type': 'application/json' }
     })
-    console.log('response', response)
     return response.json()  
   } catch (error) {
     console.log(error)

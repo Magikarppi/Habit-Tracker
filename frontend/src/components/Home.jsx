@@ -124,7 +124,6 @@ const Home = ({
   toggleHabitForm,
   handleCompletion
 }) => {
-  console.log('habitstoshow LENGTH', habitsToShow.length);
 
   return loggedInUser ? (
     <div>

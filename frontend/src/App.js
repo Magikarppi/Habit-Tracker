@@ -40,16 +40,6 @@ const App = () => {
   const username = useField('text');
   const password = useField('password');
 
-  const images = [Img1, Img2, Img3, Img4, Img5, Img6]
-
-//   const GlobalStyle = createGlobalStyle`
-//   body {
-//     min-height: 100%;
-//     color: #e6e6eb;
-//     font-family: sans-serif;
-//   }
-// `
-
   const fetchQuote = async () => {
     try {
       const response = await getQuote();
@@ -67,6 +57,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    const images = [Img1, Img2, Img3, Img4, Img5, Img6]
     const rNum = Math.floor(Math.random() * 5);
     document.body.background = images[rNum]
   }, [])
@@ -80,9 +71,6 @@ const App = () => {
       setToken(user.token);
     }
   }, []);
-
-  console.log('LoggedInUser:', loggedInUser);
-  console.log('habitsToShow:', habitsToShow);
 
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
@@ -119,13 +107,6 @@ const App = () => {
           return;
         }
 
-        // if (response.error.includes('is shorter than the minimum allowed length') && response.error.includes('password')){
-        //   setErrorMessage('Password must be at least five (5) characters long')
-        //   setTimeout(() => {
-        //     setErrorMessage(null);
-        //   }, 4000);
-        //   return;
-        // }
         return;
       }
 
@@ -154,8 +135,6 @@ const App = () => {
     };
     try {  
         const responseData = await login(loginData);
-
-        console.log('responseData:', responseData);
 
       if (responseData.error) {
         if (
@@ -202,7 +181,6 @@ const App = () => {
 
         const responseData = await create(newHabit);
 
-      console.log('responseData in handle habit submit', responseData);
       if (responseData.error) {
         if (responseData.error.includes('is shorter than the minimum allowed length')) {
           setErrorMessage('Minimum length for a habit name is two (2) characters.')
@@ -230,7 +208,6 @@ const App = () => {
   };
 
   const handleRemove = async (habit) => {
-    console.log('habit in remove', habit);
     if (window.confirm(`Do you want to delete habit: ${habit.name}?`)) {
       try {
         await remove(habit);
@@ -277,7 +254,6 @@ const App = () => {
 
     try {
       const responseData = await update(updateHabit);
-      console.log('responseData in handleCompletion', responseData);
       setHabitsToShow(
         habitsToShow.map((e) => (e.id === responseData.id ? responseData : e))
       );
@@ -311,8 +287,6 @@ const App = () => {
   };
 
   const habitById = (id) => habitsToShow.find((habit) => habit.id === id);
-
-  console.log('REDIRECT', redirect);
 
   return (
     <div>
