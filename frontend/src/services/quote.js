@@ -1,4 +1,4 @@
-const baseUrl = 'http://quotes.rest/qod.json?category=inspire'
+const baseUrl = 'https://quotes.rest/qod.json?category=inspire'
 
 export const getQuote = async () => {
   try {

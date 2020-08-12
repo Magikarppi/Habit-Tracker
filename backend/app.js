@@ -20,7 +20,7 @@ const loggerFormat = ':data ":method :url" :status :response-time';
 app.use(morgan(loggerFormat));
 
 mongoose
-  .connect(config.MONGODB_URI, {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -40,6 +40,10 @@ app.use(middleware.tokenExtractor)
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing')
   app.use('/api/testing', testingRouter)
+}
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('build'))
 }
 
 app.use('/api/habits', habitRouter)
