@@ -105,7 +105,6 @@ const HabitMoreInfo = ({ habit, handleRemove }) => {
         <Link to="/">Back</Link>
       </MyHabitsDiv>
       <Chart
-        width={750}
         height={350}
         chartType="Calendar"
         loader={<div>Loading Chart</div>}

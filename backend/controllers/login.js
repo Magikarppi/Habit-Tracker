@@ -6,7 +6,6 @@ const loginRouter = require('express').Router()
 const User = require('../models/user')
 
 loginRouter.post('/', async (request, response) => {
-  console.log('request xxx', request)
 
   try {
   const user = await User.findOne({ username: request.body.username }).populate('habits')
