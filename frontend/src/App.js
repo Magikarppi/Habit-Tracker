@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 import './App.css';
 import { setToken, create, remove, update } from './services/habits';
@@ -23,8 +19,6 @@ import Img4 from './images/walking_outside_small.jpg';
 import Img5 from './images/woman-eating-healthy-vegetarian-dinner.jpg';
 import Img6 from './images/woman_meditating.jpg';
 import { useField } from './hooks/hooks';
-
-
 
 const App = () => {
   const [quote, setQuote] = useState('');
@@ -57,10 +51,12 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const images = [Img1, Img2, Img3, Img4, Img5, Img6]
-    const rNum = Math.floor(Math.random() * 5);
-    document.body.background = images[rNum]
-  }, [])
+    if (window.screen.width > 767) {
+      const images = [Img1, Img2, Img3, Img4, Img5, Img6];
+      const rNum = Math.floor(Math.random() * 5);
+      document.body.background = images[rNum];
+    }
+  }, []);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedHabitAppUser');
@@ -77,11 +73,11 @@ const App = () => {
 
     const signupData = {
       username: username.value,
-      password: password.value
+      password: password.value,
     };
 
     if (signupData.password.length < 5) {
-      setErrorMessage('Password must be at least five (5) characters long')
+      setErrorMessage('Password must be at least five (5) characters long');
       setTimeout(() => {
         setErrorMessage(null);
       }, 4000);
@@ -91,16 +87,29 @@ const App = () => {
     try {
       const response = await signup(signupData);
       if (response.error) {
-        if (response.error.includes('User validation failed: username: Error, expected `username` to be unique.')) {
-          setErrorMessage('Username is already taken. Please choose another username.')
+        if (
+          response.error.includes(
+            'User validation failed: username: Error, expected `username` to be unique.'
+          )
+        ) {
+          setErrorMessage(
+            'Username is already taken. Please choose another username.'
+          );
           setTimeout(() => {
             setErrorMessage(null);
           }, 4000);
           return;
         }
 
-        if (response.error.includes('is shorter than the minimum allowed length') && response.error.includes('username')){
-          setErrorMessage('Username must be at least three (3) characters long')
+        if (
+          response.error.includes(
+            'is shorter than the minimum allowed length'
+          ) &&
+          response.error.includes('username')
+        ) {
+          setErrorMessage(
+            'Username must be at least three (3) characters long'
+          );
           setTimeout(() => {
             setErrorMessage(null);
           }, 4000);
@@ -113,14 +122,13 @@ const App = () => {
       if (response.username) {
         setRedirect('/login');
         setRedirect(null);
-        setSuccessMessage('A new user created! Please log in!')
+        setSuccessMessage('A new user created! Please log in!');
         setTimeout(() => {
           setSuccessMessage(null);
         }, 4000);
         username.reset();
         password.reset();
       }
-
     } catch (exception) {
       console.log('exception', exception);
     }
@@ -131,10 +139,10 @@ const App = () => {
 
     const loginData = {
       username: username.value,
-      password: password.value
+      password: password.value,
     };
-    try {  
-        const responseData = await login(loginData);
+    try {
+      const responseData = await login(loginData);
 
       if (responseData.error) {
         if (
@@ -175,15 +183,21 @@ const App = () => {
     e.preventDefault();
 
     try {
-        const newHabit = {
-          name: habitName.value
-        };
+      const newHabit = {
+        name: habitName.value,
+      };
 
-        const responseData = await create(newHabit);
+      const responseData = await create(newHabit);
 
       if (responseData.error) {
-        if (responseData.error.includes('is shorter than the minimum allowed length')) {
-          setErrorMessage('Minimum length for a habit name is two (2) characters.')
+        if (
+          responseData.error.includes(
+            'is shorter than the minimum allowed length'
+          )
+        ) {
+          setErrorMessage(
+            'Minimum length for a habit name is two (2) characters.'
+          );
           setTimeout(() => {
             setErrorMessage(null);
           }, 4000);
@@ -244,12 +258,12 @@ const App = () => {
     const todayObj = {
       thisDay,
       thisMonth,
-      thisYear
+      thisYear,
     };
 
     const updateHabit = {
       ...habit,
-      completions: habit.completions.concat(todayObj)
+      completions: habit.completions.concat(todayObj),
     };
 
     try {

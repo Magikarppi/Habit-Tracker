@@ -29,18 +29,6 @@ const StyledLink = styled(Link)`
   border-radius: 3px;
 `;
 
-// const LogSignDiv = styled.div`
-//   margin-right: 300px;
-//   display: inline-block;
-//   width: 60px;
-//   background: rgba(255,255,220,0.8);
-//   font-size: 1em;
-//   margin: 1em;
-//   padding: 0.25em 1em;
-//   border: 2px solid rgba(255,255,220,0.5);
-//   border-radius: 3px;
-// `
-
 const StyledPara = styled.p`
   margin: auto;
   text-shadow: 1px 1px;
