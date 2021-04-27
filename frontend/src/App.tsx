@@ -68,7 +68,7 @@ const App = () => {
     }
   }, []);
 
-  const handleSignupSubmit = async (e) => {
+  const handleSignUpSubmit = async (e) => {
     e.preventDefault();
 
     const signupData = {
@@ -336,7 +336,7 @@ const App = () => {
                 <Signup
                   username={removeReset(username)}
                   password={removeReset(password)}
-                  handleSignupSubmit={handleSignupSubmit}
+                  handleSignUpSubmit={handleSignUpSubmit}
                 />
               )
             }

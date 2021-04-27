@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { SignUpProps } from '../types';
+
+const SubmitDiv = styled.div`
+  margin: auto;
+  text-align: center;
+`;
 
 const StyledLink = styled(Link)`
   color: #000000;
@@ -31,11 +37,6 @@ const SubmitBtn = styled.button`
   text-align: center;
 `;
 
-const SubmitDiv = styled.div`
-  margin: auto;
-  text-align: center;
-`
-
 const DivInput = styled.div`
   margin: auto;
   margin-bottom: 10px;
@@ -58,31 +59,35 @@ const Input = styled.input`
 `;
 
 const H3 = styled.h3`
-  background: rgba(255,255,220,0.8);
+  background: rgba(255, 255, 220, 0.8);
   width: 200px;
   margin: auto;
   margin-bottom: 10px;
   padding: 0.25em 1em;
-  border: 1px solid rgba(55,55,20,0.5);
+  border: 1px solid rgba(55, 55, 20, 0.5);
   border-radius: 3px;
   text-align: center;
-`
+`;
 
-const Login = ({ handleLoginSubmit, username, password }) => {
+const Signup = ({ username, password, handleSignUpSubmit }: SignUpProps) => {
   return (
     <div>
-        <StyledLink data-cy="back-btn" to="/">Back</StyledLink>
-        <H3>Login</H3>
+      <StyledLink data-cy="back-btn" to="/">
+        Back
+      </StyledLink>
+      <H3>Sign up</H3>
       <div>
-        <form onSubmit={handleLoginSubmit}>
+        <form onSubmit={handleSignUpSubmit}>
           <DivInput>
-            Username <Input data-cy="login-user-input" data-testid="login-user-input" {...username} />
+            Username <Input data-cy="signup-user-input" {...username} />
           </DivInput>
           <DivInput>
-            Password <Input data-cy="login-pass-input" data-testid="login-pass-input" {...password} />
+            Password <Input data-cy="signup-pass-input" {...password} />
           </DivInput>
           <SubmitDiv>
-            <SubmitBtn data-cy="login-submit" data-testid="login-submit" type="submit">Login</SubmitBtn>
+            <SubmitBtn data-cy="signup-submit" type="submit">
+              Signup
+            </SubmitBtn>
           </SubmitDiv>
         </form>
       </div>
@@ -90,4 +95,4 @@ const Login = ({ handleLoginSubmit, username, password }) => {
   );
 };
 
-export default Login;
+export default Signup;
