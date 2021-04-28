@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { AddHabitProps } from '../types';
 
 const SubmitBtn = styled.button`
   background: #fff870;
@@ -17,7 +18,7 @@ const SubmitBtn = styled.button`
 const SubmitDiv = styled.div`
   margin: auto;
   text-align: center;
-`
+`;
 
 const DivInput = styled.div`
   margin: auto;
@@ -40,7 +41,7 @@ const Input = styled.input`
   text-align: center;
 `;
 
-const AddHabit = ({ handleHabitSubmit, habitName }) => {
+const AddHabit = ({ handleHabitSubmit, habitName }: AddHabitProps) => {
   return (
     <div>
       <form onSubmit={handleHabitSubmit}>
@@ -48,7 +49,11 @@ const AddHabit = ({ handleHabitSubmit, habitName }) => {
           name: <Input data-cy="habitname-input" {...habitName} />
         </DivInput>
         <SubmitDiv>
-          <SubmitBtn data-cy="habit-submit" data-testid="habit-submit" type="submit">
+          <SubmitBtn
+            data-cy="habit-submit"
+            data-testid="habit-submit"
+            type="submit"
+          >
             Add
           </SubmitBtn>
         </SubmitDiv>

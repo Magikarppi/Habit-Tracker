@@ -1,6 +1,6 @@
 const baseurl = '/api/login';
 
-export const login = async (data) => {
+export const login = async (data: { username: string; password: string }) => {
   try {
     const response = await fetch(baseurl, {
       method: 'POST',

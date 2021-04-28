@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { HomeProps } from '../types';
 
 import AddHabit from './AddHabit';
 import Habit from './Habit';
@@ -110,9 +111,8 @@ const Home = ({
   handleHabitSubmit,
   habitName,
   toggleHabitForm,
-  handleCompletion
-}) => {
-
+  handleCompletion,
+}: HomeProps) => {
   return loggedInUser ? (
     <div>
       <div>

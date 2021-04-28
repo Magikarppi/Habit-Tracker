@@ -2,6 +2,7 @@ import React from 'react';
 import Chart from 'react-google-charts';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { HabitMoreInfoProps } from '../types';
 
 const DeleteBtn = styled.button`
   background: #cfccc2;
@@ -52,7 +53,7 @@ const H1 = styled.h1`
   text-align: center;
 `;
 
-const HabitMoreInfo = ({ habit, handleRemove }) => {
+const HabitMoreInfo = ({ habit, handleRemove }: HabitMoreInfoProps) => {
   if (!habit) {
     return null;
   }
@@ -63,7 +64,7 @@ const HabitMoreInfo = ({ habit, handleRemove }) => {
     return [new Date(dateObj.thisYear, dateObj.thisMonth, dateObj.thisDay), 1];
   });
 
-  let data = [
+  let data: any = [
     [
       { type: 'date', id: 'Date' },
       { type: 'number', id: 'Completions' },

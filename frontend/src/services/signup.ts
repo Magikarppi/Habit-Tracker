@@ -1,6 +1,6 @@
 const baseUrl = '/api/users';
 
-export const signup = async (data) => {
+export const signup = async (data: { username: string; password: string }) => {
   try {
     const response = await fetch(baseUrl, {
       method: 'POST',

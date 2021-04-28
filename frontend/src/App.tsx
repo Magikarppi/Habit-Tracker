@@ -19,16 +19,23 @@ import Img4 from './images/walking_outside_small.jpg';
 import Img5 from './images/woman-eating-healthy-vegetarian-dinner.jpg';
 import Img6 from './images/woman_meditating.jpg';
 import { useField } from './hooks/hooks';
+import {
+  ErrorSuccessMsg,
+  HabitNameField,
+  HabitsToShow,
+  HabitType,
+  LoggedInUser,
+} from './types';
 
 const App = () => {
   const [quote, setQuote] = useState('');
   const [quoteAuthor, setQuoteAuthor] = useState('');
-  const [habitsToShow, setHabitsToShow] = useState([]);
-  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [habitsToShow, setHabitsToShow] = useState<HabitsToShow>([]);
+  const [loggedInUser, setLoggedInUser] = useState<LoggedInUser | null>(null);
   const [showHabitForm, setShowHabitForm] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [redirect, setRedirect] = useState(null);
+  const [errorMessage, setErrorMessage] = useState<ErrorSuccessMsg>('');
+  const [successMessage, setSuccessMessage] = useState<ErrorSuccessMsg>('');
+  const [redirect, setRedirect] = useState<string | null>(null);
 
   const habitName = useField('text');
   const username = useField('text');
@@ -68,7 +75,7 @@ const App = () => {
     }
   }, []);
 
-  const handleSignUpSubmit = async (e) => {
+  const handleSignUpSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const signupData = {
@@ -134,7 +141,7 @@ const App = () => {
     }
   };
 
-  const handleLoginSubmit = async (e) => {
+  const handleLoginSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const loginData = {
@@ -179,7 +186,7 @@ const App = () => {
     setHabitsToShow([]);
   };
 
-  const handleHabitSubmit = async (e) => {
+  const handleHabitSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -206,7 +213,7 @@ const App = () => {
         return;
       }
 
-      if (responseData.name) {
+      if (responseData.name && loggedInUser) {
         setHabitsToShow([...habitsToShow, responseData]);
         loggedInUser.habits = loggedInUser.habits.concat(responseData);
         habitName.reset();
@@ -221,24 +228,26 @@ const App = () => {
     }
   };
 
-  const handleRemove = async (habit) => {
+  const handleRemove = async (habit: HabitType) => {
     if (window.confirm(`Do you want to delete habit: ${habit.name}?`)) {
       try {
         await remove(habit);
         setHabitsToShow(habitsToShow.filter((e) => e.id !== habit.id));
-        loggedInUser.habits = loggedInUser.habits.filter(
-          (e) => e.id !== habit.id
-        );
-        window.localStorage.setItem(
-          'loggedHabitAppUser',
-          JSON.stringify(loggedInUser)
-        );
-        setSuccessMessage('Habit deleted');
-        setTimeout(() => {
-          setSuccessMessage(null);
-        }, 4000);
-        setRedirect('/');
-        setRedirect(null);
+        if (loggedInUser) {
+          loggedInUser.habits = loggedInUser.habits.filter(
+            (e) => e.id !== habit.id
+          );
+          window.localStorage.setItem(
+            'loggedHabitAppUser',
+            JSON.stringify(loggedInUser)
+          );
+          setSuccessMessage('Habit deleted');
+          setTimeout(() => {
+            setSuccessMessage(null);
+          }, 4000);
+          setRedirect('/');
+          setRedirect(null);
+        }
       } catch (exception) {
         console.log(exception);
         setErrorMessage('Habit deletion failed');
@@ -249,7 +258,10 @@ const App = () => {
     }
   };
 
-  const handleCompletion = async (habit) => {
+  const handleCompletion = async (habit: HabitType) => {
+    if (!loggedInUser) {
+      return setErrorMessage('User not logged in');
+    }
     const date = new Date();
     const thisDay = date.getDate();
     const thisMonth = date.getMonth();
@@ -295,12 +307,13 @@ const App = () => {
     setShowHabitForm(!showHabitForm);
   };
 
-  const removeReset = (obj) => {
+  const removeReset = (obj: HabitNameField) => {
     const { reset, ...rest } = obj;
     return rest;
   };
 
-  const habitById = (id) => habitsToShow.find((habit) => habit.id === id);
+  const habitById = (id: string) =>
+    habitsToShow.find((habit) => habit.id === id);
 
   return (
     <div>

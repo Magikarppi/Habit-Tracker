@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ErrorSuccessMsg } from '../types';
 
 const MsgDiv = styled.div`
   width: 50%;
@@ -13,7 +14,11 @@ const MsgDiv = styled.div`
   margin-bottom: 10px;
 `;
 
-const SuccessNotification = ({ successMessage }) => {
+const SuccessNotification = ({
+  successMessage,
+}: {
+  successMessage: ErrorSuccessMsg;
+}) => {
   return successMessage ? <MsgDiv>{successMessage}</MsgDiv> : null;
 };
 
