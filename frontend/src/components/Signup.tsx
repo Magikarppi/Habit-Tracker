@@ -9,33 +9,18 @@ const SubmitDiv = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  color: #000000;
-  margin-right: 300px;
+  color: #63006e;
+  font-weight: bold;
+  &:hover {
+    background: #7c7c7c;
+  }
+  /* margin-right: 300px; */
   display: inline-block;
   width: 40px;
-  background: rgba(255, 255, 220, 0.5);
-  &:hover {
-    background: #fad850;
-  }
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid rgba(255, 255, 220, 0.5);
-  border-radius: 3px;
+  height: 20px;
 `;
 
-const SubmitBtn = styled.button`
-  background: #fff870;
-  &:hover {
-    background: #85015d;
-  }
-  font-size: 0.9em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid #8f8d64;
-  border-radius: 3px;
-  text-align: center;
-`;
+const SubmitBtn = styled.button``;
 
 const DivInput = styled.div`
   margin: auto;
@@ -50,8 +35,8 @@ const DivInput = styled.div`
 const Input = styled.input`
   padding: 0.5em;
   margin: 0.5em;
-  color: palevioletred;
-  background: papayawhip;
+  color: black;
+  background: #fffba8;
   border: none;
   border-radius: 3px;
   box-sizing: border-box;
@@ -59,13 +44,10 @@ const Input = styled.input`
 `;
 
 const H3 = styled.h3`
-  background: rgba(255, 255, 220, 0.8);
   width: 200px;
   margin: auto;
   margin-bottom: 10px;
   padding: 0.25em 1em;
-  border: 1px solid rgba(55, 55, 20, 0.5);
-  border-radius: 3px;
   text-align: center;
 `;
 
@@ -75,7 +57,7 @@ const Signup = ({ username, password, handleSignUpSubmit }: SignUpProps) => {
       <StyledLink data-cy="back-btn" to="/">
         Back
       </StyledLink>
-      <H3>Sign up</H3>
+      <H3>Sign Up</H3>
       <div>
         <form onSubmit={handleSignUpSubmit}>
           <DivInput>
@@ -86,7 +68,7 @@ const Signup = ({ username, password, handleSignUpSubmit }: SignUpProps) => {
           </DivInput>
           <SubmitDiv>
             <SubmitBtn data-cy="signup-submit" type="submit">
-              Signup
+              Sign Up
             </SubmitBtn>
           </SubmitDiv>
         </form>

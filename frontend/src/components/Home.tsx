@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { HomeProps } from '../types';
 
+import { HomeProps } from '../types';
 import AddHabit from './AddHabit';
 import Habit from './Habit';
 
@@ -19,26 +19,34 @@ const StyledLink = styled(Link)`
   margin-right: 300px;
   display: inline-block;
   width: 60px;
-  background: rgba(255, 255, 220, 0.8);
-  &:hover {
-    background: #fad850;
-  }
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid rgba(255, 255, 220, 0.5);
-  border-radius: 3px;
+  height: 40px;
 `;
 
-const StyledPara = styled.p`
+const ParagraphSmall = styled.p`
   margin: auto;
+  margin-top: 20px;
   text-shadow: 1px 1px;
-  background: rgba(255, 255, 220, 0.8);
   text-align: center;
-  width: 50%;
+  width: 60%;
   padding: 0.25em 1em;
-  border: 2px solid rgba(55, 55, 20, 0.5);
-  border-radius: 3px;
+`;
+
+const ParagraphMed = styled(ParagraphSmall)`
+  font-size: 40px;
+  color: #fffc37;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+`;
+
+const ParagraphBig = styled(ParagraphSmall)`
+  font-size: 60px;
+`;
+
+const Underline = styled.span`
+  text-decoration: underline;
+`;
+
+const Italic = styled.span`
+  font-style: italic;
 `;
 
 const Wrapper = styled.div`
@@ -46,12 +54,8 @@ const Wrapper = styled.div`
 `;
 
 const H1 = styled.h1`
-  background: rgba(255, 255, 220, 0.8);
-  width: 200px;
   margin: auto;
-  padding: 0.25em 1em;
-  border: 1px solid rgba(55, 55, 20, 0.5);
-  border-radius: 3px;
+  margin-top: 10px;
 `;
 
 const Em = styled.em`
@@ -122,7 +126,7 @@ const Home = ({
         </LogOutBtn>
       </div>
       <Wrapper>
-        <H1>Habit tracker</H1>
+        <H1>Habit Tracker</H1>
         {showHabitForm ? (
           <div data-testid="habitForm-open-div">
             <AddHabit
@@ -162,7 +166,13 @@ const Home = ({
   ) : (
     <div>
       <Wrapper>
-        <H1>Habit tracker</H1>
+        <H1>Habit Tracker</H1>
+        <ParagraphBig>
+          Did you know that the things that you do{' '}
+          <Underline>repeatedly</Underline> construct your identity and
+          determine the success that you are going to have?
+        </ParagraphBig>
+        <ParagraphMed>Start tracking your habits now!</ParagraphMed>
         <StyledLink data-cy="login-btn" data-testid="login-btn" to="/login">
           Login
         </StyledLink>
@@ -170,12 +180,15 @@ const Home = ({
           Sign up
         </StyledLink>
         {quote ? (
-          <StyledPara data-testid="quotePara">
-            {quote} - {quoteAuthor}
-          </StyledPara>
+          <ParagraphSmall data-testid="quotePara">
+            "{<Italic>{quote}</Italic>}" - {quoteAuthor}
+          </ParagraphSmall>
         ) : (
-          <StyledPara data-testid="quotePara">loading quote...</StyledPara>
+          <ParagraphSmall data-testid="quotePara">
+            loading quote...
+          </ParagraphSmall>
         )}
+        {/* <ParagraphMed>Here is how Habit Tracker works:</ParagraphMed> */}
       </Wrapper>
     </div>
   );

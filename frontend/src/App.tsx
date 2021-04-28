@@ -26,6 +26,7 @@ import {
   HabitType,
   LoggedInUser,
 } from './types';
+import GlobalStyle from './globalStyle';
 
 const App = () => {
   const [quote, setQuote] = useState('');
@@ -57,13 +58,13 @@ const App = () => {
     fetchQuote();
   }, []);
 
-  useEffect(() => {
-    if (window.screen.width > 767) {
-      const images = [Img1, Img2, Img3, Img4, Img5, Img6];
-      const rNum = Math.floor(Math.random() * 5);
-      document.body.background = images[rNum];
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (window.screen.width > 767) {
+  //     const images = [Img1, Img2, Img3, Img4, Img5, Img6];
+  //     const rNum = Math.floor(Math.random() * 5);
+  //     document.body.background = images[rNum];
+  //   }
+  // }, []);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedHabitAppUser');
@@ -317,6 +318,7 @@ const App = () => {
 
   return (
     <div>
+      <GlobalStyle />
       <ErrorNotification errorMessage={errorMessage} />
       <SuccessNotification successMessage={successMessage} />
       <Router>
