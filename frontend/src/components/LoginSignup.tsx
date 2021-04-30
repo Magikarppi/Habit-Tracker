@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { SignUpProps } from '../types';
+import { LoginSignUpProps } from '../types';
 
 const SubmitDiv = styled.div`
   margin: auto;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StyledLink = styled(Link)`
@@ -51,26 +53,28 @@ const H3 = styled.h3`
   text-align: center;
 `;
 
-const getLastPart = (url: string) => {
-  const parts = url.split('/');
-  return url.lastIndexOf('/') !== url.length - 1
-    ? parts[parts.length - 1]
-    : parts[parts.length - 2];
-};
-
-const formToShow = getLastPart(window.location.href);
-
 const LoginSignUp = ({
   username,
   password,
   handleSignUpSubmit,
-}: SignUpProps) => {
-  let contents;
+  handleLoginSubmit,
+}: LoginSignUpProps) => {
+  const getLastPart = (url: string) => {
+    const parts = url.split('/');
+    return url.lastIndexOf('/') !== url.length - 1
+      ? parts[parts.length - 1]
+      : parts[parts.length - 2];
+  };
+
+  const formToShow = getLastPart(window.location.href);
 
   switch (formToShow) {
-    case 'login':
-      contents = (
-        <>
+    case 'signup':
+      return (
+        <div>
+          <StyledLink data-cy="back-btn" to="/">
+            Back
+          </StyledLink>
           <H3>Sign Up</H3>
           <div>
             <form onSubmit={handleSignUpSubmit}>
@@ -87,22 +91,49 @@ const LoginSignUp = ({
               </SubmitDiv>
             </form>
           </div>
-        </>
+        </div>
       );
-      break;
-    case 'signup':
-      break;
+    case 'login':
+      return (
+        <div>
+          <StyledLink data-cy="back-btn" to="/">
+            Back
+          </StyledLink>
+          <H3>Login</H3>
+          <div>
+            <form onSubmit={handleLoginSubmit}>
+              <DivInput>
+                Username{' '}
+                <Input
+                  data-cy="login-user-input"
+                  data-testid="login-user-input"
+                  {...username}
+                />
+              </DivInput>
+              <DivInput>
+                Password{' '}
+                <Input
+                  data-cy="login-pass-input"
+                  data-testid="login-pass-input"
+                  {...password}
+                />
+              </DivInput>
+              <SubmitDiv>
+                <SubmitBtn
+                  data-cy="login-submit"
+                  data-testid="login-submit"
+                  type="submit"
+                >
+                  Login
+                </SubmitBtn>
+              </SubmitDiv>
+            </form>
+          </div>
+        </div>
+      );
     default:
-      break;
+      return null;
   }
-  return (
-    <div>
-      <StyledLink data-cy="back-btn" to="/">
-        Back
-      </StyledLink>
-      {contents}
-    </div>
-  );
 };
 
 export default LoginSignUp;

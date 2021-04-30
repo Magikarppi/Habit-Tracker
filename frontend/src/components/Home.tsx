@@ -3,23 +3,37 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { HomeProps } from '../types';
+import { consts } from '../utils';
 import AddHabit from './AddHabit';
 import Habit from './Habit';
 
 const HabitsDiv = styled.div`
   background: rgba(255, 255, 220, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 300px;
   padding: 10px;
   margin: auto;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StyledLink = styled(Link)`
   color: #63006e;
   font-weight: bold;
   margin-right: 300px;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 60px;
-  height: 40px;
+  height: 30px;
 `;
 
 const ParagraphSmall = styled.p`
@@ -50,7 +64,15 @@ const Italic = styled.span`
 `;
 
 const Wrapper = styled.div`
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 const H1 = styled.h1`
@@ -125,8 +147,8 @@ const Home = ({
           Log out
         </LogOutBtn>
       </div>
+      <H1>{consts.appName}</H1>
       <Wrapper>
-        <H1>Habit Tracker</H1>
         {showHabitForm ? (
           <div data-testid="habitForm-open-div">
             <AddHabit
@@ -165,31 +187,27 @@ const Home = ({
     </div>
   ) : (
     <div>
-      <Wrapper>
-        <H1>Habit Tracker</H1>
-        <ParagraphBig>
-          Did you know that the things that you do{' '}
-          <Underline>repeatedly</Underline> construct your identity and
-          determine the success that you are going to have?
-        </ParagraphBig>
-        <ParagraphMed>Start tracking your habits now!</ParagraphMed>
+      <H1>{consts.appName}</H1>
+      <ParagraphBig>
+        Did you know that the things that you do{' '}
+        <Underline>repeatedly</Underline> construct your identity and determine
+        the success that you are going to have?
+      </ParagraphBig>
+      <ParagraphMed>Start tracking your habits now!</ParagraphMed>
+      <ButtonWrapper>
         <StyledLink data-cy="login-btn" data-testid="login-btn" to="/login">
           Login
         </StyledLink>
         <StyledLink data-cy="signup-btn" data-testid="signup-btn" to="/signup">
           Sign up
         </StyledLink>
-        {quote ? (
-          <ParagraphSmall data-testid="quotePara">
-            "{<Italic>{quote}</Italic>}" - {quoteAuthor}
-          </ParagraphSmall>
-        ) : (
-          <ParagraphSmall data-testid="quotePara">
-            loading quote...
-          </ParagraphSmall>
-        )}
-        {/* <ParagraphMed>Here is how Habit Tracker works:</ParagraphMed> */}
-      </Wrapper>
+      </ButtonWrapper>
+      {quote ? (
+        <ParagraphSmall data-testid="quotePara">
+          "{<Italic>{quote}</Italic>}" - {quoteAuthor}
+        </ParagraphSmall>
+      ) : null}
+      {/* <ParagraphMed>Here is how Habit Tracker works:</ParagraphMed> */}
     </div>
   );
 };

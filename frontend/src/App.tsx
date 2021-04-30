@@ -27,6 +27,7 @@ import {
   LoggedInUser,
 } from './types';
 import GlobalStyle from './globalStyle';
+import LoginSignUp from './components/LoginSignUp';
 
 const App = () => {
   const [quote, setQuote] = useState('');
@@ -348,9 +349,10 @@ const App = () => {
               redirect ? (
                 <Redirect to={redirect} />
               ) : (
-                <Signup
+                <LoginSignUp
                   username={removeReset(username)}
                   password={removeReset(password)}
+                  handleLoginSubmit={handleLoginSubmit}
                   handleSignUpSubmit={handleSignUpSubmit}
                 />
               )
@@ -363,10 +365,11 @@ const App = () => {
               redirect ? (
                 <Redirect to={redirect} />
               ) : (
-                <Login
+                <LoginSignUp
                   username={removeReset(username)}
                   password={removeReset(password)}
                   handleLoginSubmit={handleLoginSubmit}
+                  handleSignUpSubmit={handleSignUpSubmit}
                 />
               )
             }

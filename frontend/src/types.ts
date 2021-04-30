@@ -11,16 +11,11 @@ export interface PasswordField extends UsernameField {}
 
 export interface HabitNameField extends UsernameField {}
 
-export interface SignUpProps {
+export interface LoginSignUpProps {
   username: UsernameField;
   password: PasswordField;
-  handleSignUpSubmit: (event: React.ChangeEvent<HTMLFormElement>) => void;
-}
-
-export interface LoginProps {
-  username: UsernameField;
-  password: PasswordField;
-  handleLoginSubmit: (event: React.ChangeEvent<HTMLFormElement>) => void;
+  handleSignUpSubmit?: (event: React.ChangeEvent<HTMLFormElement>) => void;
+  handleLoginSubmit?: (event: React.ChangeEvent<HTMLFormElement>) => void;
 }
 
 export interface HomeProps {
