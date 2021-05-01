@@ -58,6 +58,8 @@ const LoginSignUp = ({
   password,
   handleSignUpSubmit,
   handleLoginSubmit,
+  errorMessage,
+  successMessage,
 }: LoginSignUpProps) => {
   const getLastPart = (url: string) => {
     const parts = url.split('/');
@@ -76,6 +78,10 @@ const LoginSignUp = ({
             Back
           </StyledLink>
           <H3>Sign Up</H3>
+          {/* <ErrSuccNotification
+            errorMessage={errorMessage}
+            successMessage={successMessage}
+          /> */}
           <div>
             <form onSubmit={handleSignUpSubmit}>
               <DivInput>
@@ -100,6 +106,10 @@ const LoginSignUp = ({
             Back
           </StyledLink>
           <H3>Login</H3>
+          {/* <ErrSuccNotification
+            errorMessage={errorMessage}
+            successMessage={successMessage}
+          /> */}
           <div>
             <form onSubmit={handleLoginSubmit}>
               <DivInput>

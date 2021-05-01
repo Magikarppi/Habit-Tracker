@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Completion, HabitProps } from '../types';
 
 const Div = styled.div`
   display: flex;
@@ -8,11 +9,13 @@ const Div = styled.div`
   align-items: center;
   justify-content: center;
   border: 1px solid black;
-  height: 90px;
+  height: 140px;
+  width: 90%;
 `;
 
 const StyledLink = styled(Link)`
   color: #000000;
+  width: 80%;
 `;
 
 const DoneBtn = styled.button`
@@ -21,7 +24,7 @@ const DoneBtn = styled.button`
     background: #a8ff36;
   }
   font-size: 0.9em;
-  margin: 1em;
+  /* margin: 1em; */
   padding: 0.25em 1em;
   border: 2px solid #8f8d64;
   border-radius: 3px;
@@ -39,12 +42,15 @@ const DoneNotif = styled.div`
   text-align: center;
 `;
 
-const Habit = ({ habit, handleCompletion }) => {
+const Habit = ({ habit, handleCompletion }: HabitProps) => {
   if (!habit) {
     return null;
   }
 
-  const findByMatchingDate = (completions, dateObj) => {
+  const findByMatchingDate = (
+    completions: Completion[],
+    dateObj: Completion
+  ) => {
     return completions.filter((completion) => {
       return Object.keys(dateObj).every((key) => {
         return completion[key] === dateObj[key];

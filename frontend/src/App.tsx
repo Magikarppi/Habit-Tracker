@@ -28,6 +28,8 @@ import {
 } from './types';
 import GlobalStyle from './globalStyle';
 import LoginSignUp from './components/LoginSignUp';
+import ErrSuccNotification from './components/ErrSuccNotification';
+import Header from './components/Header';
 
 const App = () => {
   const [quote, setQuote] = useState('');
@@ -317,29 +319,42 @@ const App = () => {
   const habitById = (id: string) =>
     habitsToShow.find((habit) => habit.id === id);
 
+  console.log('errormsg', errorMessage);
+  console.log('success', successMessage);
+
   return (
     <div>
       <GlobalStyle />
-      <ErrorNotification errorMessage={errorMessage} />
-      <SuccessNotification successMessage={successMessage} />
+      <ErrSuccNotification
+        errorMessage={errorMessage}
+        successMessage={successMessage}
+      />
       <Router>
         <div>
           <Route
             exact
             path="/"
             render={() => (
-              <Home
-                quote={quote}
-                quoteAuthor={quoteAuthor}
-                habitsToShow={habitsToShow}
-                habitName={removeReset(habitName)}
-                showHabitForm={showHabitForm}
-                toggleHabitForm={toggleHabitForm}
-                handleCompletion={handleCompletion}
-                handleLogout={handleLogout}
-                loggedInUser={loggedInUser}
-                handleHabitSubmit={handleHabitSubmit}
-              />
+              <>
+                <Header
+                  loggedInUser={loggedInUser}
+                  handleLogout={handleLogout}
+                />
+                <Home
+                  quote={quote}
+                  quoteAuthor={quoteAuthor}
+                  habitsToShow={habitsToShow}
+                  habitName={removeReset(habitName)}
+                  showHabitForm={showHabitForm}
+                  toggleHabitForm={toggleHabitForm}
+                  handleCompletion={handleCompletion}
+                  handleLogout={handleLogout}
+                  loggedInUser={loggedInUser}
+                  handleHabitSubmit={handleHabitSubmit}
+                  errorMessage={errorMessage}
+                  successMessage={successMessage}
+                />
+              </>
             )}
           />
           <Route
@@ -349,12 +364,16 @@ const App = () => {
               redirect ? (
                 <Redirect to={redirect} />
               ) : (
-                <LoginSignUp
-                  username={removeReset(username)}
-                  password={removeReset(password)}
-                  handleLoginSubmit={handleLoginSubmit}
-                  handleSignUpSubmit={handleSignUpSubmit}
-                />
+                <>
+                  <LoginSignUp
+                    username={removeReset(username)}
+                    password={removeReset(password)}
+                    handleLoginSubmit={handleLoginSubmit}
+                    handleSignUpSubmit={handleSignUpSubmit}
+                    successMessage={successMessage}
+                    errorMessage={errorMessage}
+                  />
+                </>
               )
             }
           />

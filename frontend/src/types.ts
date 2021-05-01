@@ -16,6 +16,13 @@ export interface LoginSignUpProps {
   password: PasswordField;
   handleSignUpSubmit?: (event: React.ChangeEvent<HTMLFormElement>) => void;
   handleLoginSubmit?: (event: React.ChangeEvent<HTMLFormElement>) => void;
+  errorMessage: ErrorSuccessMsg;
+  successMessage: ErrorSuccessMsg;
+}
+
+export interface HeaderProps {
+  loggedInUser: LoggedInUser | null;
+  handleLogout: () => void;
 }
 
 export interface HomeProps {
@@ -39,12 +46,18 @@ export interface LoggedInUser {
 
 export interface AddHabitProps {
   handleHabitSubmit: (event: React.ChangeEvent<HTMLFormElement>) => void;
+  toggleHabitForm: () => void;
   habitName: HabitNameField;
 }
 
 export interface HabitMoreInfoProps {
   habit: HabitType | undefined;
   handleRemove: (habit: HabitType) => void;
+}
+
+export interface HabitProps {
+  habit: HabitType | undefined;
+  handleCompletion: (habit: HabitType) => void;
 }
 
 export type ErrorSuccessMsg = string | null;

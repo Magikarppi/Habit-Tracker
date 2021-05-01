@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { AddHabitProps } from '../types';
 
 const SubmitBtn = styled.button`
-  background: #fff870;
+  background: #fffba8;
   &:hover {
-    background: #85015d;
+    background: #fff870;
   }
   font-size: 0.9em;
   margin: 1em;
@@ -17,7 +17,9 @@ const SubmitBtn = styled.button`
 
 const SubmitDiv = styled.div`
   margin: auto;
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const DivInput = styled.div`
@@ -28,25 +30,43 @@ const DivInput = styled.div`
   width: 200px;
   border: 2px solid #8f8d64;
   border-radius: 3px;
+  color: black;
 `;
 
 const Input = styled.input`
   padding: 0.5em;
   margin: 0.5em;
   color: #000000;
-  background: papayawhip;
+  background: rgba(255, 255, 220, 0.8);
   border: none;
   border-radius: 3px;
   box-sizing: border-box;
   text-align: center;
 `;
 
-const AddHabit = ({ handleHabitSubmit, habitName }: AddHabitProps) => {
+const CancelBtn = styled.button`
+  background: #cfccc2;
+  &:hover {
+    background: #ff711f;
+  }
+  font-size: 0.9em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid #8f8d64;
+  border-radius: 3px;
+  text-align: center;
+`;
+
+const AddHabit = ({
+  handleHabitSubmit,
+  habitName,
+  toggleHabitForm,
+}: AddHabitProps) => {
   return (
     <div>
       <form onSubmit={handleHabitSubmit}>
         <DivInput>
-          name: <Input data-cy="habitname-input" {...habitName} />
+          Name your habit: <Input data-cy="habitname-input" {...habitName} />
         </DivInput>
         <SubmitDiv>
           <SubmitBtn
@@ -56,6 +76,13 @@ const AddHabit = ({ handleHabitSubmit, habitName }: AddHabitProps) => {
           >
             Add
           </SubmitBtn>
+          <CancelBtn
+            data-cy="habit-form-close"
+            data-testid="habit-form-close-btn"
+            onClick={toggleHabitForm}
+          >
+            cancel
+          </CancelBtn>
         </SubmitDiv>
       </form>
     </div>

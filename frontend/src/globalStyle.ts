@@ -10,7 +10,8 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100%;
     background: linear-gradient(teal, purple);
     font-family: Open-Sans, Helvetica, Sans-Serif;
-    color: #fafafa
+    color: #fafafa;
+    text-align: center;
   }
   a:link {
     background: #fafafa;
@@ -22,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
   font-size: 1em;
   margin: 1em;
   padding: 1em 1em;
-  border: 2px solid rgba(255, 255, 220, 0.5);
+  border: 2px solid black;
   border-radius: 3px;
   }
   button {

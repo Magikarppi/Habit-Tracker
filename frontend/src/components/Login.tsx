@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { LoginProps } from '../types';
+import ErrSuccNotification from './ErrSuccNotification';
 
 const StyledLink = styled(Link)`
   color: #000000;
