@@ -11,11 +11,22 @@ export interface PasswordField extends UsernameField {}
 
 export interface HabitNameField extends UsernameField {}
 
+export interface LoginSignUpInputValues {
+  username: string;
+  password: string;
+}
+
+export interface HabitInputValue {
+  habitName: string;
+}
+
 export interface LoginSignUpProps {
   username: UsernameField;
   password: PasswordField;
-  handleSignUpSubmit?: (event: React.ChangeEvent<HTMLFormElement>) => void;
-  handleLoginSubmit?: (event: React.ChangeEvent<HTMLFormElement>) => void;
+  handleSignUpSubmit: (values: LoginSignUpInputValues) => void;
+  handleLoginSubmit: (values: LoginSignUpInputValues) => void;
+  // handleSignUpSubmit?: (event: React.ChangeEvent<HTMLFormElement>) => void;
+  // handleLoginSubmit?: (event: React.ChangeEvent<HTMLFormElement>) => void;
   // handleGoBack: () => void;
 }
 
@@ -28,7 +39,7 @@ export interface HomeProps {
   loggedInUser: LoggedInUser | null;
   handleLogout: () => void;
   habitsToShow: HabitsToShow;
-  handleHabitSubmit: (event: React.ChangeEvent<HTMLFormElement>) => void;
+  handleHabitSubmit: (values: HabitInputValue) => void;
   habitName: HabitNameField;
   handleCompletion: (habit: HabitType) => void;
   // handleGoBack: () => void;
@@ -43,7 +54,7 @@ export interface LoggedInUser {
 }
 
 export interface AddHabitProps {
-  handleHabitSubmit: (event: React.ChangeEvent<HTMLFormElement>) => void;
+  handleHabitSubmit: (values: HabitInputValue) => void;
   toggleHabitForm: () => void;
   habitName: HabitNameField;
 }

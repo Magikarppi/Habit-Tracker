@@ -1,6 +1,5 @@
 import React from 'react';
 import Chart from 'react-google-charts';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { HabitMoreInfoProps } from '../types';
 import { stringShortener } from '../utils';
@@ -27,8 +26,8 @@ const WrapperChart = styled.div`
   max-width: 100%;
 `;
 
-const HabitsDiv = styled.div`
-  background: rgba(255, 255, 220, 0.8);
+const SuccessDaysWrapper = styled.div`
+  /* background: rgba(255, 255, 220, 0.8); */
   width: 100px;
   padding: 10px;
   margin: auto;
@@ -49,6 +48,26 @@ const H1 = styled.h1`
   color: rgb(255, 234, 31);
   font-size: 2em;
   text-align: center;
+`;
+
+const ParagraphSmall = styled.p`
+  margin: auto;
+  margin-top: 20px;
+  text-shadow: 1px 1px;
+  text-align: center;
+  padding: 0.25em 1em;
+  color: black;
+`;
+
+const ParagraphNote = styled.p`
+  margin: auto;
+  margin-top: 20px;
+  text-shadow: 1px 1px;
+  text-align: center;
+  padding: 0.25em 1em;
+  color: black;
+  font-size: 10px;
+  font-style: italic;
 `;
 
 const HabitMoreInfo = ({ habit, handleRemove }: HabitMoreInfoProps) => {
@@ -147,23 +166,26 @@ const HabitMoreInfo = ({ habit, handleRemove }: HabitMoreInfoProps) => {
   } else {
     //Mobile view:
     return (
-      <div>
-        <H1>{habit.name}</H1>
+      <Wrapper>
+        <H1>{stringShortener(habit.name, 45)}</H1>
         <TotalDaysDiv>Times done: {totalCompletedDays}</TotalDaysDiv>
-        <HabitsDiv>
+        <SuccessDaysWrapper>
           Dates of success:
           {habit.completions.map((dateObj) => (
-            <p
+            <ParagraphSmall
               key={`${dateObj.thisDay} ${dateObj.thisMonth} ${dateObj.thisYear}`}
-            >{`${dateObj.thisDay} ${dateObj.thisMonth} ${dateObj.thisYear}`}</p>
+            >{`${dateObj.thisDay} ${dateObj.thisMonth} ${dateObj.thisYear}`}</ParagraphSmall>
           ))}
-        </HabitsDiv>
+        </SuccessDaysWrapper>
         <div>
           <DeleteBtn data-cy="delete-btn" onClick={() => handleRemove(habit)}>
             Delete
           </DeleteBtn>
         </div>
-      </div>
+        <ParagraphNote>
+          Please view on a bigger screen for more detailed view
+        </ParagraphNote>
+      </Wrapper>
     );
   }
 };

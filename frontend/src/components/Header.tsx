@@ -4,42 +4,41 @@ import styled from 'styled-components';
 import { HeaderProps } from '../types';
 import { consts } from '../utils';
 
-const HeaderWrapperDark = styled.div`
+const HeaderWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 80px;
+  height: 30%;
   /* background-color: #383838; */
-`;
-
-const HeaderWrapperLight = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 80px;
 `;
 
 const HeaderSubWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  @media (min-width: 767px) {
+    flex-direction: row;
+  }
   align-items: center;
   justify-content: center;
   width: 30%;
 `;
 
 const H1 = styled.h1`
-  font-size: 200%;
+  /* font-size: 200%; */
   color: #fffc37;
   text-shadow: 1px 1px black;
 `;
 
 const LoggedInDiv = styled.div`
+  margin-top: 10px;
   text-align: center;
   white-space: nowrap;
+  font-size: 10px;
+  @media (min-width: 767px) {
+    font-size: 20px;
+  }
 `;
 
 const LogOutBtn = styled.button`
@@ -47,20 +46,25 @@ const LogOutBtn = styled.button`
   &:hover {
     background: #85015d;
   }
-  font-size: 0.9em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid #8f8d64;
-  border-radius: 3px;
-  text-align: center;
   height: 30px;
-  width: 100px;
+  width: 80px;
+  font-size: 0.6em;
+  @media (min-width: 767px) {
+    font-size: 0.9em;
+    margin: 1em;
+    padding: 0.25em 1em;
+    border: 2px solid #8f8d64;
+    border-radius: 3px;
+    text-align: center;
+    height: 30px;
+    width: 100px;
+  }
 `;
 
 const StyledLink = styled(Link)`
   background: #cfccc2;
   &:hover {
-    background: #ff711f;
+    background: darkgray;
   }
   font-size: 0.9em;
   margin: 0;
@@ -86,7 +90,7 @@ const Header = ({ loggedInUser, handleLogout }: HeaderProps) => {
   const urlLastPart = getPart('last', window.location.href);
 
   return loggedInUser ? (
-    <HeaderWrapperDark>
+    <HeaderWrapper>
       <HeaderSubWrapper>
         {urlSecondToLast === 'habits' ? (
           <StyledLink data-cy="back-btn" to="/">
@@ -103,9 +107,9 @@ const Header = ({ loggedInUser, handleLogout }: HeaderProps) => {
           Log out
         </LogOutBtn>
       </HeaderSubWrapper>
-    </HeaderWrapperDark>
+    </HeaderWrapper>
   ) : (
-    <HeaderWrapperLight>
+    <HeaderWrapper>
       <HeaderSubWrapper>
         {urlLastPart === 'login' || urlLastPart === 'signup' ? (
           <StyledLink data-cy="back-btn" to="/">
@@ -117,7 +121,7 @@ const Header = ({ loggedInUser, handleLogout }: HeaderProps) => {
         <H1>{consts.appName}</H1>
       </HeaderSubWrapper>
       <HeaderSubWrapper />
-    </HeaderWrapperLight>
+    </HeaderWrapper>
   );
 };
 

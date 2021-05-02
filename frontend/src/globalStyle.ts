@@ -38,8 +38,21 @@ const GlobalStyle = createGlobalStyle`
   border-radius: 3px;
   text-align: center;
   }
+  input {
+  padding: 0.5em;
+  margin: 0.5em;
+  color: black;
+  background: #fffba8;
+  border: none;
+  border-radius: 3px;
+  box-sizing: border-box;
+  text-align: center;
+  }
   h1 {
-    font-size: 60px;
+    font-size: 20px;
+    @media (min-width: 767px) {
+    font-size: 200%;
+    }
   }
   h2 {
     font-size: 40px;

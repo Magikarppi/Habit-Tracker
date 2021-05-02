@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { LoginSignUpProps } from '../types';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+
+import { LoginSignUpInputValues, LoginSignUpProps } from '../types';
 
 const SubmitDiv = styled.div`
   margin: auto;
@@ -13,7 +15,8 @@ const SubmitBtn = styled.button``;
 
 const DivInput = styled.div`
   margin: auto;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
   background: rgba(255, 255, 220, 0.5);
   text-align: center;
   width: 200px;
@@ -22,23 +25,16 @@ const DivInput = styled.div`
   color: black;
 `;
 
-const Input = styled.input`
-  padding: 0.5em;
-  margin: 0.5em;
-  color: black;
-  background: #fffba8;
-  border: none;
-  border-radius: 3px;
-  box-sizing: border-box;
-  text-align: center;
-`;
-
 const H3 = styled.h3`
   width: 200px;
   margin: auto;
   margin-bottom: 10px;
   padding: 0.25em 1em;
   text-align: center;
+`;
+
+const ErrorDiv = styled.div`
+  color: red;
 `;
 
 const LoginSignUp = ({
@@ -56,25 +52,66 @@ const LoginSignUp = ({
 
   const formToShow = getLastPart(window.location.href);
 
+  const initialValues = {
+    username: '',
+    password: '',
+  };
+
+  const validate = (values: LoginSignUpInputValues) => {
+    const { username, password } = values;
+    const errors: any = {};
+
+    if (!username) {
+      errors.username = 'Username is required!';
+    } else if (username.length >= 12) {
+      errors.username = 'Max length is 12 chars';
+    }
+
+    if (!password) {
+      errors.password = 'Password is required!';
+    } else if (password.length < 5) {
+      errors.password = 'Password should be at least 5 chars long';
+    }
+    return errors;
+  };
+
   switch (formToShow) {
     case 'signup':
       return (
         <div>
           <H3>Sign Up</H3>
           <div>
-            <form onSubmit={handleSignUpSubmit}>
-              <DivInput>
-                Username <Input data-cy="signup-user-input" {...username} />
-              </DivInput>
-              <DivInput>
-                Password <Input data-cy="signup-pass-input" {...password} />
-              </DivInput>
-              <SubmitDiv>
-                <SubmitBtn data-cy="signup-submit" type="submit">
-                  Sign Up
-                </SubmitBtn>
-              </SubmitDiv>
-            </form>
+            <Formik
+              initialValues={initialValues}
+              validate={(values) => validate(values)}
+              onSubmit={(values, { setSubmitting }) => {
+                handleSignUpSubmit(values);
+              }}
+            >
+              {({ isSubmitting, errors }) => (
+                <Form>
+                  <DivInput>
+                    <Field
+                      type="username"
+                      name="username"
+                      placeholder="Username"
+                    />
+                  </DivInput>
+                  <ErrorMessage name="username" component={ErrorDiv} />
+                  <DivInput>
+                    <Field
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                    />
+                  </DivInput>
+                  <ErrorMessage name="password" component={ErrorDiv} />
+                  <SubmitDiv>
+                    <SubmitBtn type="submit">Submit</SubmitBtn>
+                  </SubmitDiv>
+                </Form>
+              )}
+            </Formik>
           </div>
         </div>
       );
@@ -83,33 +120,37 @@ const LoginSignUp = ({
         <div>
           <H3>Login</H3>
           <div>
-            <form onSubmit={handleLoginSubmit}>
-              <DivInput>
-                Username{' '}
-                <Input
-                  data-cy="login-user-input"
-                  data-testid="login-user-input"
-                  {...username}
-                />
-              </DivInput>
-              <DivInput>
-                Password{' '}
-                <Input
-                  data-cy="login-pass-input"
-                  data-testid="login-pass-input"
-                  {...password}
-                />
-              </DivInput>
-              <SubmitDiv>
-                <SubmitBtn
-                  data-cy="login-submit"
-                  data-testid="login-submit"
-                  type="submit"
-                >
-                  Login
-                </SubmitBtn>
-              </SubmitDiv>
-            </form>
+            <Formik
+              initialValues={initialValues}
+              validate={(values) => validate(values)}
+              onSubmit={(values, { setSubmitting }) => {
+                handleLoginSubmit(values);
+              }}
+            >
+              {({ isSubmitting, errors }) => (
+                <Form>
+                  <DivInput>
+                    <Field
+                      type="username"
+                      name="username"
+                      placeholder="Username"
+                    />
+                  </DivInput>
+                  <ErrorMessage name="username" component={ErrorDiv} />
+                  <DivInput>
+                    <Field
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                    />
+                  </DivInput>
+                  <ErrorMessage name="password" component={ErrorDiv} />
+                  <SubmitDiv>
+                    <SubmitBtn type="submit">Submit</SubmitBtn>
+                  </SubmitDiv>
+                </Form>
+              )}
+            </Formik>
           </div>
         </div>
       );

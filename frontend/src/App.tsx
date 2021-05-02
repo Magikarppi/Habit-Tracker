@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  useHistory,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 import './App.css';
 import { setToken, create, remove, update } from './services/habits';
@@ -21,10 +16,12 @@ import Img6 from './images/woman_meditating.jpg';
 import { useField } from './hooks/hooks';
 import {
   ErrorSuccessMsg,
+  HabitInputValue,
   HabitNameField,
   HabitsToShow,
   HabitType,
   LoggedInUser,
+  LoginSignUpInputValues,
 } from './types';
 import GlobalStyle from './globalStyle';
 import LoginSignUp from './components/LoginSignUp';
@@ -42,8 +39,6 @@ const App = () => {
   const habitName = useField('text');
   const username = useField('text');
   const password = useField('password');
-
-  // const history = useHistory();
 
   // useEffect(() => {
   //   if (window.screen.width > 767) {
@@ -63,12 +58,12 @@ const App = () => {
     }
   }, []);
 
-  const handleSignUpSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleSignUpSubmit = async (values: LoginSignUpInputValues) => {
+    // e.preventDefault();
+    const { username, password } = values;
     const signupData = {
-      username: username.value,
-      password: password.value,
+      username,
+      password,
     };
 
     if (signupData.password.length < 5) {
@@ -121,20 +116,20 @@ const App = () => {
         setTimeout(() => {
           setSuccessMessage(null);
         }, 4000);
-        username.reset();
-        password.reset();
+        // username.reset();
+        // password.reset();
       }
     } catch (exception) {
       console.log('exception', exception);
     }
   };
 
-  const handleLoginSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleLoginSubmit = async (values: LoginSignUpInputValues) => {
+    // e.preventDefault();
+    const { username, password } = values;
     const loginData = {
-      username: username.value,
-      password: password.value,
+      username,
+      password,
     };
     try {
       const responseData = await login(loginData);
@@ -158,8 +153,8 @@ const App = () => {
         setToken(responseData.token);
         setLoggedInUser(responseData);
         setHabitsToShow(responseData.habits);
-        username.reset();
-        password.reset();
+        // username.reset();
+        // password.reset();
         setRedirect('/');
         setRedirect(null);
       }
@@ -174,12 +169,12 @@ const App = () => {
     setHabitsToShow([]);
   };
 
-  const handleHabitSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleHabitSubmit = async (values: HabitInputValue) => {
+    // e.preventDefault();
+    const { habitName } = values;
     try {
       const newHabit = {
-        name: habitName.value,
+        name: habitName,
       };
 
       const responseData = await create(newHabit);
@@ -204,7 +199,7 @@ const App = () => {
       if (responseData.name && loggedInUser) {
         setHabitsToShow([...habitsToShow, responseData]);
         loggedInUser.habits = loggedInUser.habits.concat(responseData);
-        habitName.reset();
+        // habitName.reset();
         setShowHabitForm(false);
         window.localStorage.setItem(
           'loggedHabitAppUser',

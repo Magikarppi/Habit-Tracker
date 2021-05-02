@@ -46,13 +46,19 @@ const ParagraphSmall = styled.p`
 `;
 
 const ParagraphMed = styled(ParagraphSmall)`
-  font-size: 40px;
+  font-size: 20px;
   color: #fffc37;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  @media (min-width: 767px) {
+    font-size: 40px;
+  }
 `;
 
 const ParagraphBig = styled(ParagraphSmall)`
-  font-size: 60px;
+  font-size: 30px;
+  @media (min-width: 767px) {
+    font-size: 60px;
+  }
 `;
 
 const Underline = styled.span`
