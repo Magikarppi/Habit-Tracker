@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  useHistory,
+} from 'react-router-dom';
 
 import './App.css';
 import { setToken, create, remove, update } from './services/habits';
 import { login } from './services/login';
 import { signup } from './services/signup';
-import { getQuote } from './services/quote';
 import Home from './components/Home';
-import Signup from './components/Signup';
-import Login from './components/Login';
-import ErrorNotification from './components/ErrorNotification';
-import SuccessNotification from './components/SuccessNotification';
 import HabitMoreInfo from './components/HabitMoreInfo';
 import Img1 from './images/caucasian-man-lifting.jpg';
 import Img2 from './images/man_learning_guitar.jpg';
@@ -32,34 +32,18 @@ import ErrSuccNotification from './components/ErrSuccNotification';
 import Header from './components/Header';
 
 const App = () => {
-  const [quote, setQuote] = useState('');
-  const [quoteAuthor, setQuoteAuthor] = useState('');
   const [habitsToShow, setHabitsToShow] = useState<HabitsToShow>([]);
   const [loggedInUser, setLoggedInUser] = useState<LoggedInUser | null>(null);
-  const [showHabitForm, setShowHabitForm] = useState(false);
   const [errorMessage, setErrorMessage] = useState<ErrorSuccessMsg>('');
   const [successMessage, setSuccessMessage] = useState<ErrorSuccessMsg>('');
   const [redirect, setRedirect] = useState<string | null>(null);
+  const [showHabitForm, setShowHabitForm] = useState(false);
 
   const habitName = useField('text');
   const username = useField('text');
   const password = useField('password');
 
-  const fetchQuote = async () => {
-    try {
-      const response = await getQuote();
-      const fetchedQuote = response.contents.quotes[0].quote;
-      const quoteAuthor = response.contents.quotes[0].author;
-      setQuote(fetchedQuote);
-      setQuoteAuthor(quoteAuthor);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchQuote();
-  }, []);
+  // const history = useHistory();
 
   // useEffect(() => {
   //   if (window.screen.width > 767) {
@@ -232,6 +216,14 @@ const App = () => {
     }
   };
 
+  const toggleHabitForm = () => {
+    setShowHabitForm(!showHabitForm);
+  };
+
+  // const handleGoBack = () => {
+  //   history.push('/');
+  // };
+
   const handleRemove = async (habit: HabitType) => {
     if (window.confirm(`Do you want to delete habit: ${habit.name}?`)) {
       try {
@@ -307,10 +299,6 @@ const App = () => {
     }
   };
 
-  const toggleHabitForm = () => {
-    setShowHabitForm(!showHabitForm);
-  };
-
   const removeReset = (obj: HabitNameField) => {
     const { reset, ...rest } = obj;
     return rest;
@@ -341,18 +329,14 @@ const App = () => {
                   handleLogout={handleLogout}
                 />
                 <Home
-                  quote={quote}
-                  quoteAuthor={quoteAuthor}
                   habitsToShow={habitsToShow}
                   habitName={removeReset(habitName)}
-                  showHabitForm={showHabitForm}
-                  toggleHabitForm={toggleHabitForm}
                   handleCompletion={handleCompletion}
                   handleLogout={handleLogout}
+                  toggleHabitForm={toggleHabitForm}
+                  showHabitForm={showHabitForm}
                   loggedInUser={loggedInUser}
                   handleHabitSubmit={handleHabitSubmit}
-                  errorMessage={errorMessage}
-                  successMessage={successMessage}
                 />
               </>
             )}
@@ -365,13 +349,15 @@ const App = () => {
                 <Redirect to={redirect} />
               ) : (
                 <>
+                  <Header
+                    loggedInUser={loggedInUser}
+                    handleLogout={handleLogout}
+                  />
                   <LoginSignUp
                     username={removeReset(username)}
                     password={removeReset(password)}
                     handleLoginSubmit={handleLoginSubmit}
                     handleSignUpSubmit={handleSignUpSubmit}
-                    successMessage={successMessage}
-                    errorMessage={errorMessage}
                   />
                 </>
               )
@@ -384,12 +370,18 @@ const App = () => {
               redirect ? (
                 <Redirect to={redirect} />
               ) : (
-                <LoginSignUp
-                  username={removeReset(username)}
-                  password={removeReset(password)}
-                  handleLoginSubmit={handleLoginSubmit}
-                  handleSignUpSubmit={handleSignUpSubmit}
-                />
+                <>
+                  <Header
+                    loggedInUser={loggedInUser}
+                    handleLogout={handleLogout}
+                  />
+                  <LoginSignUp
+                    username={removeReset(username)}
+                    password={removeReset(password)}
+                    handleLoginSubmit={handleLoginSubmit}
+                    handleSignUpSubmit={handleSignUpSubmit}
+                  />
+                </>
               )
             }
           />
@@ -399,10 +391,16 @@ const App = () => {
               redirect ? (
                 <Redirect to={redirect} />
               ) : (
-                <HabitMoreInfo
-                  habit={habitById(match.params.id)}
-                  handleRemove={handleRemove}
-                />
+                <>
+                  <Header
+                    loggedInUser={loggedInUser}
+                    handleLogout={handleLogout}
+                  />
+                  <HabitMoreInfo
+                    habit={habitById(match.params.id)}
+                    handleRemove={handleRemove}
+                  />
+                </>
               )
             }
           />

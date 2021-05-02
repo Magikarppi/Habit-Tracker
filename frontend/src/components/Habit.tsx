@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Completion, HabitProps } from '../types';
+import { HabitProps } from '../types';
+import { stringShortener } from '../utils';
 
 const Div = styled.div`
   display: flex;
@@ -47,11 +48,8 @@ const Habit = ({ habit, handleCompletion }: HabitProps) => {
     return null;
   }
 
-  const findByMatchingDate = (
-    completions: Completion[],
-    dateObj: Completion
-  ) => {
-    return completions.filter((completion) => {
+  const findByMatchingDate = (completions: any, dateObj: any) => {
+    return completions.filter((completion: any) => {
       return Object.keys(dateObj).every((key) => {
         return completion[key] === dateObj[key];
       });
@@ -70,7 +68,7 @@ const Habit = ({ habit, handleCompletion }: HabitProps) => {
   return (
     <Div>
       <StyledLink data-cy="habit-link" to={`/habits/${habit.id}`}>
-        {habit.name}
+        {stringShortener(habit.name)}
       </StyledLink>
       {matchingDates.length > 0 ? (
         <DoneNotif>Done!</DoneNotif>

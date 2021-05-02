@@ -3,6 +3,7 @@ import Chart from 'react-google-charts';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { HabitMoreInfoProps } from '../types';
+import { stringShortener } from '../utils';
 
 const DeleteBtn = styled.button`
   background: #cfccc2;
@@ -17,17 +18,13 @@ const DeleteBtn = styled.button`
   text-align: center;
 `;
 
-const MyHabitsDiv = styled.div`
-  background: rgba(255, 255, 220, 0.8);
-  &:hover {
-    background: #e3bf20;
-  }
-  text-align: center;
-  color: #121200;
-  width: 50px;
-  padding: 0.25em 1em;
-  border: 2px solid #8f8d64;
-  border-radius: 3px;
+const Wrapper = styled.div`
+  margin-top: 50px;
+`;
+
+const WrapperChart = styled.div`
+  margin-left: 2%;
+  max-width: 100%;
 `;
 
 const HabitsDiv = styled.div`
@@ -45,6 +42,7 @@ const TotalDaysDiv = styled.div`
   margin: auto;
   margin-bottom: 10px;
   text-align: center;
+  color: black;
 `;
 
 const H1 = styled.h1`
@@ -72,7 +70,7 @@ const HabitMoreInfo = ({ habit, handleRemove }: HabitMoreInfoProps) => {
   ];
 
   const options = {
-    title: habit.name,
+    title: stringShortener(habit.name, 45),
     noDataPattern: {
       backgroundColor: '#000000',
       color: '#000000',
@@ -115,7 +113,7 @@ const HabitMoreInfo = ({ habit, handleRemove }: HabitMoreInfoProps) => {
       yearLabel: {
         fontName: 'Arial',
         fontSize: 32,
-        color: '#695508', // mustard
+        color: 'white',
         bold: true,
       },
     },
@@ -126,34 +124,30 @@ const HabitMoreInfo = ({ habit, handleRemove }: HabitMoreInfoProps) => {
   // Desktop view:
   if (window.screen.width > 767) {
     return (
-      <div>
-        <MyHabitsDiv data-cy="back-btn">
-          <Link to="/">Back</Link>
-        </MyHabitsDiv>
-        <Chart
-          width={'100%'}
-          height={350}
-          chartType="Calendar"
-          loader={<div>Loading Chart</div>}
-          data={data}
-          options={options}
-          rootProps={{ 'data-testid': '1' }}
-        />
+      <Wrapper>
+        <WrapperChart>
+          <Chart
+            width={'100%'}
+            height={350}
+            chartType="Calendar"
+            loader={<div>Loading Chart</div>}
+            data={data}
+            options={options}
+            rootProps={{ 'data-testid': '1' }}
+          />
+        </WrapperChart>
         <TotalDaysDiv>Times done: {totalCompletedDays}</TotalDaysDiv>
         <div>
           <DeleteBtn data-cy="delete-btn" onClick={() => handleRemove(habit)}>
             Delete
           </DeleteBtn>
         </div>
-      </div>
+      </Wrapper>
     );
   } else {
     //Mobile view:
     return (
       <div>
-        <MyHabitsDiv data-cy="back-btn">
-          <Link to="/">Back</Link>
-        </MyHabitsDiv>
         <H1>{habit.name}</H1>
         <TotalDaysDiv>Times done: {totalCompletedDays}</TotalDaysDiv>
         <HabitsDiv>

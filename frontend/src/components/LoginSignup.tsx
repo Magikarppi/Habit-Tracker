@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { LoginSignUpProps } from '../types';
 
@@ -8,18 +7,6 @@ const SubmitDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const StyledLink = styled(Link)`
-  color: #63006e;
-  font-weight: bold;
-  &:hover {
-    background: #7c7c7c;
-  }
-  /* margin-right: 300px; */
-  display: inline-block;
-  width: 40px;
-  height: 20px;
 `;
 
 const SubmitBtn = styled.button``;
@@ -32,6 +19,7 @@ const DivInput = styled.div`
   width: 200px;
   border: 2px solid #8f8d64;
   border-radius: 3px;
+  color: black;
 `;
 
 const Input = styled.input`
@@ -58,8 +46,6 @@ const LoginSignUp = ({
   password,
   handleSignUpSubmit,
   handleLoginSubmit,
-  errorMessage,
-  successMessage,
 }: LoginSignUpProps) => {
   const getLastPart = (url: string) => {
     const parts = url.split('/');
@@ -74,14 +60,7 @@ const LoginSignUp = ({
     case 'signup':
       return (
         <div>
-          <StyledLink data-cy="back-btn" to="/">
-            Back
-          </StyledLink>
           <H3>Sign Up</H3>
-          {/* <ErrSuccNotification
-            errorMessage={errorMessage}
-            successMessage={successMessage}
-          /> */}
           <div>
             <form onSubmit={handleSignUpSubmit}>
               <DivInput>
@@ -102,14 +81,7 @@ const LoginSignUp = ({
     case 'login':
       return (
         <div>
-          <StyledLink data-cy="back-btn" to="/">
-            Back
-          </StyledLink>
           <H3>Login</H3>
-          {/* <ErrSuccNotification
-            errorMessage={errorMessage}
-            successMessage={successMessage}
-          /> */}
           <div>
             <form onSubmit={handleLoginSubmit}>
               <DivInput>

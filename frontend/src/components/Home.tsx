@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { getQuote } from '../services/quote';
 
 import { HomeProps } from '../types';
 import AddHabit from './AddHabit';
@@ -84,17 +85,34 @@ const NewHabitBtn = styled.button`
 `;
 
 const Home = ({
-  quote,
-  quoteAuthor,
   loggedInUser,
   handleLogout,
   habitsToShow,
-  showHabitForm,
   handleHabitSubmit,
   habitName,
+  showHabitForm,
   toggleHabitForm,
   handleCompletion,
 }: HomeProps) => {
+  const [quote, setQuote] = useState('');
+  const [quoteAuthor, setQuoteAuthor] = useState('');
+
+  const fetchQuote = async () => {
+    try {
+      const response = await getQuote();
+      const fetchedQuote = response.contents.quotes[0].quote;
+      const quoteAuthor = response.contents.quotes[0].author;
+      setQuote(fetchedQuote);
+      setQuoteAuthor(quoteAuthor);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchQuote();
+  }, []);
+
   return loggedInUser ? (
     <Wrapper>
       {showHabitForm ? (
