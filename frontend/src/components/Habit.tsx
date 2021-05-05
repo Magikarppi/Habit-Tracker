@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { HabitProps } from '../types';
+
+import { Completion, HabitProps, HabitType } from '../types';
 import { stringShortener } from '../utils';
 
 const Div = styled.div`
@@ -10,7 +11,7 @@ const Div = styled.div`
   align-items: center;
   justify-content: center;
   border: 1px solid black;
-  height: 140px;
+  height: 180px;
   width: 90%;
 `;
 
@@ -36,14 +37,37 @@ const DoneNotif = styled.div`
   background: #73ff00;
   width: 50px;
   font-size: 0.9em;
-  margin: auto;
-  margin-top: 1em;
+  /* margin: auto; */
+  /* margin-top: 1em; */
+  margin-top: 5px;
   border: 2px solid #000000;
   border-radius: 3px;
   text-align: center;
 `;
 
+const StreakDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background: white; */
+  border: 2px solid #000000;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  font-size: 0.9em;
+  color: black;
+`;
+
 const Habit = ({ habit, handleCompletion }: HabitProps) => {
+  const [currentStreak, setCurrentStreak] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (habit) {
+      setCurrentStreak(getCurrentStreak(habit.completions));
+    }
+  }, [habit]);
+
   if (!habit) {
     return null;
   }
@@ -65,11 +89,78 @@ const Habit = ({ habit, handleCompletion }: HabitProps) => {
 
   const matchingDates = findByMatchingDate(habit.completions, todayObj);
 
+  // const dummyHabit: HabitType = {
+  //   completions: [
+  //     {
+  //       thisDay: 2,
+  //       thisMonth: 4,
+  //       thisYear: 2021,
+  //     },
+  //     {
+  //       thisDay: 3,
+  //       thisMonth: 4,
+  //       thisYear: 2021,
+  //     },
+  //     {
+  //       thisDay: 4,
+  //       thisMonth: 4,
+  //       thisYear: 2021,
+  //     },
+  //     {
+  //       thisDay: 5,
+  //       thisMonth: 4,
+  //       thisYear: 2021,
+  //     },
+  //   ],
+  //   id: 'sagassagsa',
+  //   name: 'Testaa Streak',
+  // };
+
+  const getCurrentStreak = (completions: Completion[]) => {
+    let count = 0;
+    const transformToDateString = (completion: Completion) => {
+      return `${completion.thisYear}-${completion.thisMonth + 1}-${
+        completion.thisDay + 1
+      }`;
+    };
+    completions.reverse().forEach((el, i) => {
+      const today = new Date().setUTCHours(0, 0, 0, 0);
+      const currElDate = new Date(transformToDateString(el)).setUTCHours(
+        0,
+        0,
+        0,
+        0
+      );
+
+      const milliSecondsInADay = 86400000;
+      const daysPassed = i * milliSecondsInADay;
+      const daysPassedSinceCompletion = today - currElDate;
+
+      if (daysPassedSinceCompletion === daysPassed) {
+        count++;
+      }
+    });
+    return count;
+  };
+
   return (
     <Div>
       <StyledLink data-cy="habit-link" to={`/habits/${habit.id}`}>
         {stringShortener(habit.name)}
       </StyledLink>
+      {currentStreak && currentStreak > 1 ? (
+        <StreakDiv>
+          <p style={{ fontSize: '10px' }}>Streak</p>
+          {currentStreak}
+        </StreakDiv>
+      ) : (
+        <StreakDiv
+          style={{
+            background: 'none',
+            border: 'none',
+          }}
+        ></StreakDiv>
+      )}
       {matchingDates.length > 0 ? (
         <DoneNotif>Done!</DoneNotif>
       ) : (

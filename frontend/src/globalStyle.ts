@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
   text-align: center;
   vertical-align: center;
   font-size: 1em;
-  margin: 1em;
+  margin: 0.5em;
   padding: 1em 1em;
   border: 2px solid black;
   border-radius: 3px;

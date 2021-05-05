@@ -1,3 +1,4 @@
+import { useSpring } from 'react-spring';
 import styled from 'styled-components';
 
 import { HomeProps } from '../types';
@@ -73,6 +74,13 @@ const Home = ({
   toggleHabitForm,
   showHabitForm,
 }: HomeProps) => {
+  // const addHabitAnimation = useSpring({
+  //   to: {
+  //     transform: 'translateX(45%)',
+  //   },
+  //   from: 'translateX(-1%)',
+  // });
+
   return loggedInUser ? (
     <Wrapper>
       {showHabitForm || loggedInUser.habits.length === 0 ? (

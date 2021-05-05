@@ -5,11 +5,20 @@ import styled from 'styled-components';
 import LoggedEmpty from '../images/Habit-tracker-Logged-empty.png';
 import { getQuote } from '../services/quote';
 
+const Wrapper = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 const ButtonWrapper = styled.div`
+  width: 50%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 `;
 
 const StyledLink = styled(Link)`
@@ -26,14 +35,18 @@ const StyledLink = styled(Link)`
 const ParagraphSmall = styled.p`
   margin: auto;
   margin-top: 20px;
-  text-shadow: 1px 1px;
+  margin-left: 10px;
+  margin-right: 10px;
   text-align: center;
   width: 60%;
-  padding: 0.25em 1em;
 `;
 
-const ParagraphMed = styled(ParagraphSmall)`
+const ParagraphMed = styled.p`
   font-size: 20px;
+  width: 60%;
+  text-align: center;
+  margin: auto;
+  margin-top: 20px;
   color: #fffc37;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   @media (min-width: 767px) {
@@ -41,8 +54,12 @@ const ParagraphMed = styled(ParagraphSmall)`
   }
 `;
 
-const ParagraphBig = styled(ParagraphSmall)`
+const ParagraphBig = styled.p`
   font-size: 30px;
+  width: 60%;
+  text-align: center;
+  margin: auto;
+  margin-top: 20px;
   @media (min-width: 767px) {
     font-size: 60px;
   }
@@ -59,7 +76,7 @@ const Italic = styled.span`
 const GuideWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   background-color: teal;
   @media (min-width: 767px) {
     flex-direction: row;
@@ -69,11 +86,17 @@ const GuideWrapper = styled.div`
 const GuidePairWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   @media (min-width: 767px) {
     flex-direction: row;
   }
+`;
+
+const ParagraphWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const imgStyle = {
@@ -119,9 +142,11 @@ const LoggedOutView = () => {
         </StyledLink>
       </ButtonWrapper>
       {quote ? (
-        <ParagraphSmall data-testid="quotePara">
-          "{<Italic>{quote}</Italic>}" - {quoteAuthor}
-        </ParagraphSmall>
+        <ParagraphWrapper>
+          <ParagraphSmall data-testid="quotePara">
+            "{<Italic>{quote}</Italic>}" - {quoteAuthor}
+          </ParagraphSmall>
+        </ParagraphWrapper>
       ) : null}
       <div
         style={{
@@ -130,11 +155,13 @@ const LoggedOutView = () => {
           borderTopRightRadius: 10,
         }}
       >
-        <ParagraphMed>Here is how Habit Tracker works:</ParagraphMed>
+        <ParagraphMed style={{ color: 'white' }}>
+          Here is how Habit Tracker works:
+        </ParagraphMed>
       </div>
       <GuideWrapper>
         <GuidePairWrapper>
-          <ParagraphSmall>
+          <ParagraphSmall style={{ width: '150px' }}>
             Log in and add a habit that you want to track
           </ParagraphSmall>
           <img
@@ -144,8 +171,8 @@ const LoggedOutView = () => {
           />
         </GuidePairWrapper>
         <GuidePairWrapper>
-          <ParagraphSmall>
-            View all your habits and mark them done for today
+          <ParagraphSmall style={{ width: '150px' }}>
+            View all your habits and mark them as done
           </ParagraphSmall>
           <img
             src={LoggedEmpty}
@@ -154,7 +181,7 @@ const LoggedOutView = () => {
           />
         </GuidePairWrapper>
         <GuidePairWrapper>
-          <ParagraphSmall>
+          <ParagraphSmall style={{ width: '150px' }}>
             View completed days in a calendar and delete habit if necessary
           </ParagraphSmall>
           <img
