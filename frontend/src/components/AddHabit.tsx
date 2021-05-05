@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
@@ -72,6 +72,14 @@ const AddHabit = ({
   habitName,
   toggleHabitForm,
 }: AddHabitProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   const initialValues = {
     habitName: '',
   };
@@ -104,6 +112,7 @@ const AddHabit = ({
                 type="habitName"
                 name="habitName"
                 placeholder="Habit name"
+                innerRef={inputRef}
               />
             </DivInput>
             <ErrorMessage name="username" component={ErrorDiv} />

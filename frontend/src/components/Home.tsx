@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { getQuote } from '../services/quote';
 
 import { HomeProps } from '../types';
 import AddHabit from './AddHabit';
 import Habit from './Habit';
+import LoggedOutView from './LoggedOutView';
 
 const HabitsDiv = styled.div`
   background: rgba(255, 255, 220, 0.8);
@@ -16,24 +14,7 @@ const HabitsDiv = styled.div`
   width: 300px;
   padding: 10px;
   margin: auto;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StyledLink = styled(Link)`
-  color: #63006e;
-  font-weight: bold;
-  margin-right: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 30px;
+  margin-bottom: 5%;
 `;
 
 const ParagraphSmall = styled.p`
@@ -59,14 +40,6 @@ const ParagraphBig = styled(ParagraphSmall)`
   @media (min-width: 767px) {
     font-size: 60px;
   }
-`;
-
-const Underline = styled.span`
-  text-decoration: underline;
-`;
-
-const Italic = styled.span`
-  font-style: italic;
 `;
 
 const Wrapper = styled.div`
@@ -96,32 +69,13 @@ const Home = ({
   habitsToShow,
   handleHabitSubmit,
   habitName,
-  showHabitForm,
-  toggleHabitForm,
   handleCompletion,
+  toggleHabitForm,
+  showHabitForm,
 }: HomeProps) => {
-  const [quote, setQuote] = useState('');
-  const [quoteAuthor, setQuoteAuthor] = useState('');
-
-  const fetchQuote = async () => {
-    try {
-      const response = await getQuote();
-      const fetchedQuote = response.contents.quotes[0].quote;
-      const quoteAuthor = response.contents.quotes[0].author;
-      setQuote(fetchedQuote);
-      setQuoteAuthor(quoteAuthor);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchQuote();
-  }, []);
-
   return loggedInUser ? (
     <Wrapper>
-      {showHabitForm ? (
+      {showHabitForm || loggedInUser.habits.length === 0 ? (
         <div data-testid="habitForm-open-div">
           <AddHabit
             handleHabitSubmit={handleHabitSubmit}
@@ -148,32 +102,19 @@ const Home = ({
             />
           ))}
         </HabitsDiv>
-      ) : null}
+      ) : (
+        <>
+          <ParagraphBig>Add your first habit in the form above</ParagraphBig>
+          <ParagraphMed>Here are a few ideas if you need a spark:</ParagraphMed>
+          <ParagraphSmall>"Physical exercise"</ParagraphSmall>
+          <ParagraphSmall>"Reading"</ParagraphSmall>
+          <ParagraphSmall>"Explore wikipedia"</ParagraphSmall>
+          <ParagraphSmall>"Practice magic tricks"</ParagraphSmall>
+        </>
+      )}
     </Wrapper>
   ) : (
-    <div>
-      {/* <H1>{consts.appName}</H1> */}
-      <ParagraphBig>
-        Did you know that the things that you do{' '}
-        <Underline>repeatedly</Underline> construct your identity and determine
-        the success that you are going to have?
-      </ParagraphBig>
-      <ParagraphMed>Start tracking your habits now!</ParagraphMed>
-      <ButtonWrapper>
-        <StyledLink data-cy="login-btn" data-testid="login-btn" to="/login">
-          Login
-        </StyledLink>
-        <StyledLink data-cy="signup-btn" data-testid="signup-btn" to="/signup">
-          Sign up
-        </StyledLink>
-      </ButtonWrapper>
-      {quote ? (
-        <ParagraphSmall data-testid="quotePara">
-          "{<Italic>{quote}</Italic>}" - {quoteAuthor}
-        </ParagraphSmall>
-      ) : null}
-      {/* <ParagraphMed>Here is how Habit Tracker works:</ParagraphMed> */}
-    </div>
+    <LoggedOutView />
   );
 };
 

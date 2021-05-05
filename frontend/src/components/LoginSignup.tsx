@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
@@ -43,6 +43,14 @@ const LoginSignUp = ({
   handleSignUpSubmit,
   handleLoginSubmit,
 }: LoginSignUpProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   const getLastPart = (url: string) => {
     const parts = url.split('/');
     return url.lastIndexOf('/') !== url.length - 1
@@ -95,6 +103,7 @@ const LoginSignUp = ({
                       type="username"
                       name="username"
                       placeholder="Username"
+                      innerRef={inputRef}
                     />
                   </DivInput>
                   <ErrorMessage name="username" component={ErrorDiv} />
@@ -134,6 +143,7 @@ const LoginSignUp = ({
                       type="username"
                       name="username"
                       placeholder="Username"
+                      innerRef={inputRef}
                     />
                   </DivInput>
                   <ErrorMessage name="username" component={ErrorDiv} />
