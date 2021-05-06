@@ -73,6 +73,8 @@ const LoginSignUp = ({
       errors.username = 'Username is required!';
     } else if (username.length >= 12) {
       errors.username = 'Max length is 12 chars';
+    } else if (username.length < 3) {
+      errors.username = 'Username should be at least 3 chars';
     }
 
     if (!password) {
@@ -104,6 +106,7 @@ const LoginSignUp = ({
                       name="username"
                       placeholder="Username"
                       innerRef={inputRef}
+                      data-cy="username-input"
                     />
                   </DivInput>
                   <ErrorMessage name="username" component={ErrorDiv} />
@@ -112,11 +115,14 @@ const LoginSignUp = ({
                       type="password"
                       name="password"
                       placeholder="Password"
+                      data-cy="password-input"
                     />
                   </DivInput>
                   <ErrorMessage name="password" component={ErrorDiv} />
                   <SubmitDiv>
-                    <SubmitBtn type="submit">Submit</SubmitBtn>
+                    <SubmitBtn type="submit" data-cy="submit-btn">
+                      Submit
+                    </SubmitBtn>
                   </SubmitDiv>
                 </Form>
               )}
@@ -144,6 +150,7 @@ const LoginSignUp = ({
                       name="username"
                       placeholder="Username"
                       innerRef={inputRef}
+                      data-cy="username-input"
                     />
                   </DivInput>
                   <ErrorMessage name="username" component={ErrorDiv} />
@@ -152,11 +159,14 @@ const LoginSignUp = ({
                       type="password"
                       name="password"
                       placeholder="Password"
+                      data-cy="password-input"
                     />
                   </DivInput>
                   <ErrorMessage name="password" component={ErrorDiv} />
                   <SubmitDiv>
-                    <SubmitBtn type="submit">Submit</SubmitBtn>
+                    <SubmitBtn type="submit" data-cy="submit-btn">
+                      Submit
+                    </SubmitBtn>
                   </SubmitDiv>
                 </Form>
               )}

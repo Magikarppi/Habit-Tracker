@@ -27,6 +27,7 @@ import GlobalStyle from './globalStyle';
 import LoginSignUp from './components/LoginSignUp';
 import ErrSuccNotification from './components/ErrSuccNotification';
 import Header from './components/Header';
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 const App = () => {
   const [habitsToShow, setHabitsToShow] = useState<HabitsToShow>([]);
@@ -167,7 +168,10 @@ const App = () => {
     window.localStorage.clear();
     setLoggedInUser(null);
     setHabitsToShow([]);
+    setRedirect('/');
   };
+
+  console.log('redirect', redirect);
 
   const handleHabitSubmit = async (values: HabitInputValue) => {
     // e.preventDefault();
@@ -399,6 +403,7 @@ const App = () => {
               )
             }
           />
+          <Route render={() => <Redirect to={{ pathname: '/' }} />} />
         </div>
       </Router>
     </div>

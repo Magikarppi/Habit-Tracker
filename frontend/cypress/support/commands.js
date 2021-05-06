@@ -1,57 +1,59 @@
+/* eslint-disable no-undef */
 let token = 'Bearer 13r1331k31j3r3rj';
 
-Cypress.Commands.add("resetDB", () => {
-  cy.request('POST', 'http://localhost:3003/api/testing/reset')
-})
+Cypress.Commands.add('resetDB', () => {
+  cy.request('POST', 'http://localhost:3003/api/testing/reset');
+});
 
-Cypress.Commands.add("signup", () => {
+Cypress.Commands.add('signup', () => {
   cy.visit('http://localhost:3000');
-  cy.contains('Sign up').click();
-  cy.get('[data-cy=signup-user-input]').type('TestDude');
-  cy.get('[data-cy=signup-pass-input]').type('passw');
-  cy.get('[data-cy=signup-submit]').click();
+  cy.get('[data-cy=signup-btn]').click();
+  cy.get('[data-cy=username-input]').type('TestDude');
+  cy.get('[data-cy=password-input]').type('passw');
+  cy.get('[data-cy=submit-btn]').click();
   // cy.url().should('eq', 'http://localhost:3000/login')
-})
+});
 
-Cypress.Commands.add("login", () => {
+Cypress.Commands.add('login', () => {
   // cy.visit('http://localhost:3000');
   // cy.contains('Sign up').click();
   // cy.get('[data-cy=signup-user-input]').type('TestDude');
   // cy.get('[data-cy=signup-pass-input]').type('passw');
   // cy.get('[data-cy=signup-submit]').click();
-  cy.contains('Login').click();
-  cy.get('[data-cy=login-user-input]').type('TestDude');
-  cy.get('[data-cy=login-pass-input]').type('passw');
-  cy.get('[data-cy=login-submit]').click();
+  // cy.contains('Login').click();
+  cy.get('[data-cy=username-input]').type('TestDude');
+  cy.get('[data-cy=password-input]').type('passw');
+  cy.get('[data-cy=submit-btn]').click();
   // cy.url().should('eq', 'http://localhost:3000/')
-})
+});
 
-Cypress.Commands.add('loginMock', () => { 
+Cypress.Commands.add('loginMock', () => {
   cy.request({
     method: 'POST',
     url: 'http://localhost:3000/api/login',
     body: {
-        username: 'TestDude',
-        password: 'passw',
-    }
-  })
-  .then((resp) => {
-    window.localStorage.setItem('loggedHabitAppUser', JSON.stringify(resp.body))
-    token = `Bearer ${resp.body.token}`
-  })
-  
-})
+      username: 'TestDude',
+      password: 'passw',
+    },
+  }).then((resp) => {
+    window.localStorage.setItem(
+      'loggedHabitAppUser',
+      JSON.stringify(resp.body)
+    );
+    token = `Bearer ${resp.body.token}`;
+  });
+});
 
 Cypress.Commands.add('addHabit', () => {
   cy.request({
     method: 'POST',
     url: 'http://localhost:3000/api/habits',
     body: {
-        name: 'Mindfullness meditation',
+      name: 'Mindfullness meditation',
     },
-    headers: { 'Content-Type': 'application/json', 'Authorization': token }
-  })
-})
+    headers: { 'Content-Type': 'application/json', Authorization: token },
+  });
+});
 
 // Cypress.Commands.add("signupMock", () => {
 //   const user = {
@@ -73,8 +75,6 @@ Cypress.Commands.add('addHabit', () => {
 //   cy.get('[data-cy=habit-submit]').click();
 //   cy.contains('Mindfullness meditation');
 // })
-
-
 
 // ***********************************************
 // This example commands.js shows you how to

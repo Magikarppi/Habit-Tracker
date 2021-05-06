@@ -16,6 +16,7 @@ const HabitsDiv = styled.div`
   padding: 10px;
   margin: auto;
   margin-bottom: 5%;
+  border-radius: 10px;
 `;
 
 const ParagraphSmall = styled.p`

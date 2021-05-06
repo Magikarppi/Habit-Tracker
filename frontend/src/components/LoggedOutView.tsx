@@ -15,6 +15,8 @@ const Wrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   width: 50%;
+  margin: auto;
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -97,6 +99,8 @@ const ParagraphWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 6%;
+  margin-top: 2%;
 `;
 
 const imgStyle = {
@@ -156,7 +160,7 @@ const LoggedOutView = () => {
         }}
       >
         <ParagraphMed style={{ color: 'white' }}>
-          Here is how Habit Tracker works:
+          This is how Habit Tracker works:
         </ParagraphMed>
       </div>
       <GuideWrapper>
