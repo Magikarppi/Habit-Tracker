@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 let token = 'Bearer 13r1331k31j3r3rj';
 
 Cypress.Commands.add('resetDB', () => {
@@ -6,7 +5,7 @@ Cypress.Commands.add('resetDB', () => {
 });
 
 Cypress.Commands.add('signup', () => {
-  cy.visit('http://localhost:3000');
+  cy.visit('/');
   cy.get('[data-cy=signup-btn]').click();
   cy.get('[data-cy=username-input]').type('TestDude');
   cy.get('[data-cy=password-input]').type('passw');
@@ -30,7 +29,7 @@ Cypress.Commands.add('login', () => {
 Cypress.Commands.add('loginMock', () => {
   cy.request({
     method: 'POST',
-    url: 'http://localhost:3000/api/login',
+    url: '/api/login',
     body: {
       username: 'TestDude',
       password: 'passw',
@@ -47,7 +46,7 @@ Cypress.Commands.add('loginMock', () => {
 Cypress.Commands.add('addHabit', () => {
   cy.request({
     method: 'POST',
-    url: 'http://localhost:3000/api/habits',
+    url: '/api/habits',
     body: {
       name: 'Mindfullness meditation',
     },

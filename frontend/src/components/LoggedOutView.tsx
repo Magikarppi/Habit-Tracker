@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import LoggedEmpty from '../images/Habit-tracker-Logged-empty.png';
+import LoggedEmptyImg from '../images/Habit-tracker-Logged-empty.png';
+import HabitMoreInfoImg from '../images/Habit-tracker-habit-more-info.png';
+import LoggedHabitsImg from '../images/Habit-tracker-Logged-habits-big-img.png';
 import { getQuote } from '../services/quote';
 
 const Wrapper = styled.div`
@@ -151,7 +153,11 @@ const LoggedOutView = () => {
             "{<Italic>{quote}</Italic>}" - {quoteAuthor}
           </ParagraphSmall>
         </ParagraphWrapper>
-      ) : null}
+      ) : (
+        <ParagraphWrapper>
+          <ParagraphSmall />
+        </ParagraphWrapper>
+      )}
       <div
         style={{
           backgroundColor: 'teal',
@@ -159,7 +165,7 @@ const LoggedOutView = () => {
           borderTopRightRadius: 10,
         }}
       >
-        <ParagraphMed style={{ color: 'white' }}>
+        <ParagraphMed style={{ color: 'white', paddingBottom: '20px' }}>
           This is how Habit Tracker works:
         </ParagraphMed>
       </div>
@@ -169,7 +175,7 @@ const LoggedOutView = () => {
             Log in and add a habit that you want to track
           </ParagraphSmall>
           <img
-            src={LoggedEmpty}
+            src={LoggedEmptyImg}
             alt="Logged in view no habits"
             style={imgStyle}
           />
@@ -179,7 +185,7 @@ const LoggedOutView = () => {
             View all your habits and mark them as done
           </ParagraphSmall>
           <img
-            src={LoggedEmpty}
+            src={LoggedHabitsImg}
             alt="Logged in view no habits"
             style={imgStyle}
           />
@@ -189,7 +195,7 @@ const LoggedOutView = () => {
             View completed days in a calendar and delete habit if necessary
           </ParagraphSmall>
           <img
-            src={LoggedEmpty}
+            src={HabitMoreInfoImg}
             alt="Logged in view no habits"
             style={{ ...imgStyle, marginRight: '5px' }}
           />

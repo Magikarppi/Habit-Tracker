@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     min-height: 100%;
+    max-width: 100%;
     background: linear-gradient(teal, purple);
     font-family: Open-Sans, Helvetica, Sans-Serif;
     color: #fafafa;

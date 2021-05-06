@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -62,11 +62,15 @@ const StreakDiv = styled.div`
 const Habit = ({ habit, handleCompletion }: HabitProps) => {
   const [currentStreak, setCurrentStreak] = useState<number | null>(null);
 
+  console.log(habit ? habit.name : null, 'currentStreak:' + currentStreak);
+  // console.log(`${habit?.name} completions:`, habit?.completions);
+
   useEffect(() => {
     if (habit) {
+      console.log('setCurrentStreak useEffect');
       setCurrentStreak(getCurrentStreak(habit.completions));
     }
-  }, [habit]);
+  }, [habit, handleCompletion]);
 
   if (!habit) {
     return null;
@@ -117,6 +121,7 @@ const Habit = ({ habit, handleCompletion }: HabitProps) => {
   // };
 
   const getCurrentStreak = (completions: Completion[]) => {
+    console.log(habit.name + ' completions in gCS: ' + completions);
     let count = 0;
     const transformToDateString = (completion: Completion) => {
       return `${completion.thisYear}-${completion.thisMonth + 1}-${
@@ -140,6 +145,7 @@ const Habit = ({ habit, handleCompletion }: HabitProps) => {
         count++;
       }
     });
+    console.log(`${habit.name} count:`, count);
     return count;
   };
 

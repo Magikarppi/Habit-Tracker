@@ -169,9 +169,8 @@ const App = () => {
     setLoggedInUser(null);
     setHabitsToShow([]);
     setRedirect('/');
+    setRedirect(null);
   };
-
-  console.log('redirect', redirect);
 
   const handleHabitSubmit = async (values: HabitInputValue) => {
     // e.preventDefault();
@@ -218,10 +217,6 @@ const App = () => {
   const toggleHabitForm = () => {
     setShowHabitForm(!showHabitForm);
   };
-
-  // const handleGoBack = () => {
-  //   history.push('/');
-  // };
 
   const handleRemove = async (habit: HabitType) => {
     if (window.confirm(`Do you want to delete habit: ${habit.name}?`)) {
