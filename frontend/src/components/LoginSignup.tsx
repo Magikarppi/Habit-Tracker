@@ -72,15 +72,15 @@ const LoginSignUp = ({
     if (!username) {
       errors.username = 'Username is required!';
     } else if (username.length >= 12) {
-      errors.username = 'Max length is 12 chars';
+      errors.username = 'Max length is 12 characters';
     } else if (username.length < 3) {
-      errors.username = 'Username should be at least 3 chars';
+      errors.username = 'Username should be at least 3 characters';
     }
 
     if (!password) {
       errors.password = 'Password is required!';
     } else if (password.length < 5) {
-      errors.password = 'Password should be at least 5 chars long';
+      errors.password = 'Password should be at least 5 characters long';
     }
     return errors;
   };

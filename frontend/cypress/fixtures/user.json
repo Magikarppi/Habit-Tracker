@@ -1,0 +1,17 @@
+{
+  "username": "TestDude",
+  "id": "giggitygiggity3315513",
+  "habits": [
+    {
+      "name": "Pelaa Heroesta",
+      "id": "gdagaegqqgh49",
+      "completions": [
+        {
+          "thisDay": "8",
+          "thisMonth": "4",
+          "thisYear": "2021"
+        }
+      ]
+    }
+  ]
+}

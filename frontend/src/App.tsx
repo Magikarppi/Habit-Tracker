@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from 'react-router-dom';
 
 import './App.css';
 import { setToken, create, remove, update } from './services/habits';
@@ -313,7 +318,8 @@ const App = () => {
         successMessage={successMessage}
       />
       <Router>
-        <div>
+        {/* <div> */}
+        <Switch>
           <Route
             exact
             path="/"
@@ -400,7 +406,8 @@ const App = () => {
             }
           />
           <Route render={() => <Redirect to={{ pathname: '/' }} />} />
-        </div>
+        </Switch>
+        {/* </div> */}
       </Router>
     </div>
   );

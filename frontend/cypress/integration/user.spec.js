@@ -35,13 +35,17 @@ describe('Habit app', () => {
       cy.resetDB();
     });
 
-    it('User can sign up and log in', () => {
+    it('User can sign up, log in and log out', () => {
       cy.signup();
       cy.contains('A new user created');
       cy.url().should('eq', Cypress.config().baseUrl + '/login');
       cy.login();
       cy.contains('TestDude logged in');
       cy.url().should('eq', Cypress.config().baseUrl + '/');
+      cy.get('[data-cy=logout-btn]').click();
+      cy.url().should('eq', Cypress.config().baseUrl + '/');
+      cy.contains('TestDude logged in').should('not.exist');
+      cy.get('[data-cy=logout-btn]').should('not.exist');
     });
 
     it(`User can't sign up with username with less than three characters`, () => {

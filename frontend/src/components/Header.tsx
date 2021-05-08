@@ -103,7 +103,7 @@ const Header = ({ loggedInUser, handleLogout }: HeaderProps) => {
       </HeaderSubWrapper>
       <HeaderSubWrapper>
         <LoggedInDiv>{loggedInUser.username} logged in</LoggedInDiv>
-        <LogOutBtn data-testid="logout-btn" onClick={handleLogout}>
+        <LogOutBtn data-cy="logout-btn" onClick={handleLogout}>
           Log out
         </LogOutBtn>
       </HeaderSubWrapper>
