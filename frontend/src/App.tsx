@@ -27,7 +27,7 @@ import GlobalStyle from './globalStyle';
 import LoginSignUp from './components/LoginSignUp';
 import ErrSuccNotification from './components/ErrSuccNotification';
 import Header from './components/Header';
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
+import { dummyUser } from './utils';
 
 const App = () => {
   const [habitsToShow, setHabitsToShow] = useState<HabitsToShow>([]);
@@ -53,6 +53,7 @@ const App = () => {
     const loggedUserJSON = window.localStorage.getItem('loggedHabitAppUser');
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
+      // const user = { ...loggedUserJSON, token: '3515tegrbrh5335h' };
       setLoggedInUser(user);
       setHabitsToShow(user.habits);
       setToken(user.token);

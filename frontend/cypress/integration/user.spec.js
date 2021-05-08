@@ -10,23 +10,23 @@ describe('Habit app', () => {
 
   it('sign up form can be opened and back btn returns to home', () => {
     cy.get('[data-cy=signup-btn]').click(); //change to data-cy plus all else similar cases. And do cy.server() and route to stub login and signup because I lready have tested those that they will work
-    cy.url().should('eq', '/signup');
+    cy.url().should('eq', Cypress.config().baseUrl + '/signup');
     cy.contains('Sign Up');
-    cy.contains('[data-cy=username-input]');
-    cy.contains('[data-cy=password-input]');
+    cy.get('[data-cy=username-input]');
+    cy.get('[data-cy=password-input]');
     cy.get('[data-cy=back-btn]').click(); //change to data-cy plus all else similar cases. And do cy.server() and route to stub login and signup because I lready have tested those that they will work
-    cy.url().should('eq', '/');
+    cy.url().should('eq', Cypress.config().baseUrl + '/');
     cy.contains('Start tracking your habits now!');
   });
 
   it('login form can be opened and back btn returns to home ', () => {
     cy.get('[data-cy=login-btn]').click(); //change to data-cy plus all else similar cases. And do cy.server() and route to stub login and signup because I lready have tested those that they will work
-    cy.url().should('eq', '/login');
+    cy.url().should('eq', Cypress.config().baseUrl + '/login');
     cy.contains('Login');
-    cy.contains('[data-cy=username-input]');
-    cy.contains('[data-cy=password-input]');
+    cy.get('[data-cy=username-input]');
+    cy.get('[data-cy=password-input]');
     cy.get('[data-cy=back-btn]').click(); //change to data-cy plus all else similar cases. And do cy.server() and route to stub login and signup because I lready have tested those that they will work
-    cy.url().should('eq', '/');
+    cy.url().should('eq', Cypress.config().baseUrl + '/');
     cy.contains('Start tracking your habits now!');
   });
 
@@ -38,10 +38,10 @@ describe('Habit app', () => {
     it('User can sign up and log in', () => {
       cy.signup();
       cy.contains('A new user created');
-      cy.url().should('eq', '/login');
+      cy.url().should('eq', Cypress.config().baseUrl + '/login');
       cy.login();
       cy.contains('TestDude logged in');
-      cy.url().should('eq', '/');
+      cy.url().should('eq', Cypress.config().baseUrl + '/');
     });
 
     it(`User can't sign up with username with less than three characters`, () => {
@@ -51,7 +51,7 @@ describe('Habit app', () => {
       cy.get('[data-cy=submit-btn]').click();
       cy.contains('Username should be at least 3');
       cy.contains('A new user created').should('not.exist');
-      cy.url().should('eq', '/signup');
+      cy.url().should('eq', Cypress.config().baseUrl + '/signup');
     });
 
     it(`User can't sign up with password with less than five characters`, () => {
@@ -61,7 +61,7 @@ describe('Habit app', () => {
       cy.get('[data-cy=submit-btn]').click();
       cy.contains('Password should be at least 5');
       cy.contains('A new user created').should('not.exist');
-      cy.url().should('eq', '/signup');
+      cy.url().should('eq', Cypress.config().baseUrl + '/signup');
     });
   });
 });

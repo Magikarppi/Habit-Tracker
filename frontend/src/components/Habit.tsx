@@ -35,6 +35,7 @@ const DoneBtn = styled.button`
 
 const DoneNotif = styled.div`
   background: #73ff00;
+  color: black;
   width: 50px;
   font-size: 0.9em;
   /* margin: auto; */
@@ -62,12 +63,8 @@ const StreakDiv = styled.div`
 const Habit = ({ habit, handleCompletion }: HabitProps) => {
   const [currentStreak, setCurrentStreak] = useState<number | null>(null);
 
-  console.log(habit ? habit.name : null, 'currentStreak:' + currentStreak);
-  // console.log(`${habit?.name} completions:`, habit?.completions);
-
   useEffect(() => {
     if (habit) {
-      console.log('setCurrentStreak useEffect');
       setCurrentStreak(getCurrentStreak(habit.completions));
     }
   }, [habit, handleCompletion]);
@@ -93,42 +90,15 @@ const Habit = ({ habit, handleCompletion }: HabitProps) => {
 
   const matchingDates = findByMatchingDate(habit.completions, todayObj);
 
-  // const dummyHabit: HabitType = {
-  //   completions: [
-  //     {
-  //       thisDay: 2,
-  //       thisMonth: 4,
-  //       thisYear: 2021,
-  //     },
-  //     {
-  //       thisDay: 3,
-  //       thisMonth: 4,
-  //       thisYear: 2021,
-  //     },
-  //     {
-  //       thisDay: 4,
-  //       thisMonth: 4,
-  //       thisYear: 2021,
-  //     },
-  //     {
-  //       thisDay: 5,
-  //       thisMonth: 4,
-  //       thisYear: 2021,
-  //     },
-  //   ],
-  //   id: 'sagassagsa',
-  //   name: 'Testaa Streak',
-  // };
-
   const getCurrentStreak = (completions: Completion[]) => {
-    console.log(habit.name + ' completions in gCS: ' + completions);
     let count = 0;
     const transformToDateString = (completion: Completion) => {
       return `${completion.thisYear}-${completion.thisMonth + 1}-${
         completion.thisDay + 1
       }`;
     };
-    completions.reverse().forEach((el, i) => {
+    const completionsCopy = [...completions];
+    completionsCopy.reverse().forEach((el, i) => {
       const today = new Date().setUTCHours(0, 0, 0, 0);
       const currElDate = new Date(transformToDateString(el)).setUTCHours(
         0,
@@ -145,7 +115,6 @@ const Habit = ({ habit, handleCompletion }: HabitProps) => {
         count++;
       }
     });
-    console.log(`${habit.name} count:`, count);
     return count;
   };
 

@@ -118,17 +118,30 @@ const LoggedOutView = () => {
   const fetchQuote = async () => {
     try {
       const response = await getQuote();
-      const fetchedQuote = response.contents.quotes[0].quote;
-      const quoteAuthor = response.contents.quotes[0].author;
-      setQuote(fetchedQuote);
-      setQuoteAuthor(quoteAuthor);
+      const quoteObject = {
+        quote: response.contents.quotes[0].quote,
+        author: response.contents.quotes[0].author,
+      };
+      return quoteObject;
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchQuote();
+    let mounted = true;
+    const getQuote = async () => {
+      const fetchedQuoteObject = await fetchQuote();
+      if (mounted) {
+        setQuote(fetchedQuoteObject?.quote);
+        setQuoteAuthor(fetchedQuoteObject?.author);
+      }
+    };
+    getQuote();
+
+    return function cleanup() {
+      mounted = false;
+    };
   }, []);
 
   return (
