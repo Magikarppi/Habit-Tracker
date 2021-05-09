@@ -1,28 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.53cfdd0b.chunk.css",
-    "main.js": "/static/js/main.704b0620.chunk.js",
-    "main.js.map": "/static/js/main.704b0620.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.1c2d59f4.js",
-    "runtime-main.js.map": "/static/js/runtime-main.1c2d59f4.js.map",
-    "static/js/2.ab4ee332.chunk.js": "/static/js/2.ab4ee332.chunk.js",
-    "static/js/2.ab4ee332.chunk.js.map": "/static/js/2.ab4ee332.chunk.js.map",
+    "main.css": "/static/css/main.2180e934.chunk.css",
+    "main.js": "/static/js/main.e173e421.chunk.js",
+    "main.js.map": "/static/js/main.e173e421.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.cc85cbe0.js",
+    "runtime-main.js.map": "/static/js/runtime-main.cc85cbe0.js.map",
+    "static/js/2.dade2440.chunk.js": "/static/js/2.dade2440.chunk.js",
+    "static/js/2.dade2440.chunk.js.map": "/static/js/2.dade2440.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.4ebb9301efe953e2b26dd7c6b659145a.js": "/precache-manifest.4ebb9301efe953e2b26dd7c6b659145a.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.53cfdd0b.chunk.css.map": "/static/css/main.53cfdd0b.chunk.css.map",
-    "static/js/2.ab4ee332.chunk.js.LICENSE": "/static/js/2.ab4ee332.chunk.js.LICENSE",
-    "static/media/caucasian-man-lifting.jpg": "/static/media/caucasian-man-lifting.2b6b89b3.jpg",
-    "static/media/man_learning_guitar.jpg": "/static/media/man_learning_guitar.8c9017d8.jpg",
-    "static/media/walking_outside_small.jpg": "/static/media/walking_outside_small.60ab5436.jpg",
-    "static/media/woman-eating-healthy-vegetarian-dinner.jpg": "/static/media/woman-eating-healthy-vegetarian-dinner.6944619e.jpg",
-    "static/media/woman_meditating.jpg": "/static/media/woman_meditating.0dc78780.jpg",
-    "static/media/young-man_reading.png": "/static/media/young-man_reading.b3b69e3c.png"
+    "static/css/main.2180e934.chunk.css.map": "/static/css/main.2180e934.chunk.css.map",
+    "static/js/2.dade2440.chunk.js.LICENSE.txt": "/static/js/2.dade2440.chunk.js.LICENSE.txt",
+    "static/media/Habit-tracker-Logged-empty.7775ea4c.png": "/static/media/Habit-tracker-Logged-empty.7775ea4c.png",
+    "static/media/Habit-tracker-Logged-habits-big-img.be3e0e6f.png": "/static/media/Habit-tracker-Logged-habits-big-img.be3e0e6f.png",
+    "static/media/Habit-tracker-habit-more-info.6b1b7129.png": "/static/media/Habit-tracker-habit-more-info.6b1b7129.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.1c2d59f4.js",
-    "static/js/2.ab4ee332.chunk.js",
-    "static/css/main.53cfdd0b.chunk.css",
-    "static/js/main.704b0620.chunk.js"
+    "static/js/runtime-main.cc85cbe0.js",
+    "static/js/2.dade2440.chunk.js",
+    "static/css/main.2180e934.chunk.css",
+    "static/js/main.e173e421.chunk.js"
   ]
 }
