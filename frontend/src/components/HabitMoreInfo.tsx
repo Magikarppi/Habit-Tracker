@@ -106,24 +106,24 @@ const HabitMoreInfo = ({ habit, handleRemove }: HabitMoreInfoProps) => {
         strokeWidth: 1,
       },
       focusedCellColor: {
-        stroke: '#d3362d', // white
+        stroke: '#d3362d',
         strokeOpacity: 1,
         strokeWidth: 1,
       },
       monthLabel: {
         fontName: 'Arial',
         fontSize: 12,
-        color: '#fad850', // gold
+        color: '#fad850',
         bold: true,
         italic: true,
       },
       monthOutlineColor: {
-        stroke: '#fad850', // gold
+        stroke: '#fad850',
         strokeOpacity: 0.8,
         strokeWidth: 3,
       },
       unusedMonthOutlineColor: {
-        stroke: '#bc5679', // reddish
+        stroke: '#bc5679',
         strokeOpacity: 0.8,
         strokeWidth: 2,
       },

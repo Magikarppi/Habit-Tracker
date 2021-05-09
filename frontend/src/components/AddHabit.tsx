@@ -2,11 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import {
-  AddHabitProps,
-  HabitInputValue,
-  LoginSignUpInputValues,
-} from '../types';
+import { AddHabitProps, HabitInputValue } from '../types';
 
 const SubmitBtn = styled.button`
   background: #fffba8;
@@ -39,17 +35,6 @@ const DivInput = styled.div`
   color: black;
 `;
 
-const Input = styled.input`
-  padding: 0.5em;
-  margin: 0.5em;
-  color: #000000;
-  background: rgba(255, 255, 220, 0.8);
-  border: none;
-  border-radius: 3px;
-  box-sizing: border-box;
-  text-align: center;
-`;
-
 const CancelBtn = styled.button`
   background: #cfccc2;
   &:hover {
@@ -67,11 +52,7 @@ const ErrorDiv = styled.div`
   color: red;
 `;
 
-const AddHabit = ({
-  handleHabitSubmit,
-  habitName,
-  toggleHabitForm,
-}: AddHabitProps) => {
+const AddHabit = ({ handleHabitSubmit, toggleHabitForm }: AddHabitProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {

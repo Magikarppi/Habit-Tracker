@@ -38,8 +38,6 @@ const ErrorDiv = styled.div`
 `;
 
 const LoginSignUp = ({
-  username,
-  password,
   handleSignUpSubmit,
   handleLoginSubmit,
 }: LoginSignUpProps) => {

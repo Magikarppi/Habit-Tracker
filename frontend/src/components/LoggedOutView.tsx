@@ -7,14 +7,6 @@ import HabitMoreInfoImg from '../images/Habit-tracker-habit-more-info.png';
 import LoggedHabitsImg from '../images/Habit-tracker-Logged-habits-big-img.png';
 import { getQuote } from '../services/quote';
 
-const Wrapper = styled.div`
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
 const ButtonWrapper = styled.div`
   width: 50%;
   margin: auto;
@@ -118,6 +110,9 @@ const LoggedOutView = () => {
   const fetchQuote = async () => {
     try {
       const response = await getQuote();
+      if (!response.contents) {
+        return null;
+      }
       const quoteObject = {
         quote: response.contents.quotes[0].quote,
         author: response.contents.quotes[0].author,

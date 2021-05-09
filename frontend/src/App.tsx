@@ -12,13 +12,6 @@ import { login } from './services/login';
 import { signup } from './services/signup';
 import Home from './components/Home';
 import HabitMoreInfo from './components/HabitMoreInfo';
-import Img1 from './images/caucasian-man-lifting.jpg';
-import Img2 from './images/man_learning_guitar.jpg';
-import Img3 from './images/young-man_reading.png';
-import Img4 from './images/walking_outside_small.jpg';
-import Img5 from './images/woman-eating-healthy-vegetarian-dinner.jpg';
-import Img6 from './images/woman_meditating.jpg';
-import { useField } from './hooks/hooks';
 import {
   ErrorSuccessMsg,
   HabitInputValue,
@@ -32,7 +25,6 @@ import GlobalStyle from './globalStyle';
 import LoginSignUp from './components/LoginSignUp';
 import ErrSuccNotification from './components/ErrSuccNotification';
 import Header from './components/Header';
-import { dummyUser } from './utils';
 
 const App = () => {
   const [habitsToShow, setHabitsToShow] = useState<HabitsToShow>([]);
@@ -42,23 +34,10 @@ const App = () => {
   const [redirect, setRedirect] = useState<string | null>(null);
   const [showHabitForm, setShowHabitForm] = useState(false);
 
-  const habitName = useField('text');
-  const username = useField('text');
-  const password = useField('password');
-
-  // useEffect(() => {
-  //   if (window.screen.width > 767) {
-  //     const images = [Img1, Img2, Img3, Img4, Img5, Img6];
-  //     const rNum = Math.floor(Math.random() * 5);
-  //     document.body.background = images[rNum];
-  //   }
-  // }, []);
-
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedHabitAppUser');
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
-      // const user = { ...loggedUserJSON, token: '3515tegrbrh5335h' };
       setLoggedInUser(user);
       setHabitsToShow(user.habits);
       setToken(user.token);
@@ -66,7 +45,6 @@ const App = () => {
   }, []);
 
   const handleSignUpSubmit = async (values: LoginSignUpInputValues) => {
-    // e.preventDefault();
     const { username, password } = values;
     const signupData = {
       username,
@@ -123,8 +101,6 @@ const App = () => {
         setTimeout(() => {
           setSuccessMessage(null);
         }, 4000);
-        // username.reset();
-        // password.reset();
       }
     } catch (exception) {
       console.log('exception', exception);
@@ -132,7 +108,6 @@ const App = () => {
   };
 
   const handleLoginSubmit = async (values: LoginSignUpInputValues) => {
-    // e.preventDefault();
     const { username, password } = values;
     const loginData = {
       username,
@@ -160,8 +135,6 @@ const App = () => {
         setToken(responseData.token);
         setLoggedInUser(responseData);
         setHabitsToShow(responseData.habits);
-        // username.reset();
-        // password.reset();
         setRedirect('/');
         setRedirect(null);
       }
@@ -179,7 +152,6 @@ const App = () => {
   };
 
   const handleHabitSubmit = async (values: HabitInputValue) => {
-    // e.preventDefault();
     const { habitName } = values;
     try {
       const newHabit = {
@@ -208,7 +180,6 @@ const App = () => {
       if (responseData.name && loggedInUser) {
         setHabitsToShow([...habitsToShow, responseData]);
         loggedInUser.habits = loggedInUser.habits.concat(responseData);
-        // habitName.reset();
         setShowHabitForm(false);
         window.localStorage.setItem(
           'loggedHabitAppUser',
@@ -299,16 +270,8 @@ const App = () => {
     }
   };
 
-  const removeReset = (obj: HabitNameField) => {
-    const { reset, ...rest } = obj;
-    return rest;
-  };
-
   const habitById = (id: string) =>
     habitsToShow.find((habit) => habit.id === id);
-
-  console.log('errormsg', errorMessage);
-  console.log('success', successMessage);
 
   return (
     <div>
@@ -318,7 +281,6 @@ const App = () => {
         successMessage={successMessage}
       />
       <Router>
-        {/* <div> */}
         <Switch>
           <Route
             exact
@@ -331,9 +293,7 @@ const App = () => {
                 />
                 <Home
                   habitsToShow={habitsToShow}
-                  habitName={removeReset(habitName)}
                   handleCompletion={handleCompletion}
-                  handleLogout={handleLogout}
                   toggleHabitForm={toggleHabitForm}
                   showHabitForm={showHabitForm}
                   loggedInUser={loggedInUser}
@@ -355,8 +315,6 @@ const App = () => {
                     handleLogout={handleLogout}
                   />
                   <LoginSignUp
-                    username={removeReset(username)}
-                    password={removeReset(password)}
                     handleLoginSubmit={handleLoginSubmit}
                     handleSignUpSubmit={handleSignUpSubmit}
                   />
@@ -377,8 +335,6 @@ const App = () => {
                     handleLogout={handleLogout}
                   />
                   <LoginSignUp
-                    username={removeReset(username)}
-                    password={removeReset(password)}
                     handleLoginSubmit={handleLoginSubmit}
                     handleSignUpSubmit={handleSignUpSubmit}
                   />
@@ -407,7 +363,6 @@ const App = () => {
           />
           <Route render={() => <Redirect to={{ pathname: '/' }} />} />
         </Switch>
-        {/* </div> */}
       </Router>
     </div>
   );

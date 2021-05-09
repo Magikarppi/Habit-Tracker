@@ -28,8 +28,6 @@ describe('Habit app /logged in user', () => {
     });
 
     // it('the habit streak is shown ', () => {
-    //   cy.contains(habitName);
-    //   cy.get('[data-cy=habti-div]');
     // })
 
     it('habit can be marked as done and it is shown', () => {
@@ -49,12 +47,6 @@ describe('Habit app /logged in user', () => {
       cy.contains('Habit deleted');
       cy.url().should('eq', Cypress.config().baseUrl + '/');
       cy.contains(habitName).should('not.exist');
-    });
-
-    it('Back btn from habit info returns to home where all habits are shown', () => {
-      cy.get('[data-cy=habit-link]').click();
-      cy.get('[data-cy=back-btn]').click();
-      cy.url().should('eq', Cypress.config().baseUrl + '/');
     });
   });
 });

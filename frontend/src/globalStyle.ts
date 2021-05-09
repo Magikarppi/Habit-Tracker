@@ -3,6 +3,8 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   html {
   min-height: 100%;
+  max-width: 100%;
+  overflow-x: none;
   }
   body {
     margin: 0;

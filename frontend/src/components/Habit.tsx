@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Completion, HabitProps, HabitType } from '../types';
+import { Completion, HabitProps } from '../types';
 import { stringShortener } from '../utils';
 
 const Div = styled.div`
@@ -26,7 +26,6 @@ const DoneBtn = styled.button`
     background: #a8ff36;
   }
   font-size: 0.9em;
-  /* margin: 1em; */
   padding: 0.25em 1em;
   border: 2px solid #8f8d64;
   border-radius: 3px;
@@ -38,8 +37,6 @@ const DoneNotif = styled.div`
   color: black;
   width: 50px;
   font-size: 0.9em;
-  /* margin: auto; */
-  /* margin-top: 1em; */
   margin-top: 5px;
   border: 2px solid #000000;
   border-radius: 3px;
@@ -51,7 +48,6 @@ const StreakDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background: white; */
   border: 2px solid #000000;
   border-radius: 10px;
   width: 50px;

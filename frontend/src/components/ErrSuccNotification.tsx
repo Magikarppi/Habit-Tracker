@@ -33,8 +33,6 @@ const Notification = ({
   successMessage: ErrorSuccessMsg;
   errorMessage: ErrorSuccessMsg;
 }) => {
-  console.log('errormsg', errorMessage);
-  console.log('success', successMessage);
   if (successMessage && !errorMessage) {
     return <SuccessMsgDiv>{successMessage}</SuccessMsgDiv>;
   } else if (errorMessage && !successMessage) {

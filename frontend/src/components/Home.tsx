@@ -1,4 +1,3 @@
-import { useSpring } from 'react-spring';
 import styled from 'styled-components';
 
 import { HomeProps } from '../types';
@@ -67,28 +66,18 @@ const NewHabitBtn = styled.button`
 
 const Home = ({
   loggedInUser,
-  handleLogout,
   habitsToShow,
   handleHabitSubmit,
-  habitName,
   handleCompletion,
   toggleHabitForm,
   showHabitForm,
 }: HomeProps) => {
-  // const addHabitAnimation = useSpring({
-  //   to: {
-  //     transform: 'translateX(45%)',
-  //   },
-  //   from: 'translateX(-1%)',
-  // });
-
   return loggedInUser ? (
     <Wrapper>
       {showHabitForm || loggedInUser.habits.length === 0 ? (
         <div data-testid="habitForm-open-div">
           <AddHabit
             handleHabitSubmit={handleHabitSubmit}
-            habitName={habitName}
             toggleHabitForm={toggleHabitForm}
           />
         </div>
