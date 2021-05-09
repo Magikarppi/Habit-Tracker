@@ -94,7 +94,7 @@ const Home = ({
         </div>
       ) : (
         <NewHabitBtn
-          data-cy="habit-form-open"
+          data-cy="habit-form-open-btn"
           data-testid="habit-form-open-btn"
           onClick={toggleHabitForm}
         >
@@ -102,7 +102,7 @@ const Home = ({
         </NewHabitBtn>
       )}
       {habitsToShow.length > 0 ? (
-        <HabitsDiv data-testid="habit-div">
+        <HabitsDiv data-testid="habit-div" data-cy="habit-div">
           {habitsToShow.map((habit) => (
             <Habit
               key={habit.id}

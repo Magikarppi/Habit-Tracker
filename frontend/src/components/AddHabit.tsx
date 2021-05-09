@@ -113,12 +113,13 @@ const AddHabit = ({
                 name="habitName"
                 placeholder="Habit name"
                 innerRef={inputRef}
+                data-cy="habit-input"
               />
             </DivInput>
             <ErrorMessage name="username" component={ErrorDiv} />
             <SubmitDiv>
               <SubmitBtn
-                data-cy="habit-submit"
+                data-cy="habit-submit-btn"
                 data-testid="habit-submit"
                 type="submit"
               >

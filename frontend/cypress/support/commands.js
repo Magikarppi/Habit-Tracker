@@ -4,26 +4,26 @@ Cypress.Commands.add('resetDB', () => {
   cy.request('POST', 'http://localhost:3003/api/testing/reset');
 });
 
+Cypress.Commands.add('seedUserToDB', () => {
+  const user = {
+    username: 'TestDude',
+    password: 'passw',
+  };
+  cy.request('POST', 'http://localhost:3003/api/users/', user);
+});
+
 Cypress.Commands.add('signup', () => {
   cy.visit('/');
   cy.get('[data-cy=signup-btn]').click();
   cy.get('[data-cy=username-input]').type('TestDude');
   cy.get('[data-cy=password-input]').type('passw');
   cy.get('[data-cy=submit-btn]').click();
-  // cy.url().should('eq', 'http://localhost:3000/login')
 });
 
 Cypress.Commands.add('login', () => {
-  // cy.visit('http://localhost:3000');
-  // cy.contains('Sign up').click();
-  // cy.get('[data-cy=signup-user-input]').type('TestDude');
-  // cy.get('[data-cy=signup-pass-input]').type('passw');
-  // cy.get('[data-cy=signup-submit]').click();
-  // cy.contains('Login').click();
   cy.get('[data-cy=username-input]').type('TestDude');
   cy.get('[data-cy=password-input]').type('passw');
   cy.get('[data-cy=submit-btn]').click();
-  // cy.url().should('eq', 'http://localhost:3000/')
 });
 
 Cypress.Commands.add('loginMock', () => {
@@ -43,14 +43,18 @@ Cypress.Commands.add('loginMock', () => {
   });
 });
 
-Cypress.Commands.add('addHabit', () => {
+Cypress.Commands.add('addHabit', (habitName) => {
   cy.request({
     method: 'POST',
     url: '/api/habits',
     body: {
-      name: 'Mindfullness meditation',
+      name: habitName,
     },
-    headers: { 'Content-Type': 'application/json', Authorization: token },
+    headers: {
+      Authorization: `bearer ${
+        JSON.parse(localStorage.getItem('loggedHabitAppUser')).token
+      }`,
+    },
   });
 });
 
