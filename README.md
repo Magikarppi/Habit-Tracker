@@ -18,8 +18,7 @@ Link to the deployed app:
 <h3>Frontend</h3>
 <p>Client side is made with React and Typescript.</p>
 
-<h4>Testing<h4>
-<p>The app uses Cypress for End-to-End (E2E) tests. To run these tests start backend development server in test mode with <br /> "npm run start:test"<br /> <br />frontend with "npm start"<br /> <br />and open Cypress in /frontend with "npm run cypress:open"<br /></p>
+<p>The app uses Cypress for End-to-End (E2E) tests. To run these tests start backend development server in test mode with <br /> `npm run start:test`<br /> <br />frontend with `npm start`<br /> <br />and open Cypress in /frontend with `npm run cypress:open`<br /></p>
 
 <img src="https://media.giphy.com/media/vYuSGcdwFHkl80TmZK/giphy.gif" alt="cypress-testing" />
 

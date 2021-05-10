@@ -29,7 +29,7 @@ const DivInput = styled.div`
   margin-bottom: 10px;
   background: rgba(255, 255, 220, 0.5);
   text-align: center;
-  width: 220px;
+  width: 250px;
   height: 20%;
   overflow: hidden;
   border: 2px solid #8f8d64;

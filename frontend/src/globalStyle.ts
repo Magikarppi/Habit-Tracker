@@ -50,6 +50,7 @@ const GlobalStyle = createGlobalStyle`
   border-radius: 3px;
   box-sizing: border-box;
   text-align: center;
+  font-size: 17px;
   }
   h1 {
     font-size: 20px;

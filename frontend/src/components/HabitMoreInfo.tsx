@@ -28,7 +28,7 @@ const WrapperChart = styled.div`
 
 const SuccessDaysWrapper = styled.div`
   /* background: rgba(255, 255, 220, 0.8); */
-  width: 100px;
+  width: 200px;
   padding: 10px;
   margin: auto;
   text-align: center;
@@ -66,7 +66,7 @@ const ParagraphNote = styled.p`
   text-align: center;
   padding: 0.25em 1em;
   color: black;
-  font-size: 10px;
+  font-size: 15px;
   font-style: italic;
 `;
 
