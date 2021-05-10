@@ -55,7 +55,7 @@ const App = () => {
       setErrorMessage('Password must be at least five (5) characters long');
       setTimeout(() => {
         setErrorMessage(null);
-      }, 4000);
+      }, 3000);
       return;
     }
 
@@ -72,7 +72,7 @@ const App = () => {
           );
           setTimeout(() => {
             setErrorMessage(null);
-          }, 4000);
+          }, 3000);
           return;
         }
 
@@ -87,7 +87,7 @@ const App = () => {
           );
           setTimeout(() => {
             setErrorMessage(null);
-          }, 4000);
+          }, 3000);
           return;
         }
 
@@ -100,7 +100,7 @@ const App = () => {
         setSuccessMessage('A new user created! Please log in!');
         setTimeout(() => {
           setSuccessMessage(null);
-        }, 4000);
+        }, 3000);
       }
     } catch (exception) {
       console.log('exception', exception);
@@ -123,7 +123,7 @@ const App = () => {
           setErrorMessage('Wrong username or password');
           setTimeout(() => {
             setErrorMessage(null);
-          }, 4000);
+          }, 3000);
         }
       }
 
@@ -171,7 +171,7 @@ const App = () => {
           );
           setTimeout(() => {
             setErrorMessage(null);
-          }, 4000);
+          }, 3000);
           return;
         }
         return;
@@ -211,7 +211,7 @@ const App = () => {
           setSuccessMessage('Habit deleted');
           setTimeout(() => {
             setSuccessMessage(null);
-          }, 4000);
+          }, 3000);
           setRedirect('/');
           setRedirect(null);
         }
@@ -220,7 +220,7 @@ const App = () => {
         setErrorMessage('Habit deletion failed');
         setTimeout(() => {
           setErrorMessage(null);
-        }, 4000);
+        }, 3000);
       }
     }
   };
@@ -260,13 +260,49 @@ const App = () => {
       setSuccessMessage('Completion added!');
       setTimeout(() => {
         setSuccessMessage(null);
-      }, 4000);
+      }, 3000);
     } catch (error) {
       console.log(error);
       setErrorMessage('Adding completion failed.');
       setTimeout(() => {
         setErrorMessage(null);
-      }, 4000);
+      }, 3000);
+    }
+  };
+
+  const handleCancelCompletion = async (habit: HabitType) => {
+    if (!loggedInUser) {
+      return setErrorMessage('User not logged in');
+    }
+
+    habit.completions.splice(habit.completions.length - 1, 1);
+
+    const updateHabit = {
+      ...habit,
+    };
+
+    try {
+      const responseData = await update(updateHabit);
+      setHabitsToShow(
+        habitsToShow.map((e) => (e.id === responseData.id ? responseData : e))
+      );
+      loggedInUser.habits = loggedInUser.habits.map((e) =>
+        e.id === responseData.id ? responseData : e
+      );
+      window.localStorage.setItem(
+        'loggedHabitAppUser',
+        JSON.stringify(loggedInUser)
+      );
+      setSuccessMessage('Completion cancelled!');
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 3000);
+    } catch (error) {
+      console.log(error);
+      setErrorMessage('Adding completion failed.');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 3000);
     }
   };
 
@@ -294,6 +330,7 @@ const App = () => {
                 <Home
                   habitsToShow={habitsToShow}
                   handleCompletion={handleCompletion}
+                  handleCancelCompletion={handleCancelCompletion}
                   toggleHabitForm={toggleHabitForm}
                   showHabitForm={showHabitForm}
                   loggedInUser={loggedInUser}

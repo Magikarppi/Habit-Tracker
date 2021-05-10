@@ -26,10 +26,30 @@ const DoneBtn = styled.button`
     background: #a8ff36;
   }
   font-size: 0.9em;
-  padding: 0.25em 1em;
+  /* padding: 0.25em 1em; */
   border: 2px solid #8f8d64;
   border-radius: 3px;
   text-align: center;
+`;
+
+const CancelBtn = styled.button`
+  &:hover {
+    background: #ff4141;
+  }
+  font-size: 0.9em;
+  /* padding: 0.25em 1em; */
+  margin: 0;
+  border: 2px solid #ff4141;
+  border-radius: 50%;
+  text-align: center;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  width: 80%;
 `;
 
 const DoneNotif = styled.div`
@@ -56,7 +76,11 @@ const StreakDiv = styled.div`
   color: black;
 `;
 
-const Habit = ({ habit, handleCompletion }: HabitProps) => {
+const Habit = ({
+  habit,
+  handleCompletion,
+  handleCancelCompletion,
+}: HabitProps) => {
   const [currentStreak, setCurrentStreak] = useState<number | null>(null);
 
   useEffect(() => {
@@ -133,7 +157,15 @@ const Habit = ({ habit, handleCompletion }: HabitProps) => {
         ></StreakDiv>
       )}
       {matchingDates.length > 0 ? (
-        <DoneNotif>Done!</DoneNotif>
+        <ButtonWrapper>
+          <DoneNotif>Done!</DoneNotif>
+          <CancelBtn
+            data-cy="cancel-done-btn"
+            onClick={() => handleCancelCompletion(habit)}
+          >
+            x
+          </CancelBtn>
+        </ButtonWrapper>
       ) : (
         <div>
           <DoneBtn data-cy="done-btn" onClick={() => handleCompletion(habit)}>

@@ -30,9 +30,12 @@ describe('Habit app /logged in user', () => {
     // it('the habit streak is shown ', () => {
     // })
 
-    it('habit can be marked as done and it is shown', () => {
+    it('habit can be marked as done and it can be cancelled', () => {
       cy.get('[data-cy=done-btn]').click();
       cy.contains('Done!');
+      cy.get('[data-cy=cancel-done-btn]').click();
+      cy.contains('Done!').should('not.exist');
+      cy.get('[data-cy=done-btn]');
     });
 
     it('more info about a habit is shown when clicked', () => {

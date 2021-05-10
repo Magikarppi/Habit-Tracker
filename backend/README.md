@@ -8,6 +8,10 @@ In the project directory, you can run:
 
 Starts the server at http://localhost:3003.<br />
 
+### `npm run start:test`
+
+Starts the server in test mode. <br />
+
 ### `npm test`
 
 Runs tests<br />

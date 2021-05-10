@@ -69,6 +69,7 @@ const Home = ({
   habitsToShow,
   handleHabitSubmit,
   handleCompletion,
+  handleCancelCompletion,
   toggleHabitForm,
   showHabitForm,
 }: HomeProps) => {
@@ -97,6 +98,7 @@ const Home = ({
               key={habit.id}
               habit={habit}
               handleCompletion={handleCompletion}
+              handleCancelCompletion={handleCancelCompletion}
             />
           ))}
         </HabitsDiv>

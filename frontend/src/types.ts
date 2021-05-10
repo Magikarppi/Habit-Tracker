@@ -35,6 +35,7 @@ export interface HomeProps {
   habitsToShow: HabitsToShow;
   handleHabitSubmit: (values: HabitInputValue) => void;
   handleCompletion: (habit: HabitType) => void;
+  handleCancelCompletion: (habit: HabitType) => void;
   showHabitForm: boolean;
   toggleHabitForm: () => void;
 }
@@ -58,6 +59,7 @@ export interface HabitMoreInfoProps {
 export interface HabitProps {
   habit: HabitType | undefined;
   handleCompletion: (habit: HabitType) => void;
+  handleCancelCompletion: (habit: HabitType) => void;
 }
 
 export type ErrorSuccessMsg = string | null;

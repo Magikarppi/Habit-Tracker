@@ -19,7 +19,9 @@ const DivInput = styled.div`
   margin-top: 5px;
   background: rgba(255, 255, 220, 0.5);
   text-align: center;
-  width: 200px;
+  width: 220px;
+  height: 20%;
+  overflow: hidden;
   border: 2px solid #8f8d64;
   border-radius: 3px;
   color: black;
