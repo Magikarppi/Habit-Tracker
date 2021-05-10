@@ -1,4 +1,7 @@
-<h1>A web app project that tracks user's habits. </h1>
+<h1>Simplify Success</h1>
+
+<p>A web app project that tracks user's habits. </p>
+<h2>https://habit-tracker-2020.herokuapp.com/</h2>
 
 <p>User can create an account and login</p>
 <img src="frontend\src\images\Habit-tracker-Home-not-logged.png" alt="sign-up" width="500px" />
@@ -8,10 +11,6 @@
 
 <p>User can navigate to a page that shows more detailed information of the given habit, like a calendar view of completed and missed days.</P>
 <img src="frontend\src\images\Habit-tracker-habit-more-info.png" alt="logged-in-actions" width="500px" />
-
-Link to the deployed app:
-
-<h2>https://habit-tracker-2020.herokuapp.com/</h2>
 
 <h3>Backend</h3>
 <p>Backend is build with Node and Express.js, and it uses MongoDb as a data storage</p>
@@ -23,4 +22,6 @@ Link to the deployed app:
 <img src="https://media.giphy.com/media/vYuSGcdwFHkl80TmZK/giphy.gif" alt="cypress-testing" />
 
 <br />
-Both frontend and backend have their own Readme documentation files in their respective folders
+<p>Both frontend and backend have their own Readme documentation files in their respective folders</p>
+
+<h2>https://habit-tracker-2020.herokuapp.com/</h2>
