@@ -1,8 +1,8 @@
 <h1>A web app project that tracks user's habits. </h1>
 
 <p>User can create an account and login</p>
-![sign-up](https://media.giphy.com/media/AXIIk5W0mVBMItovHH/source.mov)
-<img href="https://media.giphy.com/media/AXIIk5W0mVBMItovHH/source.mov" alt="sign-up" />
+![sign-up](https://media.giphy.com/media/AXIIk5W0mVBMItovHH/giphy.gif)
+<img href="https://media.giphy.com/media/AXIIk5W0mVBMItovHH/giphy.gif" alt="sign-up" />
 
 <p>User can add habits and mark them completed for that day. Current streak will appear once the user has completed the habit two or more days in a row.</p>
 ![logged-in-actions](https://media.giphy.com/media/qEzseKeq7bYnY0aQtR/source.mov)
