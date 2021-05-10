@@ -1,13 +1,13 @@
 <h1>A web app project that tracks user's habits. </h1>
 
 <p>User can create an account and login</p>
-<img src="https://media.giphy.com/media/AXIIk5W0mVBMItovHH/giphy.gif" alt="sign-up" />
+<img src="frontend\src\images\Habit-tracker-Home-not-logged.png" alt="sign-up" width="300px" />
 
 <p>User can add habits and mark them completed for that day. Current streak will appear once the user has completed the habit two or more days in a row.</p>
-<img src="https://media.giphy.com/media/qEzseKeq7bYnY0aQtR/source.mov" alt="logged-in-actions" />
+<img src="https://media.giphy.com/media/qEzseKeq7bYnY0aQtR/giphy.gif" alt="logged-in-actions" />
 
 <p>User can navigate to a page that shows more detailed information of the given habit, like a calendar view of completed and missed days.</P>
-<img src="frontend\src\images\Habit-tracker-habit-more-info.png" alt="logged-in-actions" />
+<img src="frontend\src\images\Habit-tracker-habit-more-info.png" alt="logged-in-actions" width="300px" />
 
 Link to the deployed app:
 
