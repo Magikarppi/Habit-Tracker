@@ -25,6 +25,7 @@ import GlobalStyle from './globalStyle';
 import LoginSignUp from './components/LoginSignUp';
 import ErrSuccNotification from './components/ErrSuccNotification';
 import Header from './components/Header';
+import { FormikHelpers } from 'formik';
 
 const App = () => {
   const [habitsToShow, setHabitsToShow] = useState<HabitsToShow>([]);

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.6.2",
     "@testing-library/user-event": "^7.2.1",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.0.1",

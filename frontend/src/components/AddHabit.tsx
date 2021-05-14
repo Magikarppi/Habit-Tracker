@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { LoadingOutlined } from '@ant-design/icons';
 
 import { AddHabitProps, HabitInputValue } from '../types';
 
@@ -74,7 +75,7 @@ const AddHabit = ({ handleHabitSubmit, toggleHabitForm }: AddHabitProps) => {
     if (!habitName) {
       errors.habitName = 'Please enter a habit name';
     } else if (habitName.length >= 30) {
-      errors.username = 'Max length is 30 chars';
+      errors.habitName = 'Max length is 30 chars';
     }
 
     return errors;
@@ -98,8 +99,9 @@ const AddHabit = ({ handleHabitSubmit, toggleHabitForm }: AddHabitProps) => {
                 innerRef={inputRef}
                 data-cy="habit-input"
               />
+              <ErrorMessage name="habitName" component={ErrorDiv} />
             </DivInput>
-            <ErrorMessage name="username" component={ErrorDiv} />
+            {isSubmitting ? <LoadingOutlined spin /> : null}
             <SubmitDiv>
               <SubmitBtn
                 data-cy="habit-submit-btn"

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { LoadingOutlined } from '@ant-design/icons';
 
 import { LoginSignUpInputValues, LoginSignUpProps } from '../types';
 
@@ -15,8 +16,8 @@ const SubmitBtn = styled.button``;
 
 const DivInput = styled.div`
   margin: auto;
-  margin-bottom: 5px;
-  margin-top: 5px;
+  margin-bottom: 10px;
+  margin-top: 20px;
   background: rgba(255, 255, 220, 0.5);
   text-align: center;
   width: 250px;
@@ -71,7 +72,7 @@ const LoginSignUp = ({
 
     if (!username) {
       errors.username = 'Username is required!';
-    } else if (username.length >= 12) {
+    } else if (username.length > 12) {
       errors.username = 'Max length is 12 characters';
     } else if (username.length < 3) {
       errors.username = 'Username should be at least 3 characters';
@@ -85,6 +86,12 @@ const LoginSignUp = ({
     return errors;
   };
 
+  const handleTest = () => {
+    setTimeout(() => {
+      return;
+    }, 3000);
+  };
+
   switch (formToShow) {
     case 'signup':
       return (
@@ -95,7 +102,8 @@ const LoginSignUp = ({
               initialValues={initialValues}
               validate={(values) => validate(values)}
               onSubmit={(values, { setSubmitting }) => {
-                handleSignUpSubmit(values);
+                handleTest();
+                // handleSignUpSubmit(values);
               }}
             >
               {({ isSubmitting, errors }) => (
@@ -108,8 +116,8 @@ const LoginSignUp = ({
                       innerRef={inputRef}
                       data-cy="username-input"
                     />
+                    <ErrorMessage name="username" component={ErrorDiv} />
                   </DivInput>
-                  <ErrorMessage name="username" component={ErrorDiv} />
                   <DivInput>
                     <Field
                       type="password"
@@ -117,8 +125,11 @@ const LoginSignUp = ({
                       placeholder="Password"
                       data-cy="password-input"
                     />
+                    <ErrorMessage name="password" component={ErrorDiv} />
                   </DivInput>
-                  <ErrorMessage name="password" component={ErrorDiv} />
+                  {isSubmitting ? (
+                    <LoadingOutlined style={{ width: '300px' }} spin />
+                  ) : null}
                   <SubmitDiv>
                     <SubmitBtn type="submit" data-cy="submit-btn">
                       Submit
@@ -152,8 +163,8 @@ const LoginSignUp = ({
                       innerRef={inputRef}
                       data-cy="username-input"
                     />
+                    <ErrorMessage name="username" component={ErrorDiv} />
                   </DivInput>
-                  <ErrorMessage name="username" component={ErrorDiv} />
                   <DivInput>
                     <Field
                       type="password"
@@ -161,8 +172,11 @@ const LoginSignUp = ({
                       placeholder="Password"
                       data-cy="password-input"
                     />
+                    <ErrorMessage name="password" component={ErrorDiv} />
                   </DivInput>
-                  <ErrorMessage name="password" component={ErrorDiv} />
+                  {isSubmitting ? (
+                    <LoadingOutlined style={{ width: '300px' }} spin />
+                  ) : null}
                   <SubmitDiv>
                     <SubmitBtn type="submit" data-cy="submit-btn">
                       Submit
