@@ -36,6 +36,10 @@ const App = () => {
   const [showHabitForm, setShowHabitForm] = useState(false);
 
   useEffect(() => {
+    document.title = 'Simplify Success';
+  }, []);
+
+  useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedHabitAppUser');
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
@@ -186,6 +190,7 @@ const App = () => {
           'loggedHabitAppUser',
           JSON.stringify(loggedInUser)
         );
+        return;
       }
     } catch (exception) {
       console.log(exception);

@@ -86,12 +86,6 @@ const LoginSignUp = ({
     return errors;
   };
 
-  const handleTest = () => {
-    setTimeout(() => {
-      return;
-    }, 3000);
-  };
-
   switch (formToShow) {
     case 'signup':
       return (
@@ -102,8 +96,7 @@ const LoginSignUp = ({
               initialValues={initialValues}
               validate={(values) => validate(values)}
               onSubmit={(values, { setSubmitting }) => {
-                handleTest();
-                // handleSignUpSubmit(values);
+                handleSignUpSubmit(values);
               }}
             >
               {({ isSubmitting, errors }) => (
@@ -128,13 +121,14 @@ const LoginSignUp = ({
                     <ErrorMessage name="password" component={ErrorDiv} />
                   </DivInput>
                   {isSubmitting ? (
-                    <LoadingOutlined style={{ width: '300px' }} spin />
-                  ) : null}
-                  <SubmitDiv>
-                    <SubmitBtn type="submit" data-cy="submit-btn">
-                      Submit
-                    </SubmitBtn>
-                  </SubmitDiv>
+                    <LoadingOutlined spin style={{ fontSize: 40 }} />
+                  ) : (
+                    <SubmitDiv>
+                      <SubmitBtn type="submit" data-cy="submit-btn">
+                        Submit
+                      </SubmitBtn>
+                    </SubmitDiv>
+                  )}
                 </Form>
               )}
             </Formik>
@@ -175,13 +169,14 @@ const LoginSignUp = ({
                     <ErrorMessage name="password" component={ErrorDiv} />
                   </DivInput>
                   {isSubmitting ? (
-                    <LoadingOutlined style={{ width: '300px' }} spin />
-                  ) : null}
-                  <SubmitDiv>
-                    <SubmitBtn type="submit" data-cy="submit-btn">
-                      Submit
-                    </SubmitBtn>
-                  </SubmitDiv>
+                    <LoadingOutlined style={{ fontSize: 40 }} spin />
+                  ) : (
+                    <SubmitDiv>
+                      <SubmitBtn type="submit" data-cy="submit-btn">
+                        Submit
+                      </SubmitBtn>
+                    </SubmitDiv>
+                  )}
                 </Form>
               )}
             </Formik>

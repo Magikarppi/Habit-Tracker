@@ -58,27 +58,6 @@ Cypress.Commands.add('addHabit', (habitName) => {
   });
 });
 
-// Cypress.Commands.add("signupMock", () => {
-//   const user = {
-//     username: 'TestDude',
-//     password: 'passw'
-//   }
-//   cy.request({
-//     method: 'POST',
-//     url: 'http://localhost:3000/api/users',
-//     body: JSON.stringify(user),
-//     headers: { 'Content-Type': 'application/json' }
-//   })
-//   .then((response) => window.localStorage.setItem('loggedHabitAppUser', JSON.stringify(response.body)))
-// })
-
-// Cypress.Commands.add('addHabit', () => {
-//   cy.contains('Add a new habit').click();
-//   cy.get('[data-cy=habitname-input]').type('Mindfullness meditation');
-//   cy.get('[data-cy=habit-submit]').click();
-//   cy.contains('Mindfullness meditation');
-// })
-
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite

@@ -1,8 +1,9 @@
+import { LoadingOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Completion, HabitProps } from '../types';
+import { Completion, HabitProps, HabitType } from '../types';
 import { stringShortener } from '../utils';
 
 const Div = styled.div`
@@ -82,6 +83,7 @@ const Habit = ({
   handleCancelCompletion,
 }: HabitProps) => {
   const [currentStreak, setCurrentStreak] = useState<number | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (habit) {
@@ -92,6 +94,23 @@ const Habit = ({
   if (!habit) {
     return null;
   }
+
+  const handleCompletions = async (
+    action: 'undone' | 'done',
+    habit: HabitType
+  ) => {
+    setLoading(true);
+    if (action === 'done') {
+      await handleCompletion(habit);
+      setLoading(false);
+      return;
+    } else if (action === 'undone') {
+      await handleCancelCompletion(habit);
+      setLoading(false);
+      return;
+    }
+    return;
+  };
 
   const findByMatchingDate = (completions: any, dateObj: any) => {
     return completions.filter((completion: any) => {
@@ -157,18 +176,27 @@ const Habit = ({
         ></StreakDiv>
       )}
       {matchingDates.length > 0 ? (
-        <ButtonWrapper>
-          <DoneNotif>Done!</DoneNotif>
-          <CancelBtn
-            data-cy="cancel-done-btn"
-            onClick={() => handleCancelCompletion(habit)}
-          >
-            x
-          </CancelBtn>
-        </ButtonWrapper>
+        loading ? (
+          <LoadingOutlined spin style={{ fontSize: 40, marginBottom: 20 }} />
+        ) : (
+          <ButtonWrapper>
+            <DoneNotif>Done!</DoneNotif>
+            <CancelBtn
+              data-cy="cancel-done-btn"
+              onClick={() => handleCompletions('undone', habit)}
+            >
+              x
+            </CancelBtn>
+          </ButtonWrapper>
+        )
+      ) : loading ? (
+        <LoadingOutlined spin style={{ fontSize: 40, marginBottom: 20 }} />
       ) : (
         <div>
-          <DoneBtn data-cy="done-btn" onClick={() => handleCompletion(habit)}>
+          <DoneBtn
+            data-cy="done-btn"
+            onClick={() => handleCompletions('done', habit)}
+          >
             Done for today!
           </DoneBtn>
         </div>

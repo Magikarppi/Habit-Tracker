@@ -101,23 +101,29 @@ const AddHabit = ({ handleHabitSubmit, toggleHabitForm }: AddHabitProps) => {
               />
               <ErrorMessage name="habitName" component={ErrorDiv} />
             </DivInput>
-            {isSubmitting ? <LoadingOutlined spin /> : null}
-            <SubmitDiv>
-              <SubmitBtn
-                data-cy="habit-submit-btn"
-                data-testid="habit-submit"
-                type="submit"
-              >
-                Add
-              </SubmitBtn>
-              <CancelBtn
-                data-cy="habit-form-close"
-                data-testid="habit-form-close-btn"
-                onClick={toggleHabitForm}
-              >
-                cancel
-              </CancelBtn>
-            </SubmitDiv>
+            {isSubmitting ? (
+              <LoadingOutlined
+                spin
+                style={{ fontSize: 40, marginBottom: 20 }}
+              />
+            ) : (
+              <SubmitDiv>
+                <SubmitBtn
+                  data-cy="habit-submit-btn"
+                  data-testid="habit-submit"
+                  type="submit"
+                >
+                  Add
+                </SubmitBtn>
+                <CancelBtn
+                  data-cy="habit-form-close"
+                  data-testid="habit-form-close-btn"
+                  onClick={toggleHabitForm}
+                >
+                  cancel
+                </CancelBtn>
+              </SubmitDiv>
+            )}
           </Form>
         )}
       </Formik>
