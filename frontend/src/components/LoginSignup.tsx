@@ -96,7 +96,7 @@ const LoginSignUp = ({
               initialValues={initialValues}
               validate={(values) => validate(values)}
               onSubmit={(values, { setSubmitting }) => {
-                handleSignUpSubmit(values);
+                handleSignUpSubmit(values, setSubmitting);
               }}
             >
               {({ isSubmitting, errors }) => (
@@ -144,7 +144,7 @@ const LoginSignUp = ({
               initialValues={initialValues}
               validate={(values) => validate(values)}
               onSubmit={(values, { setSubmitting }) => {
-                handleLoginSubmit(values);
+                handleLoginSubmit(values, setSubmitting);
               }}
             >
               {({ isSubmitting, errors }) => (

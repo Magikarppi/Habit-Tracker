@@ -14,6 +14,15 @@ describe('Habit app /logged in user', () => {
     cy.contains(habitName);
   });
 
+  it('a new habit can be added after invalid habit', () => {
+    cy.get('[data-cy=habit-input]').type('M');
+    cy.get('[data-cy=habit-submit-btn]').click();
+    cy.contains('Minimum length');
+    cy.get('[data-cy=habit-input]').type('ake music');
+    cy.get('[data-cy=habit-submit-btn]').click();
+    cy.contains('Make music');
+  });
+
   describe('when a new habit is added', () => {
     beforeEach(() => {
       // cy.addHabit(habitName);

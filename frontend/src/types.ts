@@ -21,8 +21,14 @@ export interface HabitInputValue {
 }
 
 export interface LoginSignUpProps {
-  handleSignUpSubmit: (values: LoginSignUpInputValues) => void;
-  handleLoginSubmit: (values: LoginSignUpInputValues) => void;
+  handleSignUpSubmit: (
+    values: LoginSignUpInputValues,
+    setSubmitting: (value: boolean) => void
+  ) => void;
+  handleLoginSubmit: (
+    values: LoginSignUpInputValues,
+    setSubmitting: (value: boolean) => void
+  ) => void;
 }
 
 export interface HeaderProps {
@@ -33,7 +39,10 @@ export interface HeaderProps {
 export interface HomeProps {
   loggedInUser: LoggedInUser | null;
   habitsToShow: HabitsToShow;
-  handleHabitSubmit: (values: HabitInputValue) => void;
+  handleHabitSubmit: (
+    values: HabitInputValue,
+    setSubmitting: (value: boolean) => void
+  ) => void;
   handleCompletion: (habit: HabitType) => void;
   handleCancelCompletion: (habit: HabitType) => void;
   showHabitForm: boolean;
@@ -47,7 +56,10 @@ export interface LoggedInUser {
 }
 
 export interface AddHabitProps {
-  handleHabitSubmit: (values: HabitInputValue) => void;
+  handleHabitSubmit: (
+    values: HabitInputValue,
+    setSubmitting: (value: boolean) => void
+  ) => void;
   toggleHabitForm: () => void;
 }
 

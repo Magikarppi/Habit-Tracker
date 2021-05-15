@@ -100,16 +100,23 @@ const Habit = ({
     habit: HabitType
   ) => {
     setLoading(true);
-    if (action === 'done') {
-      await handleCompletion(habit);
+    try {
+      if (action === 'done') {
+        await handleCompletion(habit);
+        setLoading(false);
+        return;
+      } else if (action === 'undone') {
+        await handleCancelCompletion(habit);
+        setLoading(false);
+        return;
+      }
       setLoading(false);
       return;
-    } else if (action === 'undone') {
-      await handleCancelCompletion(habit);
+    } catch (error) {
+      console.log(error);
       setLoading(false);
       return;
     }
-    return;
   };
 
   const findByMatchingDate = (completions: any, dateObj: any) => {

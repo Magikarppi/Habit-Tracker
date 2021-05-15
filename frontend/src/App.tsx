@@ -49,7 +49,10 @@ const App = () => {
     }
   }, []);
 
-  const handleSignUpSubmit = async (values: LoginSignUpInputValues) => {
+  const handleSignUpSubmit = async (
+    values: LoginSignUpInputValues,
+    setSubmitting: (value: boolean) => void
+  ) => {
     const { username, password } = values;
     const signupData = {
       username,
@@ -57,6 +60,7 @@ const App = () => {
     };
 
     if (signupData.password.length < 5) {
+      setSubmitting(false);
       setErrorMessage('Password must be at least five (5) characters long');
       setTimeout(() => {
         setErrorMessage(null);
@@ -66,6 +70,7 @@ const App = () => {
 
     try {
       const response = await signup(signupData);
+      setSubmitting(false);
       if (response.error) {
         if (
           response.error.includes(
@@ -106,21 +111,27 @@ const App = () => {
         setTimeout(() => {
           setSuccessMessage(null);
         }, 3000);
+        return;
       }
     } catch (exception) {
       console.log('exception', exception);
+      return;
     }
   };
 
-  const handleLoginSubmit = async (values: LoginSignUpInputValues) => {
+  const handleLoginSubmit = async (
+    values: LoginSignUpInputValues,
+    setSubmitting: (value: boolean) => void
+  ) => {
     const { username, password } = values;
     const loginData = {
       username,
       password,
     };
+
     try {
       const responseData = await login(loginData);
-
+      setSubmitting(false);
       if (responseData.error) {
         if (
           responseData.error.toUpperCase() === 'INVALID USERNAME OR PASSWORD'
@@ -129,7 +140,9 @@ const App = () => {
           setTimeout(() => {
             setErrorMessage(null);
           }, 3000);
+          return;
         }
+        return;
       }
 
       if (responseData.username) {
@@ -142,9 +155,11 @@ const App = () => {
         setHabitsToShow(responseData.habits);
         setRedirect('/');
         setRedirect(null);
+        return;
       }
     } catch (error) {
       console.log(error);
+      return;
     }
   };
 
@@ -156,7 +171,10 @@ const App = () => {
     setRedirect(null);
   };
 
-  const handleHabitSubmit = async (values: HabitInputValue) => {
+  const handleHabitSubmit = async (
+    values: HabitInputValue,
+    setSubmitting: (value: boolean) => void
+  ) => {
     const { habitName } = values;
     try {
       const newHabit = {
@@ -164,6 +182,7 @@ const App = () => {
       };
 
       const responseData = await create(newHabit);
+      setSubmitting(false);
 
       if (responseData.error) {
         if (
@@ -194,6 +213,7 @@ const App = () => {
       }
     } catch (exception) {
       console.log(exception);
+      return;
     }
   };
 
@@ -220,6 +240,7 @@ const App = () => {
           }, 3000);
           setRedirect('/');
           setRedirect(null);
+          return;
         }
       } catch (exception) {
         console.log(exception);
@@ -227,6 +248,7 @@ const App = () => {
         setTimeout(() => {
           setErrorMessage(null);
         }, 3000);
+        return;
       }
     }
   };
@@ -267,12 +289,14 @@ const App = () => {
       setTimeout(() => {
         setSuccessMessage(null);
       }, 3000);
+      return;
     } catch (error) {
       console.log(error);
       setErrorMessage('Adding completion failed.');
       setTimeout(() => {
         setErrorMessage(null);
       }, 3000);
+      return;
     }
   };
 
@@ -303,12 +327,14 @@ const App = () => {
       setTimeout(() => {
         setSuccessMessage(null);
       }, 3000);
+      return;
     } catch (error) {
       console.log(error);
       setErrorMessage('Adding completion failed.');
       setTimeout(() => {
         setErrorMessage(null);
       }, 3000);
+      return;
     }
   };
 
