@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useTrail, animated } from 'react-spring';
 
 import { HomeProps } from '../types';
 import AddHabit from './AddHabit';
@@ -6,9 +7,9 @@ import Habit from './Habit';
 import LoggedOutView from './LoggedOutView';
 
 const HabitsDiv = styled.div`
-  background: rgba(255, 255, 220, 0.8);
+  /* background: rgba(255, 255, 220, 0.8); */
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
   justify-content: center;
   width: 300px;
@@ -64,6 +65,17 @@ const NewHabitBtn = styled.button`
   text-align: center;
 `;
 
+const habitWrapperStyles = {
+  width: '100%',
+  height: '80%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  background: 'rgba(255, 255, 220, 0.8)',
+  borderRadius: '10px',
+  border: '2px solid black',
+};
+
 const Home = ({
   loggedInUser,
   habitsToShow,
@@ -73,6 +85,11 @@ const Home = ({
   toggleHabitForm,
   showHabitForm,
 }: HomeProps) => {
+  const trail = useTrail(habitsToShow.length, {
+    from: { marginTop: -100, opacity: 0, transform: 'translate3d(0,-40px,0)' },
+    to: { marginTop: 0, opacity: 1, transform: 'translate3d(0,0px,0)' },
+  });
+
   return loggedInUser ? (
     <Wrapper>
       {showHabitForm || loggedInUser.habits.length === 0 ? (
@@ -93,14 +110,33 @@ const Home = ({
       )}
       {habitsToShow.length > 0 ? (
         <HabitsDiv data-testid="habit-div" data-cy="habit-div">
-          {habitsToShow.map((habit) => (
+          {trail.map((props, index) => {
+            return (
+              <animated.div
+                key={habitsToShow[index].id}
+                style={{
+                  ...props,
+                  ...habitWrapperStyles,
+                }}
+                className="box"
+              >
+                <Habit
+                  key={habitsToShow[index].id}
+                  habit={habitsToShow[index]}
+                  handleCompletion={handleCompletion}
+                  handleCancelCompletion={handleCancelCompletion}
+                />
+              </animated.div>
+            );
+          })}
+          {/* {habitsToShow.map((habit) => (
             <Habit
               key={habit.id}
               habit={habit}
               handleCompletion={handleCompletion}
               handleCancelCompletion={handleCancelCompletion}
             />
-          ))}
+          ))} */}
         </HabitsDiv>
       ) : (
         <>

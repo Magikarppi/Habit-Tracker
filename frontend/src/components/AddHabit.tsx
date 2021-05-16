@@ -120,6 +120,7 @@ const AddHabit = ({ handleHabitSubmit, toggleHabitForm }: AddHabitProps) => {
                 <CancelBtn
                   data-cy="habit-form-close"
                   data-testid="habit-form-close-btn"
+                  type="button"
                   onClick={toggleHabitForm}
                 >
                   cancel

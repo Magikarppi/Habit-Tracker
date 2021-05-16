@@ -11,7 +11,7 @@ const Div = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
+  /* border-bottom: 1px solid black; */
   height: 180px;
   width: 90%;
 `;
