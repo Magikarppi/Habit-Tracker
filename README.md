@@ -1,7 +1,7 @@
 <h1>Simplify Success</h1>
 
 <p>A web app project that tracks user's habits. </p>
-<h2>https://habit-tracker-2020.herokuapp.com/</h2>
+<h2>https://simplify-success.netlify.app/</h2>
 
 <p>User can create an account and login</p>
 <img src="frontend\src\images\Habit-tracker-Home-not-logged.png" alt="sign-up" width="500px" />
@@ -24,4 +24,4 @@
 <br />
 <p>Both frontend and backend have their own Readme documentation files in their respective folders</p>
 
-<h2>https://habit-tracker-2020.herokuapp.com/</h2>
+<h2>https://simplify-success.netlify.app/</h2>
