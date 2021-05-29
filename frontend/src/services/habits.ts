@@ -1,6 +1,9 @@
 import { HabitType } from '../types';
 
-const baseUrl = '/api/habits';
+const baseUrl =
+  process.env.NODE_ENV === 'production'
+    ? `${process.env.REACT_APP_API_URL}/api/habits`
+    : '/api/habits';
 
 let token: undefined | string = undefined;
 

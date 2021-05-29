@@ -1,4 +1,7 @@
-const baseurl = '/api/login';
+const baseurl =
+  process.env.NODE_ENV === 'production'
+    ? `${process.env.REACT_APP_API_URL}/api/login`
+    : '/api/login';
 
 export const login = async (data: { username: string; password: string }) => {
   try {

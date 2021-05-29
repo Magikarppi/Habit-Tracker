@@ -1,5 +1,6 @@
 import React from 'react';
 import Chart from 'react-google-charts';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { HabitMoreInfoProps } from '../types';
 import { stringShortener } from '../utils';
@@ -70,9 +71,39 @@ const ParagraphNote = styled.p`
   font-style: italic;
 `;
 
+const StyledLink = styled(Link)`
+  background: #cfccc2;
+  &:hover {
+    background: darkgray;
+  }
+  font-size: 0.9em;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+`;
+
+const LoggedOutDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  margin: auto;
+`;
+
 const HabitMoreInfo = ({ habit, handleRemove }: HabitMoreInfoProps) => {
   if (!habit) {
-    return null;
+    return (
+      <LoggedOutDiv>
+        <ParagraphSmall>
+          Looks like you are not logged in or the habit is not found. Return
+          home here:
+        </ParagraphSmall>
+        <StyledLink data-cy="home-btn" to="/">
+          Home
+        </StyledLink>
+      </LoggedOutDiv>
+    );
   }
 
   const totalCompletedDays = habit.completions.length;

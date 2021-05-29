@@ -1,4 +1,7 @@
-const baseUrl = '/api/users';
+const baseUrl =
+  process.env.NODE_ENV === 'production'
+    ? `${process.env.REACT_APP_API_URL}/api/users`
+    : '/api/users';
 
 export const getUsers = async () => {
   try {

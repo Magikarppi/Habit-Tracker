@@ -164,11 +164,12 @@ const App = () => {
   };
 
   const handleLogout = () => {
+    setRedirect('/');
+    // setRedirect(null);
     window.localStorage.clear();
     setLoggedInUser(null);
     setHabitsToShow([]);
-    setRedirect('/');
-    setRedirect(null);
+    // console.log('redirect:', redirect);
   };
 
   const handleHabitSubmit = async (

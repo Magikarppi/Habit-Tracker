@@ -1,15 +1,15 @@
-const bodyParser = require('body-parser')
-const express = require('express')
-const app = express()
-const cors = require('cors')
-const mongoose = require('mongoose')
-const config = require('./utils/config')
-const morgan = require('morgan')
+const bodyParser = require('body-parser');
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const mongoose = require('mongoose');
+const config = require('./utils/config');
+const morgan = require('morgan');
 
-const middleware = require('./utils/middleware')
-const habitRouter = require('./controllers/habit')
-const usersRouter = require('./controllers/users')
-const loginRouter = require('./controllers/login')
+const middleware = require('./utils/middleware');
+const habitRouter = require('./controllers/habit');
+const usersRouter = require('./controllers/users');
+const loginRouter = require('./controllers/login');
 
 morgan.token('data', (req, res) => {
   JSON.stringify(req.body);
@@ -20,12 +20,17 @@ const loggerFormat = ':data ":method :url" :status :response-time';
 app.use(morgan(loggerFormat));
 
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
-  })
+  .connect(
+    process.env.NODE_ENV === 'test'
+      ? process.env.MONGODB_TEST_URI
+      : process.env.MONGODB_URI,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    }
+  )
   .then(() => {
     console.log('connected to MongoDB via url: ', config.MONGODB_URI);
   })
@@ -33,22 +38,21 @@ mongoose
     console.log('error connecting to MongoDB', error.message);
   });
 
-app.use(cors())
-app.use(bodyParser.json())
-app.use(middleware.tokenExtractor)
+app.use(cors());
+app.use(bodyParser.json());
+app.use(middleware.tokenExtractor);
 
 if (process.env.NODE_ENV === 'test') {
-  const testingRouter = require('./controllers/testing')
-  app.use('/api/testing', testingRouter)
+  const testingRouter = require('./controllers/testing');
+  app.use('/api/testing', testingRouter);
 }
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('build'))
+  app.use(express.static('build'));
 }
 
-app.use('/api/habits', habitRouter)
-app.use('/api/users', usersRouter)
-app.use('/api/login', loginRouter)
+app.use('/api/habits', habitRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/login', loginRouter);
 
-
-module.exports = app
+module.exports = app;
