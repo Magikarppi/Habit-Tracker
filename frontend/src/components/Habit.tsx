@@ -11,7 +11,7 @@ const Div = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 180px;
+  height: 210px;
   width: 90%;
 `;
 
@@ -51,6 +51,7 @@ const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
   width: 80%;
+  /* margin-bottom: 10px; */
 `;
 
 const DoneNotif = styled.div`
@@ -79,6 +80,7 @@ const StreakDiv = styled.div`
   height: 50px;
   font-size: 0.9em;
   color: black;
+  margin-bottom: 0.5em;
 `;
 
 const Habit = ({
