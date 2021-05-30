@@ -2,6 +2,8 @@ import React from 'react';
 import Chart from 'react-google-charts';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { LoadingOutlined } from '@ant-design/icons';
+
 import { HabitMoreInfoProps } from '../types';
 import { stringShortener } from '../utils';
 
@@ -181,7 +183,12 @@ const HabitMoreInfo = ({ habit, handleRemove }: HabitMoreInfoProps) => {
             width={'100%'}
             height={350}
             chartType="Calendar"
-            loader={<div>Loading Chart</div>}
+            loader={
+              <LoadingOutlined
+                spin
+                style={{ fontSize: 60, marginBottom: 20 }}
+              />
+            }
             data={data}
             options={options}
             rootProps={{ 'data-testid': '1' }}

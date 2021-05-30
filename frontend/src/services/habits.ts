@@ -1,4 +1,5 @@
 import { HabitType } from '../types';
+import { fetchWithTimeout } from '../utils';
 
 const baseUrl =
   process.env.NODE_ENV === 'production'
@@ -19,12 +20,13 @@ export const create = async (data: { name: string }) => {
     const requestHeaders: HeadersInit = new Headers();
     requestHeaders.append('Content-Type', 'application/json');
     requestHeaders.append('Authorization', token);
-    const response = await fetch(baseUrl, {
+
+    const options = {
       method: 'POST',
       body: JSON.stringify(data),
       headers: requestHeaders,
-      // headers: { 'Content-Type': 'application/json', Authorization: token },
-    });
+    };
+    const response = await fetchWithTimeout(baseUrl, options);
     return response.json();
   } catch (exception) {
     console.log(exception);
@@ -33,9 +35,7 @@ export const create = async (data: { name: string }) => {
 
 export const remove = async (habit: HabitType) => {
   try {
-    await fetch(`${baseUrl}/${habit.id}`, {
-      method: 'DELETE',
-    });
+    await fetchWithTimeout(`${baseUrl}/${habit.id}`, { method: 'DELETE' });
   } catch (error) {
     console.log(error);
   }
@@ -49,12 +49,13 @@ export const update = async (habit: HabitType) => {
     const requestHeaders: HeadersInit = new Headers();
     requestHeaders.append('Content-Type', 'application/json');
     requestHeaders.append('Authorization', token);
-    const response = await fetch(`${baseUrl}/${habit.id}`, {
+
+    const options = {
       method: 'PUT',
       body: JSON.stringify(habit),
-      // headers: { 'Content-Type': 'application/json', Authorization: token },
       headers: requestHeaders,
-    });
+    };
+    const response = await fetchWithTimeout(`${baseUrl}/${habit.id}`, options);
     return response.json();
   } catch (exception) {
     console.log(exception);
