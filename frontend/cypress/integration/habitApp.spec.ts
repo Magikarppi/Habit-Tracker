@@ -41,9 +41,9 @@ describe('Habit app /logged in user', () => {
 
     it('habit can be marked as done and it can be cancelled', () => {
       cy.get('[data-cy=done-btn]').click();
-      cy.contains('Done!');
+      cy.get('[data-cy=checkmark]');
       cy.get('[data-cy=cancel-done-btn]').click();
-      cy.contains('Done!').should('not.exist');
+      cy.get('[data-cy=checkmark]').should('not.exist');
       cy.get('[data-cy=done-btn]');
     });
 

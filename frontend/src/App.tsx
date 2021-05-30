@@ -345,10 +345,7 @@ const App = () => {
   return (
     <div>
       <GlobalStyle />
-      <ErrSuccNotification
-        errorMessage={errorMessage}
-        successMessage={successMessage}
-      />
+
       <Router>
         <Switch>
           <Route
@@ -359,6 +356,10 @@ const App = () => {
                 <Header
                   loggedInUser={loggedInUser}
                   handleLogout={handleLogout}
+                />
+                <ErrSuccNotification
+                  errorMessage={errorMessage}
+                  successMessage={successMessage}
                 />
                 <Home
                   habitsToShow={habitsToShow}
@@ -384,6 +385,10 @@ const App = () => {
                     loggedInUser={loggedInUser}
                     handleLogout={handleLogout}
                   />
+                  <ErrSuccNotification
+                    errorMessage={errorMessage}
+                    successMessage={successMessage}
+                  />
                   <LoginSignUp
                     handleLoginSubmit={handleLoginSubmit}
                     handleSignUpSubmit={handleSignUpSubmit}
@@ -404,6 +409,10 @@ const App = () => {
                     loggedInUser={loggedInUser}
                     handleLogout={handleLogout}
                   />
+                  <ErrSuccNotification
+                    errorMessage={errorMessage}
+                    successMessage={successMessage}
+                  />
                   <LoginSignUp
                     handleLoginSubmit={handleLoginSubmit}
                     handleSignUpSubmit={handleSignUpSubmit}
@@ -422,6 +431,10 @@ const App = () => {
                   <Header
                     loggedInUser={loggedInUser}
                     handleLogout={handleLogout}
+                  />
+                  <ErrSuccNotification
+                    errorMessage={errorMessage}
+                    successMessage={successMessage}
                   />
                   <HabitMoreInfo
                     habit={habitById(match.params.id)}

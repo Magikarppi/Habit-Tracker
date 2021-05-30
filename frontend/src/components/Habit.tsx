@@ -1,4 +1,4 @@
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined, CheckOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -11,7 +11,6 @@ const Div = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* border-bottom: 1px solid black; */
   height: 180px;
   width: 90%;
 `;
@@ -27,18 +26,19 @@ const DoneBtn = styled.button`
     background: #a8ff36;
   }
   font-size: 0.9em;
-  /* padding: 0.25em 1em; */
   border: 2px solid #8f8d64;
   border-radius: 3px;
   text-align: center;
 `;
 
 const CancelBtn = styled.button`
+  width: 50px;
+  height: 34px;
   &:hover {
     background: #ff4141;
   }
   font-size: 0.9em;
-  /* padding: 0.25em 1em; */
+  background: rgba(255, 255, 220, 0.8);
   margin: 0;
   border: 2px solid #ff4141;
   border-radius: 50%;
@@ -48,17 +48,21 @@ const CancelBtn = styled.button`
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-evenly;
   width: 80%;
 `;
 
 const DoneNotif = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 34px;
   background: #73ff00;
   color: black;
   width: 50px;
   font-size: 0.9em;
-  margin-top: 5px;
   border: 2px solid #000000;
   border-radius: 3px;
   text-align: center;
@@ -187,7 +191,9 @@ const Habit = ({
           <LoadingOutlined spin style={{ fontSize: 40, marginBottom: 20 }} />
         ) : (
           <ButtonWrapper>
-            <DoneNotif>Done!</DoneNotif>
+            <DoneNotif>
+              <CheckOutlined data-cy="checkmark" style={{ fontSize: 20 }} />
+            </DoneNotif>
             <CancelBtn
               data-cy="cancel-done-btn"
               onClick={() => handleCompletions('undone', habit)}

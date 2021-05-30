@@ -43,6 +43,7 @@ const TotalDaysDiv = styled.div`
   margin-bottom: 10px;
   text-align: center;
   color: black;
+  border-radius: 5px;
 `;
 
 const H1 = styled.h1`
@@ -200,14 +201,17 @@ const HabitMoreInfo = ({ habit, handleRemove }: HabitMoreInfoProps) => {
       <Wrapper>
         <H1>{stringShortener(habit.name, 45)}</H1>
         <TotalDaysDiv>Times done: {totalCompletedDays}</TotalDaysDiv>
-        <SuccessDaysWrapper>
-          Dates of success:
-          {habit.completions.map((dateObj) => (
-            <ParagraphSmall
-              key={`${dateObj.thisDay} ${dateObj.thisMonth} ${dateObj.thisYear}`}
-            >{`${dateObj.thisDay} ${dateObj.thisMonth} ${dateObj.thisYear}`}</ParagraphSmall>
-          ))}
-        </SuccessDaysWrapper>
+        {habit.completions.length > 0 ? (
+          <SuccessDaysWrapper>
+            Dates of success:
+            {habit.completions.map((dateObj) => (
+              <ParagraphSmall
+                key={`${dateObj.thisDay} ${dateObj.thisMonth} ${dateObj.thisYear}`}
+              >{`${dateObj.thisDay} ${dateObj.thisMonth} ${dateObj.thisYear}`}</ParagraphSmall>
+            ))}
+          </SuccessDaysWrapper>
+        ) : null}
+
         <div>
           <DeleteBtn data-cy="delete-btn" onClick={() => handleRemove(habit)}>
             Delete

@@ -32,7 +32,6 @@ const H1 = styled.h1`
 `;
 
 const LoggedInDiv = styled.div`
-  margin-top: 10px;
   text-align: center;
   white-space: nowrap;
   font-size: 10px;
@@ -51,6 +50,7 @@ const LogOutBtn = styled.button`
   font-size: 0.6em;
   @media (min-width: 767px) {
     font-size: 0.9em;
+    font-size: 1vw;
     margin: 1em;
     padding: 0.25em 1em;
     border: 2px solid #8f8d64;
