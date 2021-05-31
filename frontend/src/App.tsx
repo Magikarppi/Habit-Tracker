@@ -33,7 +33,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState<ErrorSuccessMsg>('');
   const [successMessage, setSuccessMessage] = useState<ErrorSuccessMsg>('');
   const [redirect, setRedirect] = useState<string | null>(null);
-  const [showHabitForm, setShowHabitForm] = useState(false);
+  const [showHabitForm, setShowHabitForm] = useState(true);
 
   useEffect(() => {
     document.title = 'Simplify Success';
@@ -106,7 +106,8 @@ const App = () => {
 
       if (response.username) {
         setRedirect('/login');
-        setRedirect(null);
+        // setRedirect(null);
+        resetRedirect();
         setSuccessMessage('A new user created! Please log in!');
         setTimeout(() => {
           setSuccessMessage(null);
@@ -154,7 +155,8 @@ const App = () => {
         setLoggedInUser(responseData);
         setHabitsToShow(responseData.habits);
         setRedirect('/');
-        setRedirect(null);
+        // setRedirect(null);
+        resetRedirect();
         return;
       }
     } catch (error) {
@@ -165,11 +167,10 @@ const App = () => {
 
   const handleLogout = () => {
     setRedirect('/');
-    // setRedirect(null);
     window.localStorage.clear();
     setLoggedInUser(null);
     setHabitsToShow([]);
-    // console.log('redirect:', redirect);
+    resetRedirect();
   };
 
   const handleHabitSubmit = async (
@@ -203,9 +204,9 @@ const App = () => {
       }
 
       if (responseData.name && loggedInUser) {
+        setShowHabitForm(false);
         setHabitsToShow([...habitsToShow, responseData]);
         loggedInUser.habits = loggedInUser.habits.concat(responseData);
-        setShowHabitForm(false);
         window.localStorage.setItem(
           'loggedHabitAppUser',
           JSON.stringify(loggedInUser)
@@ -240,7 +241,8 @@ const App = () => {
             setSuccessMessage(null);
           }, 3000);
           setRedirect('/');
-          setRedirect(null);
+          // setRedirect(null);
+          resetRedirect();
           return;
         }
       } catch (exception) {
@@ -341,6 +343,10 @@ const App = () => {
 
   const habitById = (id: string) =>
     habitsToShow.find((habit) => habit.id === id);
+
+  const resetRedirect = () => {
+    setRedirect(null);
+  };
 
   return (
     <div>

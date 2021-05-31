@@ -87,8 +87,9 @@ const AddHabit = ({ handleHabitSubmit, toggleHabitForm }: AddHabitProps) => {
       <Formik
         initialValues={initialValues}
         validate={(values) => validate(values)}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values, { setSubmitting, resetForm }) => {
           handleHabitSubmit(values, setSubmitting);
+          resetForm();
         }}
       >
         {({ isSubmitting, errors }) => (

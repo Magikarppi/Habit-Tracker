@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useTrail, animated } from 'react-spring';
 
@@ -90,9 +91,12 @@ const Home = ({
     to: { marginTop: 0, opacity: 1, transform: 'translate3d(0,0px,0)' },
   });
 
+  console.log('showhabitform', showHabitForm);
+  console.log('length', loggedInUser?.habits.length);
+
   return loggedInUser ? (
     <Wrapper>
-      {showHabitForm || loggedInUser.habits.length === 0 ? (
+      {showHabitForm ? (
         <div data-testid="habitForm-open-div">
           <AddHabit
             handleHabitSubmit={handleHabitSubmit}
