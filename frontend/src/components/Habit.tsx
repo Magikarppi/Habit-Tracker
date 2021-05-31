@@ -38,7 +38,7 @@ const CancelBtn = styled.button`
     background: #ff4141;
   }
   font-size: 0.9em;
-  background: rgba(255, 255, 220, 0.8);
+  background: rgba(255, 255, 220, 0);
   margin: 0;
   border: 2px solid #ff4141;
   border-radius: 50%;
@@ -49,7 +49,7 @@ const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 80%;
   /* margin-bottom: 10px; */
 `;

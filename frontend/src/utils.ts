@@ -2,10 +2,6 @@ export const consts = {
   appName: 'Simplify Success',
 };
 
-interface FetchWithTimeoutOptions {
-  timeout?: number;
-}
-
 export const fetchWithTimeout = async (url: string, options?: RequestInit) => {
   const timeout = 12000;
 

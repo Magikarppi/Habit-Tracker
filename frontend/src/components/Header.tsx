@@ -43,7 +43,7 @@ const LoggedInDiv = styled.div`
 const LogOutBtn = styled.button`
   background: #fff870;
   &:hover {
-    background: #85015d;
+    background: #bdbdbd;
   }
   height: 30px;
   width: 80px;
