@@ -30,7 +30,7 @@ const StyledLink = styled(Link)`
 
 const ParagraphSmall = styled.p`
   margin: auto;
-  margin-top: 20px;
+  margin-top: 5px;
   margin-left: 10px;
   margin-right: 10px;
   text-align: center;

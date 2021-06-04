@@ -1,5 +1,4 @@
-const bodyParser = require('body-parser');
-const express = require('express');
+import express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -11,7 +10,7 @@ const habitRouter = require('./controllers/habit');
 const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
 
-morgan.token('data', (req, res) => {
+morgan.token('data', (req: RequestInit) => {
   JSON.stringify(req.body);
 });
 
@@ -34,12 +33,12 @@ mongoose
   .then(() => {
     console.log('connected to MongoDB via url: ', config.MONGODB_URI);
   })
-  .catch((error) => {
+  .catch((error: any) => {
     console.log('error connecting to MongoDB', error.message);
   });
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(middleware.tokenExtractor);
 
 if (process.env.NODE_ENV === 'test') {

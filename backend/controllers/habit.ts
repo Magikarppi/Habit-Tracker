@@ -1,11 +1,12 @@
-const jwt = require('jsonwebtoken');
-const config = require('../utils/config');
-const habitRouter = require('express').Router();
-const Habit = require('../models/habit');
-const User = require('../models/user');
+import jwt = require('jsonwebtoken');
+import express = require('express');
+import Habit = require('../models/habit');
+import User = require('../models/user');
+// import { Router } from 'express';
 
-habitRouter.get('/', async (request, response) => {
-  console.log('habitRouter.get runs');
+const habitRouter = express.Router();
+
+habitRouter.get('/', async (_request, response) => {
   try {
     const habits = await Habit.find({}).populate('user', { username: 1 });
     response.json(habits.map((habit) => habit.toJSON()));
@@ -17,7 +18,7 @@ habitRouter.get('/', async (request, response) => {
 
 habitRouter.post('/', async (request, response) => {
   try {
-    const decodedToken = jwt.verify(request.token, config.SECRET);
+    const decodedToken = jwt.verify(request.token, process.env.SECRET);
     if (!request.token || !decodedToken.id) {
       return response.status(401).json({ error: 'token missing or invalid' });
     }

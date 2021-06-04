@@ -91,9 +91,6 @@ const Home = ({
     to: { marginTop: 0, opacity: 1, transform: 'translate3d(0,0px,0)' },
   });
 
-  console.log('showhabitform', showHabitForm);
-  console.log('length', loggedInUser?.habits.length);
-
   return loggedInUser ? (
     <Wrapper>
       {showHabitForm ? (
@@ -133,14 +130,6 @@ const Home = ({
               </animated.div>
             );
           })}
-          {/* {habitsToShow.map((habit) => (
-            <Habit
-              key={habit.id}
-              habit={habit}
-              handleCompletion={handleCompletion}
-              handleCancelCompletion={handleCancelCompletion}
-            />
-          ))} */}
         </HabitsDiv>
       ) : (
         <>
