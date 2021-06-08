@@ -1,14 +1,20 @@
-import jwt = require('jsonwebtoken');
-import express = require('express');
-import Habit = require('../models/habit');
-import User = require('../models/user');
-// import { Router } from 'express';
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import jwt from 'jsonwebtoken';
+import express from 'express';
+const Habit = require('../models/habit');
+// import * as Habit from '../models/habit';
+const User = require('../models/user');
+// import * as User from '../models/user';
+import { HabitDocument } from '../types';
 
 const habitRouter = express.Router();
 
 habitRouter.get('/', async (_request, response) => {
   try {
-    const habits = await Habit.find({}).populate('user', { username: 1 });
+    const habits: HabitDocument[] = await Habit.find({}).populate('user', {
+      username: 1,
+    });
     response.json(habits.map((habit) => habit.toJSON()));
   } catch (exception) {
     console.log(exception);
@@ -18,7 +24,7 @@ habitRouter.get('/', async (_request, response) => {
 
 habitRouter.post('/', async (request, response) => {
   try {
-    const decodedToken = jwt.verify(request.token, process.env.SECRET);
+    const decodedToken: any = jwt.verify(request.token!, process.env.SECRET);
     if (!request.token || !decodedToken.id) {
       return response.status(401).json({ error: 'token missing or invalid' });
     }
@@ -36,10 +42,10 @@ habitRouter.post('/', async (request, response) => {
     user.habits = user.habits.concat(savedHabit._id);
     await user.save();
 
-    response.status(201).json(savedHabit.toJSON());
+    return response.status(201).json(savedHabit.toJSON());
   } catch (exception) {
     console.log(exception);
-    response.status(400).send({ error: exception.message });
+    return response.status(400).send({ error: exception.message });
   }
 });
 

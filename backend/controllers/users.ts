@@ -1,10 +1,20 @@
-const usersRouter = require('express').Router();
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import express from 'express';
+// const usersRouter = require('express').Router();
+// import * as User from '../models/user';
 const User = require('../models/user');
-const bcryptjs = require('bcryptjs');
+// const User = require('../models/user');
+import bcryptjs from 'bcryptjs';
+// const bcryptjs = require('bcryptjs');
+import { UserDocument } from '../types';
 
-usersRouter.get('/', async (request, response) => {
+const usersRouter = express.Router();
+
+usersRouter.get('/', async (_request, response) => {
   try {
-    const users = await User.find({}).populate('habits', {
+    const users: UserDocument[] = await User.find({}).populate('habits', {
       name: 1,
       completions: 1,
     });

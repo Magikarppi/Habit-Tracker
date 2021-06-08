@@ -1,7 +1,11 @@
-import mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+// import mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator';
+import { UserDocument } from '../types';
 
-const userSchema = new mongoose.Schema({
+const userSchema: Schema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
@@ -20,7 +24,7 @@ const userSchema = new mongoose.Schema({
 userSchema.plugin(uniqueValidator);
 
 userSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
+  transform: (_document: Document, returnedObject: any) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
@@ -28,4 +32,4 @@ userSchema.set('toJSON', {
   },
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model<UserDocument>('User', userSchema);

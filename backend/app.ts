@@ -1,16 +1,18 @@
-import express = require('express');
+// import express = require('express');
+import express, { Request } from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import morgan from 'morgan';
+
+import * as middleware from './utils/middleware';
+// const habitRouter = require('./controllers/habit');
+import * as habitRouter from './controllers/habit';
+import * as usersRouter from './controllers/users';
+import * as loginRouter from './controllers/login';
+
 const app = express();
-const cors = require('cors');
-const mongoose = require('mongoose');
-const config = require('./utils/config');
-const morgan = require('morgan');
 
-const middleware = require('./utils/middleware');
-const habitRouter = require('./controllers/habit');
-const usersRouter = require('./controllers/users');
-const loginRouter = require('./controllers/login');
-
-morgan.token('data', (req: RequestInit) => {
+morgan.token('data', (req) => {
   JSON.stringify(req.body);
 });
 
@@ -20,7 +22,7 @@ app.use(morgan(loggerFormat));
 
 mongoose
   .connect(
-    process.env.NODE_ENV === 'test'
+    process.env.NODE_ENV === undefined || process.env.NODE_ENV === 'test'
       ? process.env.MONGODB_TEST_URI
       : process.env.MONGODB_URI,
     {

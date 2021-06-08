@@ -1,6 +1,9 @@
-import mongoose = require('mongoose');
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import mongoose from 'mongoose';
+import { HabitDocument } from '../types';
 
-const habitSchema = new mongoose.Schema({
+const habitSchema: mongoose.Schema = new mongoose.Schema({
   name: { type: String, minlength: 2, required: true },
   completions: { type: Array },
   user: {
@@ -10,11 +13,12 @@ const habitSchema = new mongoose.Schema({
 });
 
 habitSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  transform: (_document: Document, returnedObject: any) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
   },
 });
 
-module.exports = mongoose.model('Habit', habitSchema);
+module.exports = mongoose.model<HabitDocument>('Habit', habitSchema);
