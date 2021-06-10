@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-// import mongoose = require('mongoose');
 import mongoose from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
+
 import { UserDocument } from '../types';
 
-const userSchema: Schema = new mongoose.Schema({
+const userSchema: mongoose.Schema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
@@ -32,4 +30,4 @@ userSchema.set('toJSON', {
   },
 });
 
-module.exports = mongoose.model<UserDocument>('User', userSchema);
+export = mongoose.model<UserDocument>('User', userSchema);

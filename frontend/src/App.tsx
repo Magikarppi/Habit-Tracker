@@ -33,7 +33,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState<ErrorSuccessMsg>('');
   const [successMessage, setSuccessMessage] = useState<ErrorSuccessMsg>('');
   const [redirect, setRedirect] = useState<string | null>(null);
-  const [showHabitForm, setShowHabitForm] = useState(true);
+  const [showHabitForm, setShowHabitForm] = useState(false);
 
   useEffect(() => {
     document.title = 'Simplify Success';
@@ -48,6 +48,12 @@ const App = () => {
       setToken(user.token);
     }
   }, []);
+
+  useEffect(() => {
+    if (loggedInUser && loggedInUser.habits.length < 1) {
+      setShowHabitForm(true);
+    }
+  }, [loggedInUser]);
 
   const handleSignUpSubmit = async (
     values: LoginSignUpInputValues,

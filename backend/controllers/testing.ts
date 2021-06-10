@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import express from 'express';
-// import * as Habit from '../models/habit';
-const Habit = require('../models/habit');
-import * as User from '../models/user';
+
+import Habit = require('../models/habit');
+import User = require('../models/user');
 
 const testingRouter = express.Router();
 
@@ -15,4 +12,4 @@ testingRouter.post('/reset', async (_request, response) => {
   response.status(204).end();
 });
 
-module.exports = testingRouter;
+export = testingRouter;

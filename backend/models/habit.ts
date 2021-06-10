@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import mongoose from 'mongoose';
 import { HabitDocument } from '../types';
 
@@ -21,4 +19,4 @@ habitSchema.set('toJSON', {
   },
 });
 
-module.exports = mongoose.model<HabitDocument>('Habit', habitSchema);
+export = mongoose.model<HabitDocument>('Habit', habitSchema);

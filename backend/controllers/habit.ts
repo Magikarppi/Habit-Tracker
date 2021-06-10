@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import jwt from 'jsonwebtoken';
 import express from 'express';
-const Habit = require('../models/habit');
-// import * as Habit from '../models/habit';
-const User = require('../models/user');
-// import * as User from '../models/user';
+
+import Habit = require('../models/habit');
+import User = require('../models/user');
 import { HabitDocument } from '../types';
+import config = require('../utils/config');
 
 const habitRouter = express.Router();
 
@@ -24,14 +22,21 @@ habitRouter.get('/', async (_request, response) => {
 
 habitRouter.post('/', async (request, response) => {
   try {
-    const decodedToken: any = jwt.verify(request.token!, process.env.SECRET);
-    if (!request.token || !decodedToken.id) {
-      return response.status(401).json({ error: 'token missing or invalid' });
+    if (!request.token) {
+      throw new Error('token missing');
+    }
+
+    const decodedToken: any = jwt.verify(request.token, config.SECRET!);
+
+    if (!decodedToken.id) {
+      throw new Error('token invalid');
     }
 
     const user = await User.findById(decodedToken.id);
 
-    console.log('request body:', request.body);
+    if (!user) {
+      throw new Error('User not found');
+    }
 
     const habit = new Habit({
       ...request.body,
@@ -42,17 +47,17 @@ habitRouter.post('/', async (request, response) => {
     user.habits = user.habits.concat(savedHabit._id);
     await user.save();
 
-    return response.status(201).json(savedHabit.toJSON());
+    response.status(201).json(savedHabit.toJSON());
   } catch (exception) {
     console.log(exception);
-    return response.status(400).send({ error: exception.message });
+    response.status(400).send({ error: exception.message });
   }
 });
 
 habitRouter.delete('/:id', async (request, response) => {
   try {
     await Habit.findByIdAndRemove(request.params.id);
-    return response.status(204).end();
+    response.status(204).end();
   } catch (exception) {
     console.log(exception);
     response.status(400).send({ error: exception.message });
@@ -73,10 +78,16 @@ habitRouter.put('/:id', async (request, response) => {
         omitUndefined: true,
       }
     );
+
+    if (!updatedHabit) {
+      throw new Error('Habit update failed');
+    }
+
     response.json(updatedHabit.toJSON());
-  } catch (error) {
-    console.log(error);
+  } catch (exception) {
+    console.log(exception);
+    response.status(400).send({ exception: exception.message });
   }
 });
 
-module.exports = habitRouter;
+export = habitRouter;

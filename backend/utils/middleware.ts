@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import { HookNextFunction } from 'mongoose';
 
 const tokenExtractor = (
   request: Request,
   _response: Response,
-  next: HookNextFunction | NextFunction
+  next: NextFunction
 ) => {
   if (Object.getOwnPropertyNames(request.headers).includes('authorization')) {
     const authorization = request.get('authorization');
@@ -16,9 +15,9 @@ const tokenExtractor = (
       return null;
     }
   }
-  next();
+  return next();
 };
 
-module.exports = {
+export = {
   tokenExtractor,
 };

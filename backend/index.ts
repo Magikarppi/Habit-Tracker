@@ -1,8 +1,9 @@
 import app = require('./app');
-const http = require('http');
+import http = require('http');
+import config = require('./utils/config');
 
 const server = http.createServer(app);
 
-server.listen(process.env.PORT || 3003, () => {
-  console.log(`Server running`);
+server.listen(config.PORT, () => {
+  console.log(`Server running on port: ${config.PORT}`);
 });

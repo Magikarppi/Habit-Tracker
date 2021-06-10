@@ -1,3 +1,4 @@
+import { IncomingMessage } from 'http';
 import mongoose from 'mongoose';
 
 interface Completion {
@@ -6,10 +7,9 @@ interface Completion {
   thisYear: number;
 }
 
-// export interface HabitSc {
-//   type: mongoose.Types.ObjectId;
-//   ref: string;
-// }
+export interface RequestMorgan extends IncomingMessage {
+  body?: any;
+}
 
 interface Habit {
   name: string;
@@ -32,5 +32,7 @@ export interface HabitType {
 }
 
 export interface HabitDocument extends mongoose.Document, HabitType {}
+
+export interface HabitModel extends mongoose.Model<HabitDocument> {}
 
 export type Habits = HabitType[];

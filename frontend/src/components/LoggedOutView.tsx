@@ -174,7 +174,7 @@ const LoggedOutView = () => {
         }}
       >
         <ParagraphMed style={{ color: 'white', paddingBottom: '20px' }}>
-          This is how Habit Tracker works:
+          This is how Simplify Success works:
         </ParagraphMed>
       </div>
       <GuideWrapper>

@@ -1,13 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import express from 'express';
-// const usersRouter = require('express').Router();
-// import * as User from '../models/user';
-const User = require('../models/user');
-// const User = require('../models/user');
 import bcryptjs from 'bcryptjs';
-// const bcryptjs = require('bcryptjs');
+
+import User = require('../models/user');
 import { UserDocument } from '../types';
 
 const usersRouter = express.Router();
@@ -47,4 +41,4 @@ usersRouter.post('/', async (request, response) => {
   }
 });
 
-module.exports = usersRouter;
+export = usersRouter;
