@@ -5,8 +5,8 @@
   "main": "index.ts",
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
-    "start:test": "cross-env NODE_ENV=test ts-node index.ts",
-    "start:dev": "ts-node-dev index.ts",
+    "start:test": "cross-env NODE_ENV=test ts-node --files index.ts",
+    "start:dev": "cross-env NODE_ENV=development ts-node-dev --files index.ts",
     "start": "node build/index.js",
     "tsc": "tsc",
     "lint": "eslint --ext .ts ."

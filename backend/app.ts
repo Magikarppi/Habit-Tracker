@@ -1,11 +1,10 @@
 // import express = require('express');
-import express from 'express';
-import cors from 'cors';
-import mongoose from 'mongoose';
-import morgan from 'morgan';
+import express = require('express');
+import cors = require('cors');
+import mongoose = require('mongoose');
+import morgan = require('morgan');
 
 import config = require('./utils/config');
-// import * as middleware from './utils/middleware';
 import middleware = require('./utils/middleware');
 import habitRouter = require('./controllers/habit');
 import usersRouter = require('./controllers/users');
@@ -53,4 +52,4 @@ app.use('/api/habits', habitRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
 
-module.exports = app;
+export = app;
