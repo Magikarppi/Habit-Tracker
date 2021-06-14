@@ -22,12 +22,14 @@ habitRouter.get('/', async (_request, response) => {
 
 habitRouter.post('/', async (request, response) => {
   try {
+    console.log('post runs');
     if (!request.token) {
       throw new Error('token missing');
     }
 
     const decodedToken: any = jwt.verify(request.token, config.SECRET!);
 
+    console.log('jwt verify?');
     if (!decodedToken.id) {
       throw new Error('token invalid');
     }
@@ -48,9 +50,11 @@ habitRouter.post('/', async (request, response) => {
     await user.save();
 
     response.status(201).json(savedHabit.toJSON());
+    return;
   } catch (exception) {
     console.log(exception);
     response.status(400).send({ error: exception.message });
+    return;
   }
 });
 
