@@ -22,14 +22,20 @@ habitRouter.get('/', async (_request, response) => {
 
 habitRouter.post('/', async (request, response) => {
   try {
-    console.log('post runs');
     if (!request.token) {
       throw new Error('token missing');
     }
 
-    const decodedToken: any = jwt.verify(request.token, config.SECRET!);
+    const decodedToken: any = jwt.verify(
+      request.token,
+      config.SECRET!,
+      (error) => {
+        if (error) {
+          throw new Error('token verification failed');
+        }
+      }
+    );
 
-    console.log('jwt verify?');
     if (!decodedToken.id) {
       throw new Error('token invalid');
     }

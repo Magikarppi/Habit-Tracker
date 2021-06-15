@@ -9,6 +9,7 @@
     "start:dev": "cross-env NODE_ENV=development ts-node-dev --files index.ts",
     "start": "node build/index.js",
     "tsc": "tsc",
+    "postinstall": "npm run tsc",
     "lint": "eslint --ext .ts ."
   },
   "author": "Sami Huuskonen",

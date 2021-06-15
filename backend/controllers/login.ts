@@ -2,6 +2,7 @@ import express from 'express';
 import jwt = require('jsonwebtoken');
 import bcryptjs = require('bcryptjs');
 
+import config = require('../utils/config');
 import User = require('../models/user');
 
 const loginRouter = express.Router();
@@ -31,9 +32,7 @@ loginRouter.post('/', async (request, response) => {
       id: user._id,
     };
 
-    const secretForJwt = process.env.SECRET || '';
-
-    const token = jwt.sign(userForToken, secretForJwt);
+    const token = jwt.sign(userForToken, config.SECRET!);
 
     response.status(200).send({
       token,

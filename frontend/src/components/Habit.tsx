@@ -40,7 +40,7 @@ const CancelBtn = styled.button`
   font-size: 0.9em;
   background: rgba(255, 255, 220, 0);
   margin: 0;
-  border: 2px solid #ff4141;
+  border: 2px solid black;
   border-radius: 50%;
   text-align: center;
 `;

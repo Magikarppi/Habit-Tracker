@@ -13,7 +13,7 @@
 <img src="frontend\src\images\Habit-tracker-habit-more-info.png" alt="logged-in-actions" width="500px" />
 
 <h3>Backend</h3>
-<p>Backend is build with Node and Express.js, and it uses MongoDb as a data storage</p>
+<p>Backend is build with Node.js, Express and Typescript, and it uses MongoDb as a data storage</p>
 <h3>Frontend</h3>
 <p>Client side is made with React and Typescript.</p>
 

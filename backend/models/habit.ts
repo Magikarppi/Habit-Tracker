@@ -11,7 +11,6 @@ const habitSchema: mongoose.Schema = new mongoose.Schema({
 });
 
 habitSchema.set('toJSON', {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   transform: (_document: Document, returnedObject: any) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
