@@ -26,17 +26,9 @@ habitRouter.post('/', async (request, response) => {
       throw new Error('token missing');
     }
 
-    const decodedToken: any = jwt.verify(
-      request.token,
-      config.SECRET!,
-      (error) => {
-        if (error) {
-          throw new Error('token verification failed');
-        }
-      }
-    );
+    const decodedToken: any = jwt.verify(request.token, config.SECRET!);
 
-    if (!decodedToken.id) {
+    if (!decodedToken || !decodedToken.id) {
       throw new Error('token invalid');
     }
 
