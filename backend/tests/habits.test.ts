@@ -150,6 +150,42 @@ describe('when there are two initial habits', () => {
     }
   });
 
+  test('habit completion can be cancelled', async () => {
+    try {
+      const habitsAtStart = await helper.habitsInDB();
+
+      if (habitsAtStart === undefined) {
+        throw new Error('habitsInDB() returned undefined');
+      }
+
+      await api
+        .put(`/api/habits/${habitsAtStart[0].id}`)
+        .send({ ...habitsAtStart[0], completions: [completion] });
+
+      const habitsAtMiddle = await helper.habitsInDB();
+
+      if (habitsAtMiddle === undefined) {
+        throw new Error('habitsInDb() returned undefined');
+      }
+
+      expect(habitsAtMiddle[0].completions[0]).toEqual(completion);
+
+      await api
+        .put(`/api/habits/${habitsAtStart[0].id}`)
+        .send({ ...habitsAtStart[0], completions: [] });
+
+      const habitsAtEnd = await helper.habitsInDB();
+
+      if (habitsAtEnd === undefined) {
+        throw new Error('habitsInDb() returned undefined');
+      }
+
+      expect(habitsAtEnd[0].completions[0]).not.toEqual(completion);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
   test('habit can be deleted', async () => {
     try {
       const habitsAtStart = await helper.habitsInDB();
