@@ -7,6 +7,7 @@ import { HabitType } from '../types';
 import helper = require('./test-helper');
 
 const api = supertest(app);
+
 describe('when there are two initial habits', () => {
   const initialHabits = [
     {
@@ -125,24 +126,55 @@ describe('when there are two initial habits', () => {
   });
 
   test('habit completion can be added', async () => {
-    const habitsAtStart = await helper.habitsInDB();
+    try {
+      const habitsAtStart = await helper.habitsInDB();
 
-    if (habitsAtStart === undefined) {
-      throw new Error('habitsInDB() returned undefined');
+      if (habitsAtStart === undefined) {
+        throw new Error('habitsInDB() returned undefined');
+      }
+
+      await api
+        .put(`/api/habits/${habitsAtStart[0].id}`)
+        .send({ ...habitsAtStart[0], completions: [completion] })
+        .expect(201);
+
+      const habitsAtEnd = await helper.habitsInDB();
+
+      if (habitsAtEnd === undefined) {
+        throw new Error('habitsInDb() returned undefined');
+      }
+
+      expect(habitsAtEnd[0].completions[0]).toEqual(completion);
+    } catch (error) {
+      console.log(error);
     }
+  });
 
-    await api
-      .put(`api/habits/${habitsAtStart[0]}`)
-      .send({ ...habitsAtStart[0], completions: [completion] })
-      .expect(201);
+  test('habit can be deleted', async () => {
+    try {
+      const habitsAtStart = await helper.habitsInDB();
 
-    const habitsAtEnd = await helper.habitsInDB();
+      if (habitsAtStart === undefined) {
+        throw new Error('habitsInDB() returned undefined');
+      }
 
-    if (habitsAtEnd === undefined) {
-      throw new Error('habitsInDb() returned undefined');
+      const habitToDelete = habitsAtStart[0];
+
+      await api.delete(`/api/habits/${habitToDelete.id}`).expect(204);
+
+      const habitsAtEnd = await helper.habitsInDB();
+
+      if (habitsAtEnd === undefined) {
+        throw new Error('habitsInDb() returned undefined');
+      }
+
+      expect(habitsAtEnd.length).toEqual(habitsAtStart.length - 1);
+
+      const habitNames = habitsAtEnd.map((e) => e.name);
+      expect(habitNames).not.toContain(habitToDelete.name);
+    } catch (error) {
+      console.log(error);
     }
-
-    expect(habitsAtEnd[0].completions[0]).toEqual(completion);
   });
 });
 

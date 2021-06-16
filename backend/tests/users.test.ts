@@ -90,7 +90,7 @@ describe('when there is initially one user at db', () => {
   test('user can login', async () => {
     try {
       const response = await api
-        .post('api/login')
+        .post('/api/login')
         .send(initialUser)
         .expect(201)
         .expect('Content-Type', /application\/json/);
@@ -104,7 +104,7 @@ describe('when there is initially one user at db', () => {
   test("user can't login with invalid password", async () => {
     try {
       const response = await api
-        .post('/api/users')
+        .post('/api/login')
         .send({ ...initialUser, password: 'wrongPass' })
         .expect(400);
 

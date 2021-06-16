@@ -21,11 +21,17 @@ usersRouter.get('/', async (_request, response) => {
 });
 
 usersRouter.post('/', async (request, response) => {
-  if (request.body.password.length < 5) {
-    throw new Error('Minimum length for password is 5 characters');
-  }
-
   try {
+    if (!request.body.password) {
+      throw new Error('Password not provided');
+    }
+    if (!request.body.username) {
+      throw new Error('Username not provided');
+    }
+    if (request.body.password.length < 5) {
+      throw new Error('Minimum length for password is 5 characters');
+    }
+
     const passwordHash = await bcryptjs.hash(request.body.password, 10);
 
     const user = new User({
