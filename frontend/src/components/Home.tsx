@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
-import styled from 'styled-components';
-import { useTrail, animated } from 'react-spring';
+import styled, { CSSProperties } from 'styled-components';
+import { useTrail, animated, useTransition } from 'react-spring';
 
 import { HomeProps } from '../types';
 import AddHabit from './AddHabit';
@@ -13,11 +12,12 @@ const HabitsDiv = styled.div`
   flex-direction: column-reverse;
   align-items: center;
   justify-content: center;
-  width: 300px;
+  width: 80%;
+  /* width: 300px; */
   padding: 10px;
-  margin: auto;
+  /* margin: auto; */
   margin-bottom: 5%;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 `;
 
 const ParagraphSmall = styled.p`
@@ -66,16 +66,29 @@ const NewHabitBtn = styled.button`
   text-align: center;
 `;
 
-const habitWrapperStyles = {
+const habitWrapperStyles: CSSProperties = {
   width: '100%',
-  height: '80%',
+  height: '50%',
   display: 'flex',
-  justifyContent: 'center',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
   alignItems: 'center',
   background: 'rgba(255, 255, 220, 0.8)',
   borderRadius: '10px',
   border: '2px solid black',
+  overflow: 'hidden',
 };
+
+// const habitWrapperStyles = {
+//   width: '100%',
+//   height: '80%',
+//   display: 'flex',
+//   justifyContent: 'center',
+//   alignItems: 'center',
+//   background: 'rgba(255, 255, 220, 0.8)',
+//   borderRadius: '10px',
+//   border: '2px solid black',
+// };
 
 const Home = ({
   loggedInUser,
@@ -83,13 +96,34 @@ const Home = ({
   handleHabitSubmit,
   handleCompletion,
   handleCancelCompletion,
+  handleRemove,
   toggleHabitForm,
   showHabitForm,
 }: HomeProps) => {
   const trail = useTrail(habitsToShow.length, {
-    from: { marginTop: -100, opacity: 0, transform: 'translate3d(0,-40px,0)' },
-    to: { marginTop: 0, opacity: 1, transform: 'translate3d(0,0px,0)' },
+    from: {
+      marginTop: -100,
+      opacity: 0,
+      transform: 'translate3d(-150px,-40px,0)',
+    },
+    to: {
+      marginTop: 0,
+      opacity: 1,
+      transform: 'translate3d(0,0px,0)',
+    },
+    leave: {
+      opacity: 0,
+    },
   });
+
+  // const transitions = useTransition(item, {
+  //   from: { opacity: 0 },
+  //   enter: { opacity: 1 },
+  //   leave: { opacity: 0 },
+  //   // reverse: show,
+  //   delay: 200,
+  //   // onRest: () => set(!show),
+  // });
 
   return loggedInUser ? (
     <Wrapper>
@@ -126,6 +160,7 @@ const Home = ({
                   habit={habitsToShow[index]}
                   handleCompletion={handleCompletion}
                   handleCancelCompletion={handleCancelCompletion}
+                  handleRemove={handleRemove}
                 />
               </animated.div>
             );

@@ -1,23 +1,49 @@
-import { LoadingOutlined, CheckOutlined } from '@ant-design/icons';
+import {
+  LoadingOutlined,
+  CheckOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 
 import { Completion, HabitProps, HabitType } from '../types';
 import { stringShortener } from '../utils';
 
-const Div = styled.div`
+const BtnWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  height: 210px;
-  width: 90%;
+  width: 50%;
+  padding: 10px;
+  margin-right: 5%;
+  @media (min-width: 767px) {
+    flex-direction: row;
+    height: 100px;
+  }
 `;
 
 const StyledLink = styled(Link)`
-  color: #000000;
-  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  /* height: 100px; */
+  /* width: 100%; */
+  margin-left: 5%;
 `;
 
 const DoneBtn = styled.button`
@@ -54,13 +80,35 @@ const ButtonWrapper = styled.div`
   /* margin-bottom: 10px; */
 `;
 
-const DoneNotif = styled.div`
+const DoneToggler = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 50px;
   height: 34px;
-  background: #73ff00;
+  background: ${(props: { done: boolean }) =>
+    props.done ? '#73ff00' : 'grey'};
+  &:hover {
+    background: ${(props: { done: boolean }) =>
+      props.done ? 'grey' : '#73ff00'};
+  }
+  color: black;
+  width: 50px;
+  font-size: 0.9em;
+  border: 2px solid #000000;
+  border-radius: 3px;
+  text-align: center;
+`;
+
+const RemoveButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 34px;
+  &:hover {
+    background: #ff4141;
+  }
   color: black;
   width: 50px;
   font-size: 0.9em;
@@ -76,20 +124,41 @@ const StreakDiv = styled.div`
   align-items: center;
   border: 2px solid #000000;
   border-radius: 10px;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
+  @media (min-width: 767px) {
+    width: 50px;
+    height: 50px;
+  }
   font-size: 0.9em;
   color: black;
   margin-bottom: 0.5em;
+`;
+
+const ParagraphSmall = styled.p`
+  text-shadow: 1px 1px;
+  text-align: left;
+  padding: 10px;
+  margin: 0;
+`;
+
+const ParagraphBig = styled(ParagraphSmall)`
+  color: #000000;
+  font-size: 20px;
+  @media (min-width: 767px) {
+    font-size: 60px;
+  }
 `;
 
 const Habit = ({
   habit,
   handleCompletion,
   handleCancelCompletion,
+  handleRemove,
 }: HabitProps) => {
   const [currentStreak, setCurrentStreak] = useState<number | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loadingCompletion, setLoadingCompletion] = useState<boolean>(false);
+  const [loadingRemove, setLoadingRemove] = useState<boolean>(false);
 
   useEffect(() => {
     if (habit) {
@@ -101,26 +170,60 @@ const Habit = ({
     return null;
   }
 
-  const handleCompletions = async (
-    action: 'undone' | 'done',
+  // const handleActions = async (
+  //   action: 'undone' | 'done' | 'remove',
+  //   habit: HabitType
+  // ) => {
+  //   setLoadingCompletion(true);
+  //   try {
+  //     if (action === 'done') {
+  //       await handleCompletion(habit);
+  //       setLoadingCompletion(false);
+  //       return;
+  //     } else if (action === 'undone') {
+  //       await handleCancelCompletion(habit);
+  //       setLoadingCompletion(false);
+  //       return;
+  //     }
+  //     setLoadingCompletion(false);
+  //     return;
+  //   } catch (error) {
+  //     console.log(error);
+  //     setLoadingCompletion(false);
+  //     return;
+  //   }
+  // };
+
+  const handleActions = async (
+    action: 'undone' | 'done' | 'remove',
     habit: HabitType
   ) => {
-    setLoading(true);
     try {
-      if (action === 'done') {
-        await handleCompletion(habit);
-        setLoading(false);
-        return;
-      } else if (action === 'undone') {
-        await handleCancelCompletion(habit);
-        setLoading(false);
-        return;
+      switch (action) {
+        case 'done':
+          setLoadingCompletion(true);
+          await handleCompletion(habit);
+          setLoadingCompletion(false);
+          break;
+        case 'undone':
+          setLoadingCompletion(true);
+          await handleCancelCompletion(habit);
+          setLoadingCompletion(false);
+          break;
+        case 'remove':
+          setLoadingRemove(true);
+          await handleRemove(habit);
+          setLoadingRemove(false);
+          break;
+        default:
+          setLoadingCompletion(false);
+          setLoadingRemove(false);
+          break;
       }
-      setLoading(false);
-      return;
     } catch (error) {
       console.log(error);
-      setLoading(false);
+      setLoadingCompletion(false);
+      setLoadingRemove(false);
       return;
     }
   };
@@ -171,53 +274,107 @@ const Habit = ({
   };
 
   return (
-    <Div>
+    <>
       <StyledLink data-cy="habit-link" to={`/habits/${habit.id}`}>
-        {stringShortener(habit.name)}
+        <TextWrapper>
+          <ParagraphBig>{stringShortener(habit.name)}</ParagraphBig>
+        </TextWrapper>
       </StyledLink>
-      {currentStreak && currentStreak > 1 ? (
-        <StreakDiv>
-          <p style={{ fontSize: '10px' }}>Streak</p>
-          {currentStreak}
-        </StreakDiv>
-      ) : (
-        <StreakDiv
-          style={{
-            background: 'none',
-            border: 'none',
-          }}
-        ></StreakDiv>
-      )}
-      {matchingDates.length > 0 ? (
-        loading ? (
+
+      <BtnWrapper>
+        {loadingCompletion ? (
+          <LoadingOutlined spin style={{ fontSize: 40, marginBottom: 20 }} />
+        ) : matchingDates.length > 0 ? (
+          <DoneToggler
+            data-cy="cancel-done-btn"
+            onClick={() => handleActions('undone', habit)}
+            done={true}
+          >
+            <CheckOutlined data-cy="checkmark" style={{ fontSize: 20 }} />
+          </DoneToggler>
+        ) : (
+          <DoneToggler
+            data-cy="done-btn"
+            onClick={() => handleActions('done', habit)}
+            done={false}
+          >
+            <CheckOutlined data-cy="checkmark" style={{ fontSize: 20 }} />
+          </DoneToggler>
+        )}
+        {loadingRemove ? (
           <LoadingOutlined spin style={{ fontSize: 40, marginBottom: 20 }} />
         ) : (
-          <ButtonWrapper>
-            <DoneNotif>
-              <CheckOutlined data-cy="checkmark" style={{ fontSize: 20 }} />
-            </DoneNotif>
-            <CancelBtn
-              data-cy="cancel-done-btn"
-              onClick={() => handleCompletions('undone', habit)}
-            >
-              x
-            </CancelBtn>
-          </ButtonWrapper>
-        )
-      ) : loading ? (
-        <LoadingOutlined spin style={{ fontSize: 40, marginBottom: 20 }} />
-      ) : (
-        <div>
-          <DoneBtn
-            data-cy="done-btn"
-            onClick={() => handleCompletions('done', habit)}
+          <RemoveButton
+            data-cy="delete-btn"
+            onClick={() => handleActions('remove', habit)}
           >
-            Done for today!
-          </DoneBtn>
-        </div>
-      )}
-    </Div>
+            <DeleteOutlined data-cy="trash" style={{ fontSize: 20 }} />
+          </RemoveButton>
+        )}
+        {currentStreak && currentStreak > 1 ? (
+          <StreakDiv>
+            <p style={{ fontSize: '10px' }}>Streak</p>
+            {currentStreak}
+          </StreakDiv>
+        ) : (
+          <StreakDiv
+            style={{
+              background: 'none',
+              border: 'none',
+            }}
+          ></StreakDiv>
+        )}
+      </BtnWrapper>
+    </>
   );
+  // return (
+  //   <Div>
+  //     <StyledLink data-cy="habit-link" to={`/habits/${habit.id}`}>
+  //       {stringShortener(habit.name)}
+  //     </StyledLink>
+  //     {currentStreak && currentStreak > 1 ? (
+  //       <StreakDiv>
+  //         <p style={{ fontSize: '10px' }}>Streak</p>
+  //         {currentStreak}
+  //       </StreakDiv>
+  //     ) : (
+  //       <StreakDiv
+  //         style={{
+  //           background: 'none',
+  //           border: 'none',
+  //         }}
+  //       ></StreakDiv>
+  //     )}
+  //     {matchingDates.length > 0 ? (
+  //       loading ? (
+  //         <LoadingOutlined spin style={{ fontSize: 40, marginBottom: 20 }} />
+  //       ) : (
+  //         <ButtonWrapper>
+  //           <DoneNotif>
+  //             <CheckOutlined data-cy="checkmark" style={{ fontSize: 20 }} />
+  //           </DoneNotif>
+  //           <CancelBtn
+  //             data-cy="cancel-done-btn"
+  //             onClick={() => handleCompletions('undone', habit)}
+  //           >
+  //             x
+  //           </CancelBtn>
+  //         </ButtonWrapper>
+  //       )
+  //     ) : loading ? (
+  //       <LoadingOutlined spin style={{ fontSize: 40, marginBottom: 20 }} />
+  //     ) : (
+  //       <div>
+  //         <DoneBtn
+  //           data-cy="done-btn"
+  //           onClick={() => handleCompletions('done', habit)}
+  //         >
+  //           Done for today!
+  //         </DoneBtn>
+  //       </div>
+  //     )}
+  //   </Div>
+  // );
 };
 
 export default Habit;

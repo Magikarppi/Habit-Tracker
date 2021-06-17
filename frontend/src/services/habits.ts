@@ -13,10 +13,10 @@ export const setToken = (newToken: string) => {
 };
 
 export const create = async (data: { name: string }) => {
-  if (!token) {
-    return;
-  }
   try {
+    if (!token) {
+      throw new Error('Token not provided');
+    }
     const requestHeaders: HeadersInit = new Headers();
     requestHeaders.append('Content-Type', 'application/json');
     requestHeaders.append('Authorization', token);

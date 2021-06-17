@@ -17,17 +17,14 @@ const GlobalStyle = createGlobalStyle`
     text-align: center;
   }
   a:link {
-    background: #fafafa;
     &:hover {
     background: #fffba8;
   }
   text-align: center;
+  text-decoration: none;
   vertical-align: center;
   font-size: 1em;
-  margin: 0.5em;
   padding: 1em 1em;
-  border: 2px solid black;
-  border-radius: 3px;
   }
   button {
     background: #fafafa;

@@ -94,7 +94,7 @@ const LoggedOutDiv = styled.div`
   margin: auto;
 `;
 
-const HabitMoreInfo = ({ habit, handleRemove }: HabitMoreInfoProps) => {
+const HabitMoreInfo = ({ habit }: HabitMoreInfoProps) => {
   if (!habit) {
     return (
       <LoggedOutDiv>
@@ -195,11 +195,6 @@ const HabitMoreInfo = ({ habit, handleRemove }: HabitMoreInfoProps) => {
           />
         </WrapperChart>
         <TotalDaysDiv>Times done: {totalCompletedDays}</TotalDaysDiv>
-        <div>
-          <DeleteBtn data-cy="delete-btn" onClick={() => handleRemove(habit)}>
-            Delete
-          </DeleteBtn>
-        </div>
       </Wrapper>
     );
   } else {
@@ -218,12 +213,6 @@ const HabitMoreInfo = ({ habit, handleRemove }: HabitMoreInfoProps) => {
             ))}
           </SuccessDaysWrapper>
         ) : null}
-
-        <div>
-          <DeleteBtn data-cy="delete-btn" onClick={() => handleRemove(habit)}>
-            Delete
-          </DeleteBtn>
-        </div>
         <ParagraphNote>
           Please view on a bigger screen for more detailed view
         </ParagraphNote>

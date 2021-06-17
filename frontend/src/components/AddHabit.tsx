@@ -74,8 +74,8 @@ const AddHabit = ({ handleHabitSubmit, toggleHabitForm }: AddHabitProps) => {
 
     if (!habitName) {
       errors.habitName = 'Please enter a habit name';
-    } else if (habitName.length >= 30) {
-      errors.habitName = 'Max length is 30 characters';
+    } else if (habitName.length >= 36) {
+      errors.habitName = 'Max length is 36 characters';
     } else if (habitName.length < 3) {
       errors.habitName = 'Minimum length is 3 characters';
     }

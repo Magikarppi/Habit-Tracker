@@ -20,7 +20,7 @@ export const fetchWithTimeout = async (url: string, options?: RequestInit) => {
 };
 
 export const stringShortener = (value: string, maxVal?: number) => {
-  let maxLength = maxVal ? maxVal : 26;
+  const maxLength = maxVal ? maxVal : 36;
   if (value.length > maxLength) {
     const truncatedString = value.substr(0, maxLength).concat('...');
     return truncatedString;

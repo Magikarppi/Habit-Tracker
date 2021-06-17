@@ -20,7 +20,6 @@ const ButtonWrapper = styled.div`
 const StyledLink = styled(Link)`
   color: #63006e;
   font-weight: bold;
-  margin-right: 300px;
   display: flex;
   align-items: center;
   justify-content: center;

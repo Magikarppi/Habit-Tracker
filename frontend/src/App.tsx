@@ -15,7 +15,6 @@ import HabitMoreInfo from './components/HabitMoreInfo';
 import {
   ErrorSuccessMsg,
   HabitInputValue,
-  HabitNameField,
   HabitsToShow,
   HabitType,
   LoggedInUser,
@@ -25,7 +24,6 @@ import GlobalStyle from './globalStyle';
 import LoginSignUp from './components/LoginSignUp';
 import ErrSuccNotification from './components/ErrSuccNotification';
 import Header from './components/Header';
-import { FormikHelpers } from 'formik';
 
 const App = () => {
   const [habitsToShow, setHabitsToShow] = useState<HabitsToShow>([]);
@@ -112,7 +110,6 @@ const App = () => {
 
       if (response.username) {
         setRedirect('/login');
-        // setRedirect(null);
         resetRedirect();
         setSuccessMessage('A new user created! Please log in!');
         setTimeout(() => {
@@ -161,7 +158,6 @@ const App = () => {
         setLoggedInUser(responseData);
         setHabitsToShow(responseData.habits);
         setRedirect('/');
-        // setRedirect(null);
         resetRedirect();
         return;
       }
@@ -247,7 +243,6 @@ const App = () => {
             setSuccessMessage(null);
           }, 3000);
           setRedirect('/');
-          // setRedirect(null);
           resetRedirect();
           return;
         }
@@ -377,6 +372,7 @@ const App = () => {
                   habitsToShow={habitsToShow}
                   handleCompletion={handleCompletion}
                   handleCancelCompletion={handleCancelCompletion}
+                  handleRemove={handleRemove}
                   toggleHabitForm={toggleHabitForm}
                   showHabitForm={showHabitForm}
                   loggedInUser={loggedInUser}
@@ -448,10 +444,7 @@ const App = () => {
                     errorMessage={errorMessage}
                     successMessage={successMessage}
                   />
-                  <HabitMoreInfo
-                    habit={habitById(match.params.id)}
-                    handleRemove={handleRemove}
-                  />
+                  <HabitMoreInfo habit={habitById(match.params.id)} />
                 </>
               )
             }
