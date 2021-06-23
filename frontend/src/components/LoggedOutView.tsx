@@ -23,6 +23,12 @@ const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 2px solid black;
+  border-radius: 5px;
+  background: #ffff;
+  &:hover {
+    background: #fffba8;
+  }
   width: 60px;
   height: 30px;
 `;

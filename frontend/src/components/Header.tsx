@@ -66,6 +66,8 @@ const StyledLink = styled(Link)`
   &:hover {
     background: darkgray;
   }
+  border: 2px solid black;
+  border-radius: 5px;
   font-size: 0.9em;
   margin: 0;
   padding: 0;

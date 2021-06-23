@@ -54,7 +54,6 @@ describe('Habit app /logged in user', () => {
     });
 
     it('habit can be deleted', () => {
-      cy.get('[data-cy=habit-link]').click();
       cy.get('[data-cy=delete-btn]').click();
       cy.contains('Habit deleted');
       cy.url().should('eq', Cypress.config().baseUrl + '/');

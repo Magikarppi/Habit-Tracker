@@ -1,5 +1,11 @@
 import styled, { CSSProperties } from 'styled-components';
-import { useTrail, animated, useTransition } from 'react-spring';
+import {
+  useTrail,
+  animated,
+  useTransition,
+  Trail,
+  Transition,
+} from 'react-spring';
 
 import { HomeProps } from '../types';
 import AddHabit from './AddHabit';
@@ -79,6 +85,14 @@ const habitWrapperStyles: CSSProperties = {
   overflow: 'hidden',
 };
 
+const formWrapperStyles: CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '150px'
+}
+
 // const habitWrapperStyles = {
 //   width: '100%',
 //   height: '80%',
@@ -104,44 +118,75 @@ const Home = ({
     from: {
       marginTop: -100,
       opacity: 0,
-      transform: 'translate3d(-150px,-40px,0)',
+      transform: 'translate3d(-50px,-20px,0)',
     },
     to: {
       marginTop: 0,
       opacity: 1,
       transform: 'translate3d(0,0px,0)',
     },
-    leave: {
-      opacity: 0,
-    },
   });
 
-  // const transitions = useTransition(item, {
-  //   from: { opacity: 0 },
-  //   enter: { opacity: 1 },
-  //   leave: { opacity: 0 },
+  // const habitTransitions = useTransition(habitsToShow, {
+  //   from: {
+  //     marginTop: -100,
+  //     opacity: 0,
+  //     transform: 'translate3d(-150px,-40px,0)',
+  //   },
+  //   enter: {
+  //     marginTop: 0,
+  //     opacity: 1,
+  //     transform: 'translate3d(0,0px,0)',
+  //   },
+  //   leave: {
+  //     marginTop: 0,
+  //     opacity: 1,
+  //     transform: 'translate3d(-150px,-40px,0)',
+  //   },
   //   // reverse: show,
   //   delay: 200,
   //   // onRest: () => set(!show),
   // });
 
+  const formTransition = useTransition(showHabitForm, {
+    from: {
+      opacity: 0,
+    },
+    enter: {
+      opacity: 1,
+    },
+    // leave: {
+    //   opacity: 0,
+    // },
+    // reverse: showHabitForm,
+    // delay: 100,
+    // onRest: () => (!showHabitForm),
+    // onStart: () => (!showHabitForm),
+    config: {
+      duration: 500
+    }
+  });
+
   return loggedInUser ? (
     <Wrapper>
-      {showHabitForm ? (
-        <div data-testid="habitForm-open-div">
+      {formTransition((styles, item) => item && (
+        <animated.div data-testid="habitForm-open-div" style={{...formWrapperStyles ,...styles}}>
           <AddHabit
             handleHabitSubmit={handleHabitSubmit}
             toggleHabitForm={toggleHabitForm}
           />
+        </animated.div>
+      ))}
+      {!showHabitForm && (
+        <div style={{...formWrapperStyles}}>
+          <NewHabitBtn
+            data-cy="habit-form-open-btn"
+            data-testid="habit-form-open-btn"
+            onClick={toggleHabitForm}
+          >
+            Add a new habit
+          </NewHabitBtn>
         </div>
-      ) : (
-        <NewHabitBtn
-          data-cy="habit-form-open-btn"
-          data-testid="habit-form-open-btn"
-          onClick={toggleHabitForm}
-        >
-          Add a new habit
-        </NewHabitBtn>
       )}
       {habitsToShow.length > 0 ? (
         <HabitsDiv data-testid="habit-div" data-cy="habit-div">

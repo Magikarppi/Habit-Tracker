@@ -5,6 +5,7 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
+import { __RouterContext } from 'react-router';
 
 import './App.css';
 import { setToken, create, remove, update } from './services/habits';
@@ -32,6 +33,7 @@ const App = () => {
   const [successMessage, setSuccessMessage] = useState<ErrorSuccessMsg>('');
   const [redirect, setRedirect] = useState<string | null>(null);
   const [showHabitForm, setShowHabitForm] = useState(false);
+
 
   useEffect(() => {
     document.title = 'Simplify Success';
@@ -119,6 +121,12 @@ const App = () => {
       }
     } catch (exception) {
       console.log('exception', exception);
+      setErrorMessage(
+        'Something went wrong.. Please try again'
+      );
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 3000);
       return;
     }
   };
@@ -352,8 +360,7 @@ const App = () => {
   return (
     <div>
       <GlobalStyle />
-
-      <Router>
+        <Router>
         <Switch>
           <Route
             exact
@@ -451,7 +458,7 @@ const App = () => {
           />
           <Route render={() => <Redirect to={{ pathname: '/' }} />} />
         </Switch>
-      </Router>
+        </Router>
     </div>
   );
 };

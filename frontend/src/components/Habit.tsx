@@ -5,6 +5,7 @@ import {
 } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTransition, animated } from 'react-spring';
 import styled, { CSSProperties } from 'styled-components';
 
 import { Completion, HabitProps, HabitType } from '../types';
@@ -157,6 +158,7 @@ const Habit = ({
   handleRemove,
 }: HabitProps) => {
   const [currentStreak, setCurrentStreak] = useState<number | null>(null);
+  const [showCurrentStreak, setShowCurrenStreak] = useState<boolean>(false);
   const [loadingCompletion, setLoadingCompletion] = useState<boolean>(false);
   const [loadingRemove, setLoadingRemove] = useState<boolean>(false);
 
@@ -166,33 +168,37 @@ const Habit = ({
     }
   }, [habit, handleCompletion]);
 
+  useEffect(() => {
+    if (currentStreak && currentStreak > 1) {
+      setShowCurrenStreak(true)
+    }
+  }, [currentStreak])
+
   if (!habit) {
     return null;
   }
 
-  // const handleActions = async (
-  //   action: 'undone' | 'done' | 'remove',
-  //   habit: HabitType
-  // ) => {
-  //   setLoadingCompletion(true);
-  //   try {
-  //     if (action === 'done') {
-  //       await handleCompletion(habit);
-  //       setLoadingCompletion(false);
-  //       return;
-  //     } else if (action === 'undone') {
-  //       await handleCancelCompletion(habit);
-  //       setLoadingCompletion(false);
-  //       return;
-  //     }
-  //     setLoadingCompletion(false);
-  //     return;
-  //   } catch (error) {
-  //     console.log(error);
-  //     setLoadingCompletion(false);
-  //     return;
-  //   }
-  // };
+
+
+  const streakTransition = useTransition(showCurrentStreak, {
+    from: {
+      opacity: 0,
+      //background: interpolate color
+    },
+    enter: {
+      opacity: 1,
+    },
+    // leave: {
+    //   opacity: 0,
+    // },
+    // reverse: showHabitForm,
+    // delay: 100,
+    // onRest: () => (!showHabitForm),
+    // onStart: () => (!showHabitForm),
+    config: {
+      duration: 500
+    }
+  });
 
   const handleActions = async (
     action: 'undone' | 'done' | 'remove',
@@ -311,11 +317,13 @@ const Habit = ({
             <DeleteOutlined data-cy="trash" style={{ fontSize: 20 }} />
           </RemoveButton>
         )}
-        {currentStreak && currentStreak > 1 ? (
+        {streakTransition((styles, item) => item ? (
+          <animated.div style={{...styles}}>
           <StreakDiv>
             <p style={{ fontSize: '10px' }}>Streak</p>
             {currentStreak}
           </StreakDiv>
+          </animated.div>
         ) : (
           <StreakDiv
             style={{
@@ -323,7 +331,7 @@ const Habit = ({
               border: 'none',
             }}
           ></StreakDiv>
-        )}
+        ))}
       </BtnWrapper>
     </>
   );
