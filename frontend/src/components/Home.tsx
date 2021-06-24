@@ -22,7 +22,7 @@ const HabitsDiv = styled.div`
   /* width: 300px; */
   padding: 10px;
   /* margin: auto; */
-  margin-bottom: 5%;
+  /* margin-bottom: 5%; */
   /* border-radius: 10px; */
 `;
 
@@ -46,6 +46,7 @@ const ParagraphMed = styled(ParagraphSmall)`
 
 const ParagraphBig = styled(ParagraphSmall)`
   font-size: 30px;
+  margin-top: 0px;
   @media (min-width: 767px) {
     font-size: 60px;
   }
@@ -72,26 +73,43 @@ const NewHabitBtn = styled.button`
   text-align: center;
 `;
 
-const habitWrapperStyles: CSSProperties = {
-  width: '100%',
-  height: '50%',
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  background: 'rgba(255, 255, 220, 0.8)',
-  borderRadius: '10px',
-  border: '2px solid black',
-  overflow: 'hidden',
-};
+const HabitWrapperStyles = styled(animated.div)`
+  &[style] {
+    width: 100%;
+    height: 200px;
+    @media (min-width: 767px) {
+      height: 150px;
+    }
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 220, 0.8);
+    border-radius: 10px;
+    border: 2px solid black;
+    overflow: hidden;
+  }
+`;
+// const habitWrapperStyles: CSSProperties = {
+//   width: '100%',
+//   height: '150px',
+//   display: 'flex',
+//   flexDirection: 'row',
+//   justifyContent: 'space-between',
+//   alignItems: 'center',
+//   background: 'rgba(255, 255, 220, 0.8)',
+//   borderRadius: '10px',
+//   border: '2px solid black',
+//   overflow: 'hidden',
+// };
 
 const formWrapperStyles: CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  height: '150px'
-}
+  height: '150px',
+};
 
 // const habitWrapperStyles = {
 //   width: '100%',
@@ -127,26 +145,25 @@ const Home = ({
     },
   });
 
-  // const habitTransitions = useTransition(habitsToShow, {
-  //   from: {
-  //     marginTop: -100,
-  //     opacity: 0,
-  //     transform: 'translate3d(-150px,-40px,0)',
-  //   },
-  //   enter: {
-  //     marginTop: 0,
-  //     opacity: 1,
-  //     transform: 'translate3d(0,0px,0)',
-  //   },
-  //   leave: {
-  //     marginTop: 0,
-  //     opacity: 1,
-  //     transform: 'translate3d(-150px,-40px,0)',
-  //   },
-  //   // reverse: show,
-  //   delay: 200,
-  //   // onRest: () => set(!show),
-  // });
+  const habitTransitions = useTransition(habitsToShow, {
+    from: {
+      marginTop: -100,
+      opacity: 0,
+      transform: 'translate3d(-150px,-40px,0)',
+    },
+    enter: {
+      marginTop: 0,
+      opacity: 1,
+      transform: 'translate3d(0,0px,0)',
+    },
+    leave: {
+      marginTop: 0,
+      opacity: 0,
+      // transform: 'translate3d(-150px,-40px,0)',
+    },
+    // trail: 100,
+    config: {},
+  });
 
   const formTransition = useTransition(showHabitForm, {
     from: {
@@ -163,22 +180,28 @@ const Home = ({
     // onRest: () => (!showHabitForm),
     // onStart: () => (!showHabitForm),
     config: {
-      duration: 500
-    }
+      duration: 500,
+    },
   });
 
   return loggedInUser ? (
     <Wrapper>
-      {formTransition((styles, item) => item && (
-        <animated.div data-testid="habitForm-open-div" style={{...formWrapperStyles ,...styles}}>
-          <AddHabit
-            handleHabitSubmit={handleHabitSubmit}
-            toggleHabitForm={toggleHabitForm}
-          />
-        </animated.div>
-      ))}
+      {formTransition(
+        (styles, item) =>
+          item && (
+            <animated.div
+              data-testid="habitForm-open-div"
+              style={{ ...formWrapperStyles, ...styles }}
+            >
+              <AddHabit
+                handleHabitSubmit={handleHabitSubmit}
+                toggleHabitForm={toggleHabitForm}
+              />
+            </animated.div>
+          )
+      )}
       {!showHabitForm && (
-        <div style={{...formWrapperStyles}}>
+        <div style={{ ...formWrapperStyles }}>
           <NewHabitBtn
             data-cy="habit-form-open-btn"
             data-testid="habit-form-open-btn"
@@ -190,24 +213,25 @@ const Home = ({
       )}
       {habitsToShow.length > 0 ? (
         <HabitsDiv data-testid="habit-div" data-cy="habit-div">
-          {trail.map((props, index) => {
+          {habitTransitions((props, item, state, index) => {
             return (
-              <animated.div
-                key={habitsToShow[index].id}
-                style={{
-                  ...props,
-                  ...habitWrapperStyles,
-                }}
-                className="box"
-              >
-                <Habit
-                  key={habitsToShow[index].id}
-                  habit={habitsToShow[index]}
-                  handleCompletion={handleCompletion}
-                  handleCancelCompletion={handleCancelCompletion}
-                  handleRemove={handleRemove}
-                />
-              </animated.div>
+              item && (
+                <HabitWrapperStyles
+                  key={item.id}
+                  style={{
+                    ...props,
+                  }}
+                  className="box"
+                >
+                  <Habit
+                    key={item.id}
+                    habit={item}
+                    handleCompletion={handleCompletion}
+                    handleCancelCompletion={handleCancelCompletion}
+                    handleRemove={handleRemove}
+                  />
+                </HabitWrapperStyles>
+              )
             );
           })}
         </HabitsDiv>
@@ -216,8 +240,8 @@ const Home = ({
           <ParagraphBig>Add your first habit in the form above</ParagraphBig>
           <ParagraphMed>Here are a few ideas if you need a spark:</ParagraphMed>
           <ParagraphSmall>"Physical exercise"</ParagraphSmall>
-          <ParagraphSmall>"Reading"</ParagraphSmall>
-          <ParagraphSmall>"Explore wikipedia"</ParagraphSmall>
+          <ParagraphSmall>"Study string theory"</ParagraphSmall>
+          <ParagraphSmall>"Explore Wikipedia"</ParagraphSmall>
           <ParagraphSmall>"Practice magic tricks"</ParagraphSmall>
         </>
       )}

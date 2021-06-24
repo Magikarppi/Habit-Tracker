@@ -19,10 +19,11 @@ const BtnWrapper = styled.div`
   align-items: center;
   width: 50%;
   padding: 10px;
-  margin-right: 5%;
+  margin-top: 10px;
   @media (min-width: 767px) {
     flex-direction: row;
     height: 100px;
+    margin-right: 5%;
   }
 `;
 
@@ -30,7 +31,10 @@ const StyledLink = styled(Link)`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  @media (min-width: 767px) {
+    align-items: center;
+  }
   height: 100px;
   width: 100%;
   border-radius: 10px;
@@ -45,40 +49,6 @@ const TextWrapper = styled.div`
   /* height: 100px; */
   /* width: 100%; */
   margin-left: 5%;
-`;
-
-const DoneBtn = styled.button`
-  background: #fff870;
-  &:hover {
-    background: #a8ff36;
-  }
-  font-size: 0.9em;
-  border: 2px solid #8f8d64;
-  border-radius: 3px;
-  text-align: center;
-`;
-
-const CancelBtn = styled.button`
-  width: 50px;
-  height: 34px;
-  &:hover {
-    background: #ff4141;
-  }
-  font-size: 0.9em;
-  background: rgba(255, 255, 220, 0);
-  margin: 0;
-  border: 2px solid black;
-  border-radius: 50%;
-  text-align: center;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 80%;
-  /* margin-bottom: 10px; */
 `;
 
 const DoneToggler = styled.div`
@@ -116,6 +86,7 @@ const RemoveButton = styled.div`
   border: 2px solid #000000;
   border-radius: 3px;
   text-align: center;
+  margin-top: 10px;
 `;
 
 const StreakDiv = styled.div`
@@ -170,15 +141,13 @@ const Habit = ({
 
   useEffect(() => {
     if (currentStreak && currentStreak > 1) {
-      setShowCurrenStreak(true)
+      setShowCurrenStreak(true);
     }
-  }, [currentStreak])
+  }, [currentStreak]);
 
   if (!habit) {
     return null;
   }
-
-
 
   const streakTransition = useTransition(showCurrentStreak, {
     from: {
@@ -196,8 +165,8 @@ const Habit = ({
     // onRest: () => (!showHabitForm),
     // onStart: () => (!showHabitForm),
     config: {
-      duration: 500
-    }
+      duration: 500,
+    },
   });
 
   const handleActions = async (
@@ -317,21 +286,23 @@ const Habit = ({
             <DeleteOutlined data-cy="trash" style={{ fontSize: 20 }} />
           </RemoveButton>
         )}
-        {streakTransition((styles, item) => item ? (
-          <animated.div style={{...styles}}>
-          <StreakDiv>
-            <p style={{ fontSize: '10px' }}>Streak</p>
-            {currentStreak}
-          </StreakDiv>
-          </animated.div>
-        ) : (
-          <StreakDiv
-            style={{
-              background: 'none',
-              border: 'none',
-            }}
-          ></StreakDiv>
-        ))}
+        {streakTransition((styles, item) =>
+          item ? (
+            <animated.div style={{ ...styles }}>
+              <StreakDiv>
+                <p style={{ fontSize: '10px' }}>Streak</p>
+                {currentStreak}
+              </StreakDiv>
+            </animated.div>
+          ) : (
+            <StreakDiv
+              style={{
+                background: 'none',
+                border: 'none',
+              }}
+            ></StreakDiv>
+          )
+        )}
       </BtnWrapper>
     </>
   );

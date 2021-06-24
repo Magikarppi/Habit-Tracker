@@ -1,3 +1,5 @@
+import { LoggedInUser } from './types';
+
 export const consts = {
   appName: 'Simplify Success',
 };
@@ -27,4 +29,35 @@ export const stringShortener = (value: string, maxVal?: number) => {
   } else {
     return value;
   }
+};
+
+export const createDummyUser = (): LoggedInUser => {
+  const date = new Date();
+  let thisDay = date.getDate() - 1;
+  const thisMonth = date.getMonth();
+  const thisYear = date.getFullYear();
+
+  const yesterdayObj = {
+    thisDay,
+    thisMonth,
+    thisYear,
+  };
+
+  const dummyUser = {
+    username: 'DummyUser',
+    id: 'gadhqehqhh',
+    habits: [
+      {
+        name: 'DummyHabit',
+        id: 'h4q2h4h42h2',
+        completions: [
+          {
+            ...yesterdayObj,
+          },
+        ],
+      },
+    ],
+  };
+
+  return dummyUser;
 };

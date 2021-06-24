@@ -124,7 +124,7 @@ const AddHabit = ({ handleHabitSubmit, toggleHabitForm }: AddHabitProps) => {
                   type="button"
                   onClick={toggleHabitForm}
                 >
-                  cancel
+                  Cancel
                 </CancelBtn>
               </SubmitDiv>
             )}

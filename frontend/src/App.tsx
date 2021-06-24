@@ -25,6 +25,7 @@ import GlobalStyle from './globalStyle';
 import LoginSignUp from './components/LoginSignUp';
 import ErrSuccNotification from './components/ErrSuccNotification';
 import Header from './components/Header';
+import { createDummyUser } from './utils';
 
 const App = () => {
   const [habitsToShow, setHabitsToShow] = useState<HabitsToShow>([]);
@@ -34,12 +35,16 @@ const App = () => {
   const [redirect, setRedirect] = useState<string | null>(null);
   const [showHabitForm, setShowHabitForm] = useState(false);
 
-
   useEffect(() => {
     document.title = 'Simplify Success';
   }, []);
 
   useEffect(() => {
+    // const dummyUser = createDummyUser();
+    // const user = { ...dummyUser, token: 'gasgahahaha' };
+    // setLoggedInUser(user);
+    // setHabitsToShow(user.habits);
+    // setToken(user.token);
     const loggedUserJSON = window.localStorage.getItem('loggedHabitAppUser');
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
@@ -121,9 +126,7 @@ const App = () => {
       }
     } catch (exception) {
       console.log('exception', exception);
-      setErrorMessage(
-        'Something went wrong.. Please try again'
-      );
+      setErrorMessage('Something went wrong.. Please try again');
       setTimeout(() => {
         setErrorMessage(null);
       }, 3000);
@@ -250,8 +253,8 @@ const App = () => {
           setTimeout(() => {
             setSuccessMessage(null);
           }, 3000);
-          setRedirect('/');
-          resetRedirect();
+          // setRedirect('/');
+          // resetRedirect();
           return;
         }
       } catch (exception) {
@@ -360,7 +363,7 @@ const App = () => {
   return (
     <div>
       <GlobalStyle />
-        <Router>
+      <Router>
         <Switch>
           <Route
             exact
@@ -458,7 +461,7 @@ const App = () => {
           />
           <Route render={() => <Redirect to={{ pathname: '/' }} />} />
         </Switch>
-        </Router>
+      </Router>
     </div>
   );
 };
