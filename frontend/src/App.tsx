@@ -45,6 +45,8 @@ const App = () => {
     // setLoggedInUser(user);
     // setHabitsToShow(user.habits);
     // setToken(user.token);
+    // window.localStorage.setItem('loggedHabitAppUser', JSON.stringify(user));
+
     const loggedUserJSON = window.localStorage.getItem('loggedHabitAppUser');
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
@@ -53,6 +55,8 @@ const App = () => {
       setToken(user.token);
     }
   }, []);
+
+  console.log('loggeduser', loggedInUser);
 
   useEffect(() => {
     if (loggedInUser && loggedInUser.habits.length < 1) {
@@ -219,10 +223,13 @@ const App = () => {
       if (responseData.name && loggedInUser) {
         setShowHabitForm(false);
         setHabitsToShow([...habitsToShow, responseData]);
-        loggedInUser.habits = loggedInUser.habits.concat(responseData);
+        const updatedLoggedInUser = { ...loggedInUser };
+        updatedLoggedInUser.habits =
+          updatedLoggedInUser.habits.concat(responseData);
+        setLoggedInUser(updatedLoggedInUser);
         window.localStorage.setItem(
           'loggedHabitAppUser',
-          JSON.stringify(loggedInUser)
+          JSON.stringify(updatedLoggedInUser)
         );
         return;
       }
@@ -242,19 +249,19 @@ const App = () => {
         await remove(habit);
         setHabitsToShow(habitsToShow.filter((e) => e.id !== habit.id));
         if (loggedInUser) {
-          loggedInUser.habits = loggedInUser.habits.filter(
+          const updatedLoggedInUser = { ...loggedInUser };
+          updatedLoggedInUser.habits = updatedLoggedInUser.habits.filter(
             (e) => e.id !== habit.id
           );
+          setLoggedInUser(updatedLoggedInUser);
           window.localStorage.setItem(
             'loggedHabitAppUser',
-            JSON.stringify(loggedInUser)
+            JSON.stringify(updatedLoggedInUser)
           );
           setSuccessMessage('Habit deleted');
           setTimeout(() => {
             setSuccessMessage(null);
           }, 3000);
-          // setRedirect('/');
-          // resetRedirect();
           return;
         }
       } catch (exception) {
@@ -290,15 +297,24 @@ const App = () => {
 
     try {
       const responseData = await update(updateHabit);
+      // const x = habitsToShow.find((e) => e.id === responseData.id);
+      // x?.completions.concat(todayObj);
       setHabitsToShow(
         habitsToShow.map((e) => (e.id === responseData.id ? responseData : e))
       );
-      loggedInUser.habits = loggedInUser.habits.map((e) =>
+      // setHabitsToShow(
+      //   habitsToShow.map((e) => (e.id === responseData.id ? responseData : e))
+      // );
+      // const y = loggedInUser.habits.find((e) => e.id === responseData.id);
+      // y?.completions.concat(todayObj);
+      const updatedLoggedInUser = { ...loggedInUser };
+      updatedLoggedInUser.habits = updatedLoggedInUser.habits.map((e) =>
         e.id === responseData.id ? responseData : e
       );
+      setLoggedInUser(updatedLoggedInUser);
       window.localStorage.setItem(
         'loggedHabitAppUser',
-        JSON.stringify(loggedInUser)
+        JSON.stringify(updatedLoggedInUser)
       );
       setSuccessMessage('Completion added!');
       setTimeout(() => {

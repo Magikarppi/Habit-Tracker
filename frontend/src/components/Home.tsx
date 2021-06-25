@@ -12,7 +12,7 @@ import AddHabit from './AddHabit';
 import Habit from './Habit';
 import LoggedOutView from './LoggedOutView';
 
-const HabitsDiv = styled.div`
+const HabitsList = styled.div`
   /* background: rgba(255, 255, 220, 0.8); */
   display: flex;
   flex-direction: column-reverse;
@@ -40,7 +40,7 @@ const ParagraphMed = styled(ParagraphSmall)`
   color: #fffc37;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   @media (min-width: 767px) {
-    font-size: 40px;
+    font-size: 25px;
   }
 `;
 
@@ -48,7 +48,7 @@ const ParagraphBig = styled(ParagraphSmall)`
   font-size: 30px;
   margin-top: 0px;
   @media (min-width: 767px) {
-    font-size: 60px;
+    font-size: 40px;
   }
 `;
 
@@ -73,7 +73,7 @@ const NewHabitBtn = styled.button`
   text-align: center;
 `;
 
-const HabitWrapperStyles = styled(animated.div)`
+const HabitWrapper = styled(animated.div)`
   &[style] {
     width: 100%;
     height: 200px;
@@ -147,19 +147,26 @@ const Home = ({
 
   const habitTransitions = useTransition(habitsToShow, {
     from: {
-      marginTop: -100,
-      opacity: 0,
-      transform: 'translate3d(-150px,-40px,0)',
+      // marginTop: -100,
+      // opacity: 0,
+      // transform: 'translate3d(-150px,-40px,0)',
     },
-    enter: {
-      marginTop: 0,
-      opacity: 1,
-      transform: 'translate3d(0,0px,0)',
+    enter: () => {
+      console.log('enter');
+      return {
+        marginTop: 0,
+        opacity: 1,
+        transform: 'translate3d(0,0px,0)',
+      };
     },
     leave: {
       marginTop: 0,
       opacity: 0,
-      // transform: 'translate3d(-150px,-40px,0)',
+      transform: 'translate3d(-150px,-40px,0)',
+    },
+    update: () => {
+      console.log('update');
+      return null;
     },
     // trail: 100,
     config: {},
@@ -186,55 +193,51 @@ const Home = ({
 
   return loggedInUser ? (
     <Wrapper>
-      {formTransition(
-        (styles, item) =>
-          item && (
-            <animated.div
-              data-testid="habitForm-open-div"
-              style={{ ...formWrapperStyles, ...styles }}
-            >
-              <AddHabit
-                handleHabitSubmit={handleHabitSubmit}
-                toggleHabitForm={toggleHabitForm}
-              />
-            </animated.div>
-          )
-      )}
-      {!showHabitForm && (
-        <div style={{ ...formWrapperStyles }}>
-          <NewHabitBtn
-            data-cy="habit-form-open-btn"
-            data-testid="habit-form-open-btn"
-            onClick={toggleHabitForm}
+      {formTransition((styles, item) =>
+        item ? (
+          <animated.div
+            data-testid="habitForm-open-div"
+            style={{ ...formWrapperStyles, ...styles }}
           >
-            Add a new habit
-          </NewHabitBtn>
-        </div>
+            <AddHabit
+              handleHabitSubmit={handleHabitSubmit}
+              toggleHabitForm={toggleHabitForm}
+            />
+          </animated.div>
+        ) : (
+          <div style={{ ...formWrapperStyles }}>
+            <NewHabitBtn
+              data-cy="habit-form-open-btn"
+              data-testid="habit-form-open-btn"
+              onClick={toggleHabitForm}
+            >
+              Add a new habit
+            </NewHabitBtn>
+          </div>
+        )
       )}
       {habitsToShow.length > 0 ? (
-        <HabitsDiv data-testid="habit-div" data-cy="habit-div">
-          {habitTransitions((props, item, state, index) => {
+        <HabitsList data-testid="habit-div" data-cy="habit-div">
+          {trail.map((props, index) => {
             return (
-              item && (
-                <HabitWrapperStyles
-                  key={item.id}
-                  style={{
-                    ...props,
-                  }}
-                  className="box"
-                >
-                  <Habit
-                    key={item.id}
-                    habit={item}
-                    handleCompletion={handleCompletion}
-                    handleCancelCompletion={handleCancelCompletion}
-                    handleRemove={handleRemove}
-                  />
-                </HabitWrapperStyles>
-              )
+              <HabitWrapper
+                key={habitsToShow[index].name}
+                style={{
+                  ...props,
+                }}
+                className="box"
+              >
+                <Habit
+                  key={habitsToShow[index].id}
+                  habit={habitsToShow[index]}
+                  handleCompletion={handleCompletion}
+                  handleCancelCompletion={handleCancelCompletion}
+                  handleRemove={handleRemove}
+                />
+              </HabitWrapper>
             );
           })}
-        </HabitsDiv>
+        </HabitsList>
       ) : (
         <>
           <ParagraphBig>Add your first habit in the form above</ParagraphBig>

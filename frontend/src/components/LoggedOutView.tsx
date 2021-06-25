@@ -30,7 +30,11 @@ const StyledLink = styled(Link)`
     background: #fffba8;
   }
   width: 60px;
-  height: 30px;
+  height: 40px;
+  @media (min-width: 767px) {
+    width: 80px;
+    height: 60px;
+  }
 `;
 
 const ParagraphSmall = styled.p`

@@ -24,7 +24,6 @@ const GlobalStyle = createGlobalStyle`
   text-decoration: none;
   vertical-align: center;
   font-size: 1em;
-  padding: 1em 1em;
   }
   button {
     background: #fafafa;

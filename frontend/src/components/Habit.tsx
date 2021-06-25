@@ -35,7 +35,7 @@ const StyledLink = styled(Link)`
   @media (min-width: 767px) {
     align-items: center;
   }
-  height: 100px;
+  height: 100%;
   width: 100%;
   border-radius: 10px;
   overflow: hidden;
@@ -149,6 +149,8 @@ const Habit = ({
     return null;
   }
 
+  console.log('current streak', currentStreak);
+
   const streakTransition = useTransition(showCurrentStreak, {
     from: {
       opacity: 0,
@@ -228,6 +230,7 @@ const Habit = ({
       }`;
     };
     const completionsCopy = [...completions];
+
     completionsCopy.reverse().forEach((el, i) => {
       const today = new Date().setUTCHours(0, 0, 0, 0);
       const currElDate = new Date(transformToDateString(el)).setUTCHours(
@@ -306,54 +309,6 @@ const Habit = ({
       </BtnWrapper>
     </>
   );
-  // return (
-  //   <Div>
-  //     <StyledLink data-cy="habit-link" to={`/habits/${habit.id}`}>
-  //       {stringShortener(habit.name)}
-  //     </StyledLink>
-  //     {currentStreak && currentStreak > 1 ? (
-  //       <StreakDiv>
-  //         <p style={{ fontSize: '10px' }}>Streak</p>
-  //         {currentStreak}
-  //       </StreakDiv>
-  //     ) : (
-  //       <StreakDiv
-  //         style={{
-  //           background: 'none',
-  //           border: 'none',
-  //         }}
-  //       ></StreakDiv>
-  //     )}
-  //     {matchingDates.length > 0 ? (
-  //       loading ? (
-  //         <LoadingOutlined spin style={{ fontSize: 40, marginBottom: 20 }} />
-  //       ) : (
-  //         <ButtonWrapper>
-  //           <DoneNotif>
-  //             <CheckOutlined data-cy="checkmark" style={{ fontSize: 20 }} />
-  //           </DoneNotif>
-  //           <CancelBtn
-  //             data-cy="cancel-done-btn"
-  //             onClick={() => handleCompletions('undone', habit)}
-  //           >
-  //             x
-  //           </CancelBtn>
-  //         </ButtonWrapper>
-  //       )
-  //     ) : loading ? (
-  //       <LoadingOutlined spin style={{ fontSize: 40, marginBottom: 20 }} />
-  //     ) : (
-  //       <div>
-  //         <DoneBtn
-  //           data-cy="done-btn"
-  //           onClick={() => handleCompletions('done', habit)}
-  //         >
-  //           Done for today!
-  //         </DoneBtn>
-  //       </div>
-  //     )}
-  //   </Div>
-  // );
 };
 
 export default Habit;

@@ -70,8 +70,7 @@ const StyledLink = styled(Link)`
   border-radius: 5px;
   font-size: 0.9em;
   margin: 0;
-  padding: 0;
-  text-align: center;
+  padding: 1em 1em;
 `;
 
 const Header = ({ loggedInUser, handleLogout }: HeaderProps) => {
