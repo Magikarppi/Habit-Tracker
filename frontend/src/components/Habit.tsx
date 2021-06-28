@@ -18,12 +18,11 @@ const BtnWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 50%;
-  padding: 10px;
-  margin-top: 10px;
+  padding: 20px;
   @media (min-width: 767px) {
     flex-direction: row;
     height: 100px;
-    margin-right: 5%;
+    /* margin-right: 5%; */
   }
 `;
 
@@ -86,7 +85,6 @@ const RemoveButton = styled.div`
   border: 2px solid #000000;
   border-radius: 3px;
   text-align: center;
-  margin-top: 10px;
 `;
 
 const StreakDiv = styled.div`
@@ -139,19 +137,17 @@ const Habit = ({
     }
   }, [habit, handleCompletion]);
 
-  useEffect(() => {
-    if (currentStreak && currentStreak > 1) {
-      setShowCurrenStreak(true);
-    }
-  }, [currentStreak]);
+  // useEffect(() => {
+  //   if (currentStreak && currentStreak > 1) {
+  //     setShowCurrenStreak(true);
+  //   }
+  // }, [currentStreak]);
 
   if (!habit) {
     return null;
   }
 
-  console.log('current streak', currentStreak);
-
-  const streakTransition = useTransition(showCurrentStreak, {
+  const streakTransition = useTransition(currentStreak && currentStreak > 1, {
     from: {
       opacity: 0,
       //background: interpolate color
@@ -159,9 +155,9 @@ const Habit = ({
     enter: {
       opacity: 1,
     },
-    // leave: {
-    //   opacity: 0,
-    // },
+    leave: {
+      opacity: 0,
+    },
     // reverse: showHabitForm,
     // delay: 100,
     // onRest: () => (!showHabitForm),
@@ -298,12 +294,14 @@ const Habit = ({
               </StreakDiv>
             </animated.div>
           ) : (
-            <StreakDiv
-              style={{
-                background: 'none',
-                border: 'none',
-              }}
-            ></StreakDiv>
+            <animated.div style={{ ...styles }}>
+              <StreakDiv
+                style={{
+                  background: 'none',
+                  border: 'none',
+                }}
+              ></StreakDiv>
+            </animated.div>
           )
         )}
       </BtnWrapper>

@@ -25,7 +25,6 @@ import GlobalStyle from './globalStyle';
 import LoginSignUp from './components/LoginSignUp';
 import ErrSuccNotification from './components/ErrSuccNotification';
 import Header from './components/Header';
-import { createDummyUser } from './utils';
 
 const App = () => {
   const [habitsToShow, setHabitsToShow] = useState<HabitsToShow>([]);
@@ -40,23 +39,16 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // const dummyUser = createDummyUser();
-    // const user = { ...dummyUser, token: 'gasgahahaha' };
-    // setLoggedInUser(user);
-    // setHabitsToShow(user.habits);
-    // setToken(user.token);
-    // window.localStorage.setItem('loggedHabitAppUser', JSON.stringify(user));
-
-    const loggedUserJSON = window.localStorage.getItem('loggedHabitAppUser');
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      setLoggedInUser(user);
-      setHabitsToShow(user.habits);
-      setToken(user.token);
+    if (!loggedInUser) {
+      const loggedUserJSON = window.localStorage.getItem('loggedHabitAppUser');
+      if (loggedUserJSON) {
+        const user = JSON.parse(loggedUserJSON);
+        setLoggedInUser(user);
+        setHabitsToShow(user.habits);
+        setToken(user.token);
+      }
     }
   }, []);
-
-  console.log('loggeduser', loggedInUser);
 
   useEffect(() => {
     if (loggedInUser && loggedInUser.habits.length < 1) {
@@ -295,22 +287,29 @@ const App = () => {
       completions: habit.completions.concat(todayObj),
     };
 
+    const indexOfHabit = habitsToShow.map((e) => e.id).indexOf(habit.id);
+
     try {
       const responseData = await update(updateHabit);
-      // const x = habitsToShow.find((e) => e.id === responseData.id);
-      // x?.completions.concat(todayObj);
+
+      const habitsCopy = [...habitsToShow];
+
       setHabitsToShow(
-        habitsToShow.map((e) => (e.id === responseData.id ? responseData : e))
+        habitsCopy.map((habit, i) =>
+          i === indexOfHabit
+            ? { ...habit, completions: [...habit.completions, todayObj] }
+            : habit
+        )
       );
-      // setHabitsToShow(
-      //   habitsToShow.map((e) => (e.id === responseData.id ? responseData : e))
-      // );
-      // const y = loggedInUser.habits.find((e) => e.id === responseData.id);
-      // y?.completions.concat(todayObj);
-      const updatedLoggedInUser = { ...loggedInUser };
-      updatedLoggedInUser.habits = updatedLoggedInUser.habits.map((e) =>
+
+      const usersNewHabits = loggedInUser.habits.map((e) =>
         e.id === responseData.id ? responseData : e
       );
+
+      const updatedLoggedInUser = {
+        ...loggedInUser,
+        habits: usersNewHabits,
+      };
       setLoggedInUser(updatedLoggedInUser);
       window.localStorage.setItem(
         'loggedHabitAppUser',
@@ -336,23 +335,31 @@ const App = () => {
       return setErrorMessage('User not logged in');
     }
 
-    habit.completions.splice(habit.completions.length - 1, 1);
-
-    const updateHabit = {
-      ...habit,
-    };
-
     try {
+      const completionsCopy = [...habit.completions];
+      completionsCopy.splice(completionsCopy.length - 1, 1);
+
+      const updateHabit = {
+        ...habit,
+        completions: completionsCopy,
+      };
       const responseData = await update(updateHabit);
-      setHabitsToShow(
-        habitsToShow.map((e) => (e.id === responseData.id ? responseData : e))
-      );
-      loggedInUser.habits = loggedInUser.habits.map((e) =>
+
+      const updatedHabits = habitsToShow.map((e) =>
         e.id === responseData.id ? responseData : e
       );
+
+      setHabitsToShow(updatedHabits);
+
+      const updatedLoggedInUser = {
+        ...loggedInUser,
+        habits: updatedHabits,
+      };
+
+      setLoggedInUser(updatedLoggedInUser);
       window.localStorage.setItem(
         'loggedHabitAppUser',
-        JSON.stringify(loggedInUser)
+        JSON.stringify(updatedLoggedInUser)
       );
       setSuccessMessage('Completion cancelled!');
       setTimeout(() => {
