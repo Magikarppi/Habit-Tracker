@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { ErrorSuccessMsg } from '../types';
 
 const SuccessMsgDiv = styled.div`
-  width: 70%;
-  height: 25px;
+  width: 100%;
+  height: 100%;
   margin: auto;
   color: #000000;
   background: #a1ff54;
@@ -22,9 +22,9 @@ const ErrorMsgDiv = styled(SuccessMsgDiv)`
   background: #ff711f;
 `;
 
-const EmptyDiv = styled.div`
-  width: 50%;
-  height: 29px;
+const Wrapper = styled.div`
+  width: 70%;
+  height: 25px;
   margin: auto;
   padding: 10px;
   margin-bottom: 10px;
@@ -38,11 +38,19 @@ const Notification = ({
   errorMessage: ErrorSuccessMsg;
 }) => {
   if (successMessage && !errorMessage) {
-    return <SuccessMsgDiv>{successMessage}</SuccessMsgDiv>;
+    return (
+      <Wrapper>
+        <SuccessMsgDiv>{successMessage}</SuccessMsgDiv>
+      </Wrapper>
+    );
   } else if (errorMessage && !successMessage) {
-    return <ErrorMsgDiv>{errorMessage}</ErrorMsgDiv>;
+    return (
+      <Wrapper>
+        <ErrorMsgDiv>{errorMessage}</ErrorMsgDiv>
+      </Wrapper>
+    );
   } else {
-    return <EmptyDiv />;
+    return <Wrapper />;
   }
 };
 

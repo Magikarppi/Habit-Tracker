@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled, { CSSProperties } from 'styled-components';
 import {
   useTrail,
@@ -73,35 +74,36 @@ const NewHabitBtn = styled.button`
   text-align: center;
 `;
 
-// const HabitWrapper = styled(animated.div)`
-//   &[style] {
-//     width: 100%;
-//     height: 200px;
-//     @media (min-width: 767px) {
-//       height: 150px;
-//     }
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: space-between;
-//     align-items: center;
-//     background: rgba(255, 255, 220, 0.8);
-//     border-radius: 10px;
-//     border: 2px solid black;
-//     overflow: hidden;
-//   }
-// `;
-const habitWrapperStyles: CSSProperties = {
-  width: '100%',
-  height: '150px',
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  background: 'rgba(255, 255, 220, 0.8)',
-  borderRadius: '10px',
-  border: '2px solid black',
-  overflow: 'hidden',
-};
+const HabitWrapper = styled(animated.div)`
+  &[style] {
+    width: 100%;
+    height: 200px;
+    @media (min-width: 767px) {
+      height: 150px;
+    }
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 220, 0.8);
+    border-radius: 10px;
+    border: 2px solid black;
+    overflow: hidden;
+  }
+`;
+
+// const habitWrapperStyles: CSSProperties = {
+//   width: '100%',
+//   height: '150px',
+//   display: 'flex',
+//   flexDirection: 'row',
+//   justifyContent: 'space-between',
+//   alignItems: 'center',
+//   background: 'rgba(255, 255, 220, 0.8)',
+//   borderRadius: '10px',
+//   border: '2px solid black',
+//   overflow: 'hidden',
+// };
 
 const formWrapperStyles: CSSProperties = {
   display: 'flex',
@@ -132,6 +134,7 @@ const Home = ({
   toggleHabitForm,
   showHabitForm,
 }: HomeProps) => {
+  const [animationFinished, setAnimationFinished] = useState<boolean>(false);
   // const trail = useTrail(habitsToShow.length, {
   //   from: {
   //     marginTop: -100,
@@ -163,6 +166,8 @@ const Home = ({
     },
     update: null,
     keys: (habit) => habit.id,
+    onRest: () => setAnimationFinished(true),
+    config: {},
   });
 
   const formTransition = useTransition(showHabitForm, {
@@ -210,12 +215,12 @@ const Home = ({
       {habitsToShow.length > 0 ? (
         <HabitsList data-testid="habit-div" data-cy="habit-div">
           {habitTransitions((props, item, state, index) => {
+            console.log('Tstate', state);
             return (
-              <animated.div
+              <HabitWrapper
                 key={item.id}
                 style={{
                   ...props,
-                  ...habitWrapperStyles,
                 }}
                 className="box"
               >
@@ -225,8 +230,9 @@ const Home = ({
                   handleCompletion={handleCompletion}
                   handleCancelCompletion={handleCancelCompletion}
                   handleRemove={handleRemove}
+                  animationFinished={animationFinished}
                 />
-              </animated.div>
+              </HabitWrapper>
             );
           })}
         </HabitsList>

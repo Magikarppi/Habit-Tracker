@@ -11,7 +11,7 @@ import styled, { CSSProperties } from 'styled-components';
 import { Completion, HabitProps, HabitType } from '../types';
 import { stringShortener } from '../utils';
 
-const BtnWrapper = styled.div`
+const ButtonSection = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -24,6 +24,15 @@ const BtnWrapper = styled.div`
     height: 100px;
     /* margin-right: 5%; */
   }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
 `;
 
 const StyledLink = styled(Link)`
@@ -96,13 +105,14 @@ const StreakDiv = styled.div`
   border-radius: 10px;
   width: 40px;
   height: 40px;
+  margin-bottom: 0.5em;
+  font-size: 0.9em;
+  color: black;
   @media (min-width: 767px) {
     width: 50px;
     height: 50px;
+    margin-bottom: 0;
   }
-  font-size: 0.9em;
-  color: black;
-  margin-bottom: 0.5em;
 `;
 
 const ParagraphSmall = styled.p`
@@ -125,9 +135,9 @@ const Habit = ({
   handleCompletion,
   handleCancelCompletion,
   handleRemove,
+  animationFinished,
 }: HabitProps) => {
   const [currentStreak, setCurrentStreak] = useState<number | null>(null);
-  const [showCurrentStreak, setShowCurrenStreak] = useState<boolean>(false);
   const [loadingCompletion, setLoadingCompletion] = useState<boolean>(false);
   const [loadingRemove, setLoadingRemove] = useState<boolean>(false);
 
@@ -136,12 +146,6 @@ const Habit = ({
       setCurrentStreak(getCurrentStreak(habit.completions));
     }
   }, [habit, handleCompletion]);
-
-  // useEffect(() => {
-  //   if (currentStreak && currentStreak > 1) {
-  //     setShowCurrenStreak(true);
-  //   }
-  // }, [currentStreak]);
 
   if (!habit) {
     return null;
@@ -154,14 +158,11 @@ const Habit = ({
     },
     enter: {
       opacity: 1,
+      background: 'linear-gradient(to right, #009fff, #ec2f4b)',
     },
     leave: {
       opacity: 0,
     },
-    // reverse: showHabitForm,
-    // delay: 100,
-    // onRest: () => (!showHabitForm),
-    // onStart: () => (!showHabitForm),
     config: {
       duration: 500,
     },
@@ -247,6 +248,8 @@ const Habit = ({
     return count;
   };
 
+  console.log(`loadingreamove`, loadingRemove);
+
   return (
     <>
       <StyledLink data-cy="habit-link" to={`/habits/${habit.id}`}>
@@ -255,56 +258,88 @@ const Habit = ({
         </TextWrapper>
       </StyledLink>
 
-      <BtnWrapper>
-        {loadingCompletion ? (
-          <LoadingOutlined spin style={{ fontSize: 40, marginBottom: 20 }} />
-        ) : matchingDates.length > 0 ? (
-          <DoneToggler
-            data-cy="cancel-done-btn"
-            onClick={() => handleActions('undone', habit)}
-            done={true}
-          >
-            <CheckOutlined data-cy="checkmark" style={{ fontSize: 20 }} />
-          </DoneToggler>
-        ) : (
-          <DoneToggler
-            data-cy="done-btn"
-            onClick={() => handleActions('done', habit)}
-            done={false}
-          >
-            <CheckOutlined data-cy="checkmark" style={{ fontSize: 20 }} />
-          </DoneToggler>
-        )}
-        {loadingRemove ? (
-          <LoadingOutlined spin style={{ fontSize: 40, marginBottom: 20 }} />
-        ) : (
-          <RemoveButton
-            data-cy="delete-btn"
-            onClick={() => handleActions('remove', habit)}
-          >
-            <DeleteOutlined data-cy="trash" style={{ fontSize: 20 }} />
-          </RemoveButton>
-        )}
-        {streakTransition((styles, item) =>
-          item ? (
-            <animated.div style={{ ...styles }}>
-              <StreakDiv>
-                <p style={{ fontSize: '10px' }}>Streak</p>
-                {currentStreak}
-              </StreakDiv>
-            </animated.div>
+      {animationFinished ? (
+        <ButtonSection>
+          {loadingCompletion ? (
+            <ButtonWrapper>
+              <LoadingOutlined
+                spin
+                style={{ fontSize: 40, marginBottom: 20 }}
+              />
+            </ButtonWrapper>
+          ) : matchingDates.length > 0 ? (
+            <ButtonWrapper>
+              <DoneToggler
+                data-cy="cancel-done-btn"
+                onClick={() => handleActions('undone', habit)}
+                done={true}
+              >
+                <CheckOutlined data-cy="checkmark" style={{ fontSize: 20 }} />
+              </DoneToggler>
+            </ButtonWrapper>
           ) : (
-            <animated.div style={{ ...styles }}>
-              <StreakDiv
-                style={{
-                  background: 'none',
-                  border: 'none',
-                }}
-              ></StreakDiv>
-            </animated.div>
-          )
-        )}
-      </BtnWrapper>
+            <ButtonWrapper>
+              <DoneToggler
+                data-cy="done-btn"
+                onClick={() => handleActions('done', habit)}
+                done={false}
+              >
+                <CheckOutlined data-cy="checkmark" style={{ fontSize: 20 }} />
+              </DoneToggler>
+            </ButtonWrapper>
+          )}
+          {loadingRemove ? (
+            <ButtonWrapper>
+              <LoadingOutlined
+                spin
+                style={{ fontSize: 40, marginBottom: 20 }}
+              />
+            </ButtonWrapper>
+          ) : (
+            <ButtonWrapper>
+              <RemoveButton
+                data-cy="delete-btn"
+                onClick={() => handleActions('remove', habit)}
+              >
+                <DeleteOutlined data-cy="trash" style={{ fontSize: 20 }} />
+              </RemoveButton>
+            </ButtonWrapper>
+          )}
+
+          <ButtonWrapper>
+            {/* {streakTransition(
+              (styles, item) =>
+                item && (
+                  <animated.div style={{ ...styles, position: 'absolute' }}>
+                    <StreakDiv>
+                      <p style={{ fontSize: '10px' }}>Streak</p>
+                      {currentStreak}
+                    </StreakDiv>
+                  </animated.div>
+                )
+            )} */}
+            {streakTransition((styles, item) =>
+              item ? (
+                <animated.div
+                  style={{
+                    ...styles,
+                    position: 'absolute',
+                    overflow: 'hidden',
+                    borderRadius: '10px',
+                  }}
+                >
+                  <StreakDiv>
+                    <p style={{ fontSize: '10px' }}>Streak</p>
+                    {currentStreak}
+                  </StreakDiv>
+                </animated.div>
+              ) : null
+            )}
+          </ButtonWrapper>
+        </ButtonSection>
+      ) : (
+        <ButtonSection />
+      )}
     </>
   );
 };
