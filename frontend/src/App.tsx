@@ -215,9 +215,8 @@ const App = () => {
       if (responseData.name && loggedInUser) {
         setShowHabitForm(false);
         setHabitsToShow([...habitsToShow, responseData]);
-        const updatedLoggedInUser = { ...loggedInUser };
-        updatedLoggedInUser.habits =
-          updatedLoggedInUser.habits.concat(responseData);
+        const usersNewHabits = loggedInUser.habits.concat(responseData);
+        const updatedLoggedInUser = { ...loggedInUser, habits: usersNewHabits };
         setLoggedInUser(updatedLoggedInUser);
         window.localStorage.setItem(
           'loggedHabitAppUser',
@@ -241,10 +240,10 @@ const App = () => {
         await remove(habit);
         setHabitsToShow(habitsToShow.filter((e) => e.id !== habit.id));
         if (loggedInUser) {
-          const updatedLoggedInUser = { ...loggedInUser };
-          updatedLoggedInUser.habits = updatedLoggedInUser.habits.filter(
+          const usersNewHabits = loggedInUser.habits.filter(
             (e) => e.id !== habit.id
           );
+          const updatedLoggedInUser = { ...loggedInUser, usersNewHabits };
           setLoggedInUser(updatedLoggedInUser);
           window.localStorage.setItem(
             'loggedHabitAppUser',

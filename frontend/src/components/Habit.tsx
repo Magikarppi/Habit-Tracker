@@ -10,6 +10,7 @@ import styled, { CSSProperties } from 'styled-components';
 
 import { Completion, HabitProps, HabitType } from '../types';
 import { stringShortener } from '../utils';
+import PartyEmoji from '../images/partyFaceEmoji.png';
 
 const ButtonSection = styled.div`
   display: flex;
@@ -154,11 +155,14 @@ const Habit = ({
   const streakTransition = useTransition(currentStreak && currentStreak > 1, {
     from: {
       opacity: 0,
+      background: 'blue',
       //background: interpolate color
     },
-    enter: {
-      opacity: 1,
-      background: 'linear-gradient(to right, #009fff, #ec2f4b)',
+    enter: (item) => async (next, cancel) => {
+      await next({ opacity: 1 });
+      await next({
+        background: `url(${PartyEmoji})`,
+      });
     },
     leave: {
       opacity: 0,
@@ -247,8 +251,6 @@ const Habit = ({
     });
     return count;
   };
-
-  console.log(`loadingreamove`, loadingRemove);
 
   return (
     <>
