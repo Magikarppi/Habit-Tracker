@@ -11,6 +11,9 @@ import styled, { CSSProperties } from 'styled-components';
 import { Completion, HabitProps, HabitType } from '../types';
 import { stringShortener } from '../utils';
 import PartyEmoji from '../images/partyFaceEmoji.png';
+import FlameEmoji from '../images/flameEmoji.png';
+import StreakIcon from './StreakIcon';
+import StreakInfo from './StreakInfo';
 
 const ButtonSection = styled.div`
   display: flex;
@@ -26,6 +29,12 @@ const ButtonSection = styled.div`
     /* margin-right: 5%; */
   }
 `;
+
+// const IMG = styled.div`
+//   background: url('https://i.stack.imgur.com/qxjUw.png');
+//   width: 70;
+//   height: 70;
+// `;
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -136,14 +145,49 @@ const Habit = ({
   handleCompletion,
   handleCancelCompletion,
   handleRemove,
-  animationFinished,
+  parentAnimFinished,
 }: HabitProps) => {
+  const [streakElements, setStreakElements] = useState<any>(null);
   const [currentStreak, setCurrentStreak] = useState<number | null>(null);
+  const [strIndex, setStrIndex] = useState<number>(0);
   const [loadingCompletion, setLoadingCompletion] = useState<boolean>(false);
   const [loadingRemove, setLoadingRemove] = useState<boolean>(false);
 
   useEffect(() => {
+    if (!currentStreak || currentStreak < 2) {
+      return setStreakElements(null);
+    }
+
+    if (currentStreak === 10) {
+      return setStreakElements([
+        <StreakIcon iconName="party" />,
+        <StreakInfo currentStreak={currentStreak} />,
+      ]);
+    } else if (currentStreak === 50) {
+      return setStreakElements([
+        <StreakIcon iconName="crown" />,
+        <StreakInfo currentStreak={currentStreak} />,
+      ]);
+    } else if (currentStreak === 100) {
+      return setStreakElements([
+        <StreakIcon iconName="hundred" />,
+        <StreakInfo currentStreak={currentStreak} />,
+      ]);
+    } else {
+      return setStreakElements([
+        <StreakIcon iconName="flame" />,
+        <StreakInfo currentStreak={currentStreak} />,
+      ]);
+    }
+  }, [currentStreak]);
+
+  useEffect(() => {
     if (habit) {
+      // setCurrentStreak(
+      //   getCurrentStreak(
+      //     habit.completions.concat({ thisDay: 4, thisMonth: 6, thisYear: 2021 })
+      //   )
+      // );
       setCurrentStreak(getCurrentStreak(habit.completions));
     }
   }, [habit, handleCompletion]);
@@ -152,25 +196,32 @@ const Habit = ({
     return null;
   }
 
-  const streakTransition = useTransition(currentStreak && currentStreak > 1, {
-    from: {
-      opacity: 0,
-      background: 'blue',
-      //background: interpolate color
-    },
-    enter: (item) => async (next, cancel) => {
-      await next({ opacity: 1 });
-      await next({
-        background: `url(${PartyEmoji})`,
-      });
-    },
-    leave: {
-      opacity: 0,
-    },
-    config: {
-      duration: 500,
-    },
-  });
+  const incrIndex = (i: number) => {
+    if (streakElements) {
+      if (i < streakElements.length - 1) {
+        console.log('incr');
+        setStrIndex((prev: number) => prev + 1);
+        return;
+      }
+    }
+    return;
+  };
+
+  const streakTransition = useTransition(
+    streakElements && streakElements[strIndex],
+    {
+      from: {
+        opacity: 0,
+      },
+      enter: {
+        opacity: 1,
+      },
+      onRest: () => incrIndex(strIndex),
+      config: {
+        duration: 500,
+      },
+    }
+  );
 
   const handleActions = async (
     action: 'undone' | 'done' | 'remove',
@@ -187,6 +238,7 @@ const Habit = ({
           setLoadingCompletion(true);
           await handleCancelCompletion(habit);
           setLoadingCompletion(false);
+          setStrIndex(0);
           break;
         case 'remove':
           setLoadingRemove(true);
@@ -196,6 +248,7 @@ const Habit = ({
         default:
           setLoadingCompletion(false);
           setLoadingRemove(false);
+          setStrIndex(0);
           break;
       }
     } catch (error) {
@@ -260,7 +313,7 @@ const Habit = ({
         </TextWrapper>
       </StyledLink>
 
-      {animationFinished ? (
+      {parentAnimFinished ? (
         <ButtonSection>
           {loadingCompletion ? (
             <ButtonWrapper>
@@ -309,17 +362,6 @@ const Habit = ({
           )}
 
           <ButtonWrapper>
-            {/* {streakTransition(
-              (styles, item) =>
-                item && (
-                  <animated.div style={{ ...styles, position: 'absolute' }}>
-                    <StreakDiv>
-                      <p style={{ fontSize: '10px' }}>Streak</p>
-                      {currentStreak}
-                    </StreakDiv>
-                  </animated.div>
-                )
-            )} */}
             {streakTransition((styles, item) =>
               item ? (
                 <animated.div
@@ -330,10 +372,7 @@ const Habit = ({
                     borderRadius: '10px',
                   }}
                 >
-                  <StreakDiv>
-                    <p style={{ fontSize: '10px' }}>Streak</p>
-                    {currentStreak}
-                  </StreakDiv>
+                  <StreakDiv>{item}</StreakDiv>
                 </animated.div>
               ) : null
             )}

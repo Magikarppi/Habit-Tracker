@@ -73,7 +73,7 @@ export interface HabitProps {
   handleCompletion: (habit: HabitType) => void;
   handleCancelCompletion: (habit: HabitType) => void;
   handleRemove: (habit: HabitType) => void;
-  animationFinished: boolean;
+  parentAnimFinished: boolean;
 }
 
 export type ErrorSuccessMsg = string | null;

@@ -134,7 +134,7 @@ const Home = ({
   toggleHabitForm,
   showHabitForm,
 }: HomeProps) => {
-  const [animationFinished, setAnimationFinished] = useState<boolean>(false);
+  const [parentAnimFinished, setParentAnimFinished] = useState<boolean>(false);
   // const trail = useTrail(habitsToShow.length, {
   //   from: {
   //     marginTop: -100,
@@ -166,7 +166,7 @@ const Home = ({
     },
     update: null,
     keys: (habit) => habit.id,
-    onRest: () => setAnimationFinished(true),
+    onRest: () => setParentAnimFinished(true),
     config: {},
   });
 
@@ -215,7 +215,6 @@ const Home = ({
       {habitsToShow.length > 0 ? (
         <HabitsList data-testid="habit-div" data-cy="habit-div">
           {habitTransitions((props, item, state, index) => {
-            console.log('Tstate', state);
             return (
               <HabitWrapper
                 key={item.id}
@@ -230,7 +229,7 @@ const Home = ({
                   handleCompletion={handleCompletion}
                   handleCancelCompletion={handleCancelCompletion}
                   handleRemove={handleRemove}
-                  animationFinished={animationFinished}
+                  parentAnimFinished={parentAnimFinished}
                 />
               </HabitWrapper>
             );

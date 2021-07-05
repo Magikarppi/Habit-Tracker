@@ -58,6 +58,8 @@ describe('Habit app /logged in user', () => {
       cy.contains('Habit deleted');
       cy.url().should('eq', Cypress.config().baseUrl + '/');
       cy.contains(habitName).should('not.exist');
+      cy.visit('/');
+      cy.contains(habitName).should('not.exist');
     });
   });
 });

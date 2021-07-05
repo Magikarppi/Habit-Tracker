@@ -243,7 +243,10 @@ const App = () => {
           const usersNewHabits = loggedInUser.habits.filter(
             (e) => e.id !== habit.id
           );
-          const updatedLoggedInUser = { ...loggedInUser, usersNewHabits };
+          const updatedLoggedInUser = {
+            ...loggedInUser,
+            habits: usersNewHabits,
+          };
           setLoggedInUser(updatedLoggedInUser);
           window.localStorage.setItem(
             'loggedHabitAppUser',
