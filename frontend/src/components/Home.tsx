@@ -1,12 +1,6 @@
 import { useState } from 'react';
 import styled, { CSSProperties } from 'styled-components';
-import {
-  useTrail,
-  animated,
-  useTransition,
-  Trail,
-  Transition,
-} from 'react-spring';
+import { animated, useTransition } from 'react-spring';
 
 import { HomeProps } from '../types';
 import AddHabit from './AddHabit';
@@ -126,7 +120,6 @@ const Home = ({
     update: null,
     keys: (habit) => habit.id,
     onRest: () => setParentAnimFinished(true),
-    config: {},
   });
 
   const formTransition = useTransition(showHabitForm, {
@@ -161,7 +154,7 @@ const Home = ({
               data-testid="habit-form-open-btn"
               onClick={toggleHabitForm}
             >
-              Add a new habit
+              New Habit
             </NewHabitBtn>
           </div>
         )

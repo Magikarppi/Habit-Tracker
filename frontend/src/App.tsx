@@ -34,10 +34,6 @@ const App = () => {
   const [showHabitForm, setShowHabitForm] = useState(false);
 
   useEffect(() => {
-    document.title = 'Simplify Success';
-  }, []);
-
-  useEffect(() => {
     if (!loggedInUser) {
       const loggedUserJSON = window.localStorage.getItem('loggedHabitAppUser');
       if (loggedUserJSON) {

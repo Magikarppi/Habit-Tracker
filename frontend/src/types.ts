@@ -91,3 +91,10 @@ export interface HabitType {
 }
 
 export type HabitsToShow = HabitType[];
+
+export interface TodayObjType {
+  thisDay: number;
+  thisMonth: number;
+  thisYear: number;
+  [key: string]: number;
+}

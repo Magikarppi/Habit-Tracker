@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useTransition, animated } from 'react-spring';
 import styled from 'styled-components';
 
-import { Completion, HabitProps, HabitType } from '../types';
+import { Completion, HabitProps, HabitType, TodayObjType } from '../types';
 import { stringShortener } from '../utils';
 import StreakIcon from './StreakIcon';
 import StreakInfo from './StreakInfo';
@@ -138,7 +138,9 @@ const Habit = ({
   handleRemove,
   parentAnimFinished,
 }: HabitProps) => {
-  const [streakElements, setStreakElements] = useState<any>(null);
+  const [streakElements, setStreakElements] = useState<JSX.Element[] | null>(
+    null
+  );
   const [currentStreak, setCurrentStreak] = useState<number | null>(null);
   const [strIndex, setStrIndex] = useState<number>(0);
   const [loadingCompletion, setLoadingCompletion] = useState<boolean>(false);
@@ -244,7 +246,10 @@ const Habit = ({
     }
   };
 
-  const findByMatchingDate = (completions: any, dateObj: any) => {
+  const findByMatchingDate = (
+    completions: Completion[],
+    dateObj: TodayObjType
+  ) => {
     return completions.filter((completion: any) => {
       return Object.keys(dateObj).every((key) => {
         return completion[key] === dateObj[key];
@@ -253,7 +258,7 @@ const Habit = ({
   };
 
   const today = new Date();
-  const todayObj = {
+  const todayObj: TodayObjType = {
     thisDay: today.getDate(),
     thisMonth: today.getMonth(),
     thisYear: today.getFullYear(),
@@ -296,7 +301,7 @@ const Habit = ({
         <TextWrapper>
           <ParagraphBig>
             {window.screen.width > 767
-              ? stringShortener(habit.name, 15)
+              ? stringShortener(habit.name)
               : stringShortener(habit.name, 12)}
           </ParagraphBig>
         </TextWrapper>
