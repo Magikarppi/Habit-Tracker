@@ -6,12 +6,10 @@ import {
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTransition, animated } from 'react-spring';
-import styled, { CSSProperties } from 'styled-components';
+import styled from 'styled-components';
 
 import { Completion, HabitProps, HabitType } from '../types';
 import { stringShortener } from '../utils';
-import PartyEmoji from '../images/partyFaceEmoji.png';
-import FlameEmoji from '../images/flameEmoji.png';
 import StreakIcon from './StreakIcon';
 import StreakInfo from './StreakInfo';
 
@@ -26,15 +24,8 @@ const ButtonSection = styled.div`
   @media (min-width: 767px) {
     flex-direction: row;
     height: 100px;
-    /* margin-right: 5%; */
   }
 `;
-
-// const IMG = styled.div`
-//   background: url('https://i.stack.imgur.com/qxjUw.png');
-//   width: 70;
-//   height: 70;
-// `;
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -183,11 +174,6 @@ const Habit = ({
 
   useEffect(() => {
     if (habit) {
-      // setCurrentStreak(
-      //   getCurrentStreak(
-      //     habit.completions.concat({ thisDay: 4, thisMonth: 6, thisYear: 2021 })
-      //   )
-      // );
       setCurrentStreak(getCurrentStreak(habit.completions));
     }
   }, [habit, handleCompletion]);
@@ -199,7 +185,6 @@ const Habit = ({
   const incrIndex = (i: number) => {
     if (streakElements) {
       if (i < streakElements.length - 1) {
-        console.log('incr');
         setStrIndex((prev: number) => prev + 1);
         return;
       }
@@ -309,7 +294,11 @@ const Habit = ({
     <>
       <StyledLink data-cy="habit-link" to={`/habits/${habit.id}`}>
         <TextWrapper>
-          <ParagraphBig>{stringShortener(habit.name)}</ParagraphBig>
+          <ParagraphBig>
+            {window.screen.width > 767
+              ? stringShortener(habit.name, 15)
+              : stringShortener(habit.name, 12)}
+          </ParagraphBig>
         </TextWrapper>
       </StyledLink>
 

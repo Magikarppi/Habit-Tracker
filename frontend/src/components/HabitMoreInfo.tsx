@@ -52,6 +52,7 @@ const H1 = styled.h1`
   color: rgb(255, 234, 31);
   font-size: 2em;
   text-align: center;
+  word-wrap: break-word;
 `;
 
 const ParagraphSmall = styled.p`

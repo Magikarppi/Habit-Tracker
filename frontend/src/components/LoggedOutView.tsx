@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import LoggedEmptyImg from '../images/Habit-tracker-Logged-empty.png';
-import HabitMoreInfoImg from '../images/Habit-tracker-habit-more-info.png';
-import LoggedHabitsImg from '../images/Habit-tracker-Logged-habits-big-img.png';
+import LoggedEmptyImg from '../images/newHabitTrackerLoggedInEmptyBig.png';
+import HabitMoreInfoImg from '../images/newHabitTrackerHabitMoreInfoBig.png';
+import LoggedHabitsImg from '../images/newHabitTrackerLoggedInAddHabitBig.png';
 import { getQuote } from '../services/quote';
 
 const ButtonWrapper = styled.div`
@@ -85,6 +85,7 @@ const GuideWrapper = styled.div`
   background-color: teal;
   @media (min-width: 767px) {
     flex-direction: row;
+    height: 200px;
   }
 `;
 
@@ -93,8 +94,11 @@ const GuidePairWrapper = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  padding-bottom: 20px;
   @media (min-width: 767px) {
     flex-direction: row;
+    justify-content: center;
+    width: 33%;
   }
 `;
 
@@ -108,7 +112,7 @@ const ParagraphWrapper = styled.div`
 
 const imgStyle = {
   width: 300,
-  height: 200,
+  height: 150,
   borderRadius: 10,
 };
 
@@ -182,15 +186,17 @@ const LoggedOutView = () => {
           borderTopRightRadius: 10,
         }}
       >
-        <ParagraphMed style={{ color: 'white', paddingBottom: '20px' }}>
+        <ParagraphMed style={{ color: 'white', padding: '15px' }}>
           This is how Simplify Success works:
         </ParagraphMed>
       </div>
       <GuideWrapper>
         <GuidePairWrapper>
-          <ParagraphSmall style={{ width: '150px' }}>
-            Log in and add a habit that you want to track
-          </ParagraphSmall>
+          <ParagraphWrapper>
+            <ParagraphSmall>
+              Log in and add a habit that you want to track
+            </ParagraphSmall>
+          </ParagraphWrapper>
           <img
             src={LoggedEmptyImg}
             alt="Logged in view no habits"
@@ -198,9 +204,11 @@ const LoggedOutView = () => {
           />
         </GuidePairWrapper>
         <GuidePairWrapper>
-          <ParagraphSmall style={{ width: '150px' }}>
-            View all your habits and mark them as done
-          </ParagraphSmall>
+          <ParagraphWrapper>
+            <ParagraphSmall>
+              View all your habits and mark them as done
+            </ParagraphSmall>
+          </ParagraphWrapper>
           <img
             src={LoggedHabitsImg}
             alt="Logged in view no habits"
@@ -208,9 +216,11 @@ const LoggedOutView = () => {
           />
         </GuidePairWrapper>
         <GuidePairWrapper>
-          <ParagraphSmall style={{ width: '150px' }}>
-            View completed days in a calendar and delete habit if necessary
-          </ParagraphSmall>
+          <ParagraphWrapper>
+            <ParagraphSmall>
+              View completed days in a calendar and delete habit if necessary
+            </ParagraphSmall>
+          </ParagraphWrapper>
           <img
             src={HabitMoreInfoImg}
             alt="Logged in view no habits"

@@ -14,17 +14,12 @@ import Habit from './Habit';
 import LoggedOutView from './LoggedOutView';
 
 const HabitsList = styled.div`
-  /* background: rgba(255, 255, 220, 0.8); */
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
   justify-content: center;
   width: 80%;
-  /* width: 300px; */
   padding: 10px;
-  /* margin: auto; */
-  /* margin-bottom: 5%; */
-  /* border-radius: 10px; */
 `;
 
 const ParagraphSmall = styled.p`
@@ -92,19 +87,6 @@ const HabitWrapper = styled(animated.div)`
   }
 `;
 
-// const habitWrapperStyles: CSSProperties = {
-//   width: '100%',
-//   height: '150px',
-//   display: 'flex',
-//   flexDirection: 'row',
-//   justifyContent: 'space-between',
-//   alignItems: 'center',
-//   background: 'rgba(255, 255, 220, 0.8)',
-//   borderRadius: '10px',
-//   border: '2px solid black',
-//   overflow: 'hidden',
-// };
-
 const formWrapperStyles: CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
@@ -112,17 +94,6 @@ const formWrapperStyles: CSSProperties = {
   alignItems: 'center',
   height: '150px',
 };
-
-// const habitWrapperStyles = {
-//   width: '100%',
-//   height: '80%',
-//   display: 'flex',
-//   justifyContent: 'center',
-//   alignItems: 'center',
-//   background: 'rgba(255, 255, 220, 0.8)',
-//   borderRadius: '10px',
-//   border: '2px solid black',
-// };
 
 const Home = ({
   loggedInUser,
@@ -135,18 +106,6 @@ const Home = ({
   showHabitForm,
 }: HomeProps) => {
   const [parentAnimFinished, setParentAnimFinished] = useState<boolean>(false);
-  // const trail = useTrail(habitsToShow.length, {
-  //   from: {
-  //     marginTop: -100,
-  //     opacity: 0,
-  //     transform: 'translate3d(-50px,-20px,0)',
-  //   },
-  //   to: {
-  //     marginTop: 0,
-  //     opacity: 1,
-  //     transform: 'translate3d(0,0px,0)',
-  //   },
-  // });
 
   const habitTransitions = useTransition(habitsToShow, {
     from: {
@@ -177,11 +136,6 @@ const Home = ({
     enter: {
       opacity: 1,
     },
-    // leave: {
-    //   opacity: 0,
-    // },
-    // reverse: showHabitForm,
-    // delay: 100,
     config: {
       duration: 500,
     },

@@ -5,7 +5,6 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-import { __RouterContext } from 'react-router';
 
 import './App.css';
 import { setToken, create, remove, update } from './services/habits';

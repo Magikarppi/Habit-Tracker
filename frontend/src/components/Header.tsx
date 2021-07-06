@@ -11,7 +11,6 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 30%;
-  /* background-color: #383838; */
 `;
 
 const HeaderSubWrapper = styled.div`
@@ -26,7 +25,6 @@ const HeaderSubWrapper = styled.div`
 `;
 
 const H1 = styled.h1`
-  /* font-size: 200%; */
   color: #fffc37;
   text-shadow: 1px 1px black;
 `;
