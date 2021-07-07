@@ -55,8 +55,6 @@ const TextWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  /* height: 100px; */
-  /* width: 100%; */
   margin-left: 5%;
 `;
 
@@ -311,10 +309,7 @@ const Habit = ({
         <ButtonSection>
           {loadingCompletion ? (
             <ButtonWrapper>
-              <LoadingOutlined
-                spin
-                style={{ fontSize: 40, marginBottom: 20 }}
-              />
+              <LoadingOutlined spin className="loading" />
             </ButtonWrapper>
           ) : matchingDates.length > 0 ? (
             <ButtonWrapper>
@@ -323,7 +318,7 @@ const Habit = ({
                 onClick={() => handleActions('undone', habit)}
                 done={true}
               >
-                <CheckOutlined data-cy="checkmark" style={{ fontSize: 20 }} />
+                <CheckOutlined data-cy="checkmark" className="checkDelIcon" />
               </DoneToggler>
             </ButtonWrapper>
           ) : (
@@ -333,16 +328,13 @@ const Habit = ({
                 onClick={() => handleActions('done', habit)}
                 done={false}
               >
-                <CheckOutlined data-cy="checkmark" style={{ fontSize: 20 }} />
+                <CheckOutlined data-cy="checkmark" className="checkDelIcon" />
               </DoneToggler>
             </ButtonWrapper>
           )}
           {loadingRemove ? (
             <ButtonWrapper>
-              <LoadingOutlined
-                spin
-                style={{ fontSize: 40, marginBottom: 20 }}
-              />
+              <LoadingOutlined spin className="loading" />
             </ButtonWrapper>
           ) : (
             <ButtonWrapper>
@@ -350,7 +342,7 @@ const Habit = ({
                 data-cy="delete-btn"
                 onClick={() => handleActions('remove', habit)}
               >
-                <DeleteOutlined data-cy="trash" style={{ fontSize: 20 }} />
+                <DeleteOutlined data-cy="trash" className="checkDelIcon" />
               </RemoveButton>
             </ButtonWrapper>
           )}

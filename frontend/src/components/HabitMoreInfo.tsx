@@ -7,19 +7,6 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { HabitMoreInfoProps } from '../types';
 import { stringShortener } from '../utils';
 
-const DeleteBtn = styled.button`
-  background: #cfccc2;
-  &:hover {
-    background: #ff711f;
-  }
-  font-size: 0.9em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid #8f8d64;
-  border-radius: 3px;
-  text-align: center;
-`;
-
 const Wrapper = styled.div`
   margin-top: 50px;
 `;
@@ -30,7 +17,6 @@ const WrapperChart = styled.div`
 `;
 
 const SuccessDaysWrapper = styled.div`
-  /* background: rgba(255, 255, 220, 0.8); */
   width: 200px;
   padding: 10px;
   margin: auto;
@@ -175,7 +161,7 @@ const HabitMoreInfo = ({ habit }: HabitMoreInfoProps) => {
 
   data = data.concat(completionDays);
 
-  // Desktop view:
+  // Big screen view:
   if (window.screen.width > 767) {
     return (
       <Wrapper>
@@ -187,7 +173,8 @@ const HabitMoreInfo = ({ habit }: HabitMoreInfoProps) => {
             loader={
               <LoadingOutlined
                 spin
-                style={{ fontSize: 60, marginBottom: 20 }}
+                className="loading"
+                style={{ fontSize: 60 }}
               />
             }
             data={data}

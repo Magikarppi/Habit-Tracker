@@ -121,7 +121,7 @@ const LoginSignUp = ({
                     <ErrorMessage name="password" component={ErrorDiv} />
                   </DivInput>
                   {isSubmitting ? (
-                    <LoadingOutlined spin style={{ fontSize: 40 }} />
+                    <LoadingOutlined spin className="loading" />
                   ) : (
                     <SubmitDiv>
                       <SubmitBtn type="submit" data-cy="submit-btn">
@@ -169,7 +169,7 @@ const LoginSignUp = ({
                     <ErrorMessage name="password" component={ErrorDiv} />
                   </DivInput>
                   {isSubmitting ? (
-                    <LoadingOutlined style={{ fontSize: 40 }} spin />
+                    <LoadingOutlined className="loading" spin />
                   ) : (
                     <SubmitDiv>
                       <SubmitBtn type="submit" data-cy="submit-btn">

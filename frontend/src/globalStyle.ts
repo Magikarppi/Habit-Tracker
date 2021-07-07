@@ -60,6 +60,13 @@ const GlobalStyle = createGlobalStyle`
   h3 {
     font-size: 30px;
   }
+  .loading {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+  .checkDelIcon {
+    font-size: 20px;
+  }
 `;
 
 export default GlobalStyle;

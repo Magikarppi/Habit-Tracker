@@ -105,10 +105,7 @@ const AddHabit = ({ handleHabitSubmit, toggleHabitForm }: AddHabitProps) => {
               <ErrorMessage name="habitName" component={ErrorDiv} />
             </DivInput>
             {isSubmitting ? (
-              <LoadingOutlined
-                spin
-                style={{ fontSize: 40, marginBottom: 20 }}
-              />
+              <LoadingOutlined spin className="loading" />
             ) : (
               <SubmitDiv>
                 <SubmitBtn
