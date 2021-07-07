@@ -4,13 +4,13 @@
 <h2>https://simplify-success.netlify.app/</h2>
 
 <p>User can create an account and login</p>
-<img src="frontend\src\images\Habit-tracker-Home-not-logged.png" alt="sign-up" width="500px" />
+<img src="frontend\src\images\newHabitTrackerNotLoggedInBig.png" alt="sign-up" width="500px" />
 
 <p>User can add habits and mark them completed for that day. Current streak will appear once the user has completed the habit two or more days in a row.</p>
-<img src="https://media.giphy.com/media/qEzseKeq7bYnY0aQtR/giphy.gif" alt="logged-in-actions" />
+<img src="https://media.giphy.com/media/PRGAYF7Az9xdYkomiy/giphy.gif" alt="logged-in-actions" />
 
 <p>User can navigate to a page that shows more detailed information of the given habit, like a calendar view of completed and missed days.</P>
-<img src="frontend\src\images\Habit-tracker-habit-more-info.png" alt="logged-in-actions" width="500px" />
+<img src="frontend\src\images\newHabitTrackerHabitMoreInfoBig.png" alt="habit-more-info" width="500px" />
 
 <h3>Backend</h3>
 <p>Backend is build with Node.js, Express and Typescript, and it uses MongoDb as a data storage</p>
