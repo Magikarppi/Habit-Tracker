@@ -3,6 +3,8 @@
 <p>A web app project that tracks user's habits. </p>
 <h2>https://simplify-success.netlify.app/</h2>
 
+<a href="https://www.youtube.com/watch?v=z9PlTGL7e5A">Presentation video of the app</a>
+
 <p>User can create an account and login</p>
 <img src="frontend\src\images\newHabitTrackerNotLoggedInBig.png" alt="sign-up" width="500px" />
 
