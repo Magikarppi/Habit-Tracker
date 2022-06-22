@@ -41,9 +41,9 @@ loginRouter.post('/', async (request, response) => {
       id: user._id,
     });
     return;
-  } catch (exception) {
+  } catch (exception: any) {
     console.log(exception);
-    response.status(401).send({ error: exception.message });
+    response.status(401).send({ error: exception });
     return;
   }
 });

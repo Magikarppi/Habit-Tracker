@@ -14,7 +14,7 @@ habitRouter.get('/', async (_request, response) => {
       username: 1,
     });
     response.json(habits.map((habit) => habit.toJSON()));
-  } catch (exception) {
+  } catch (exception: any) {
     console.log(exception);
     response.status(400).send({ error: exception.message });
   }
@@ -49,7 +49,7 @@ habitRouter.post('/', async (request, response) => {
 
     response.status(201).json(savedHabit.toJSON());
     return;
-  } catch (exception) {
+  } catch (exception: any) {
     console.log(exception);
     response.status(400).send({ error: exception.message });
     return;
@@ -60,7 +60,7 @@ habitRouter.delete('/:id', async (request, response) => {
   try {
     await Habit.findByIdAndRemove(request.params.id);
     response.status(204).end();
-  } catch (exception) {
+  } catch (exception: any) {
     console.log(exception);
     response.status(400).send({ error: exception.message });
   }
@@ -86,7 +86,7 @@ habitRouter.put('/:id', async (request, response) => {
     }
 
     response.json(updatedHabit.toJSON());
-  } catch (exception) {
+  } catch (exception: any) {
     console.log(exception);
     response.status(400).send({ exception: exception.message });
   }

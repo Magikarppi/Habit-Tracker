@@ -14,9 +14,9 @@ usersRouter.get('/', async (_request, response) => {
     });
 
     response.status(200).json(users.map((user) => user.toJSON()));
-  } catch (exception) {
+  } catch (exception: any) {
     console.log(exception);
-    response.status(400).send({ error: exception.message });
+    response.status(400).send({ error: exception });
   }
 });
 
@@ -41,9 +41,9 @@ usersRouter.post('/', async (request, response) => {
 
     const savedUser = await user.save();
     return response.status(201).json(savedUser);
-  } catch (exception) {
+  } catch (exception: any) {
     console.log(exception);
-    return response.status(400).send({ error: exception.message });
+    return response.status(400).send({ error: exception });
   }
 });
 
