@@ -25,7 +25,6 @@ const HeaderSubWrapper = styled.div`
 `;
 
 const H1 = styled.h1`
-  color: #fffc37;
   text-shadow: 1px 1px black;
 `;
 

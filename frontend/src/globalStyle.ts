@@ -1,5 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
 
+export const colors = {
+  greenYellow: '#eaff75',
+  cWhite: '#f9ffd9',
+};
+
 const GlobalStyle = createGlobalStyle`
   html {
   min-height: 100%;
@@ -11,24 +16,30 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     min-height: 100%;
     max-width: 100%;
-    background: linear-gradient(teal, purple);
+    background: linear-gradient(#242424, #6b6b6a);
     font-family: Open-Sans, Helvetica, Sans-Serif;
-    color: #fafafa;
+    color: #f9ffd9;
     text-align: center;
   }
   a:link {
+    color: #242424;
+    background: #f9ffd9;
     &:hover {
-    background: #fffba8;
-  }
+    background: #eaff75;
+    color: #242424;
+    }
+    &:visited {
+    color: #242424;
+    }
   text-align: center;
   text-decoration: none;
   vertical-align: center;
   font-size: 1em;
   }
   button {
-    background: #fafafa;
+    background: #f9ffd9;
   &:hover {
-    background: #fffba8;
+    background: #eaff75;
   }
   font-size: 0.9em;
   margin: 1em;
@@ -49,15 +60,18 @@ const GlobalStyle = createGlobalStyle`
   font-size: 17px;
   }
   h1 {
+    color: #eaff75;
     font-size: 20px;
     @media (min-width: 767px) {
     font-size: 200%;
     }
   }
   h2 {
+    color: #eaff75;
     font-size: 40px;
   }
   h3 {
+    color: #eaff75;
     font-size: 30px;
   }
   .loading {

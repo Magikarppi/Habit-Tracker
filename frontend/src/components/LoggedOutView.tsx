@@ -18,17 +18,12 @@ const ButtonWrapper = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  color: #63006e;
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 2px solid black;
   border-radius: 5px;
-  background: #ffff;
-  &:hover {
-    background: #fffba8;
-  }
   width: 60px;
   height: 40px;
   @media (min-width: 767px) {
@@ -52,7 +47,6 @@ const ParagraphMed = styled.p`
   text-align: center;
   margin: auto;
   margin-top: 20px;
-  color: #fffc37;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   @media (min-width: 767px) {
     font-size: 40px;
@@ -82,7 +76,7 @@ const GuideWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: teal;
+  background: 'linear-gradient(#6b6b6a, #242424)';
   @media (min-width: 767px) {
     flex-direction: row;
     height: 200px;
@@ -181,12 +175,11 @@ const LoggedOutView = () => {
       )}
       <div
         style={{
-          backgroundColor: 'teal',
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,
         }}
       >
-        <ParagraphMed style={{ color: 'white', padding: '15px' }}>
+        <ParagraphMed style={{ padding: '15px' }}>
           This is how Simplify Success works:
         </ParagraphMed>
       </div>
