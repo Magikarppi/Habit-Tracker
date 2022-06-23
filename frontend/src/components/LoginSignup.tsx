@@ -14,18 +14,26 @@ const SubmitDiv = styled.div`
 
 const SubmitBtn = styled.button``;
 
+const InputsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
+
 const DivInput = styled.div`
   margin: auto;
   margin-bottom: 10px;
   margin-top: 20px;
-  background: rgba(255, 255, 220, 0.5);
+  /* background: #6b6b6a; */
+  /* background: rgba(255, 255, 220, 0.5); */
   text-align: center;
-  width: 250px;
+  width: 100%;
   height: 20%;
   overflow: hidden;
-  border: 2px solid #8f8d64;
+  /* border: 2px solid #8f8d64; */
   border-radius: 3px;
-  color: black;
+  /* color: black; */
 `;
 
 const H3 = styled.h3`
@@ -89,9 +97,9 @@ const LoginSignUp = ({
   switch (formToShow) {
     case 'signup':
       return (
-        <div>
+        <>
           <H3>Sign Up</H3>
-          <div>
+          <InputsContainer>
             <Formik
               initialValues={initialValues}
               validate={(values) => validate(values)}
@@ -132,14 +140,14 @@ const LoginSignUp = ({
                 </Form>
               )}
             </Formik>
-          </div>
-        </div>
+          </InputsContainer>
+        </>
       );
     case 'login':
       return (
-        <div>
+        <>
           <H3>Login</H3>
-          <div>
+          <InputsContainer>
             <Formik
               initialValues={initialValues}
               validate={(values) => validate(values)}
@@ -180,8 +188,8 @@ const LoginSignUp = ({
                 </Form>
               )}
             </Formik>
-          </div>
-        </div>
+          </InputsContainer>
+        </>
       );
     default:
       return null;
