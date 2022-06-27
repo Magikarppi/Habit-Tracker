@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const colors = {
-  greenYellow: '#eaff75',
+  greenish: '#eaff75',
   cWhite: '#f9ffd9',
 };
 
@@ -52,7 +52,7 @@ const GlobalStyle = createGlobalStyle`
   padding: 0.5em;
   margin: 0.5em;
   color: black;
-  background: #fffba8;
+  background: #f9ffd9;
   border: none;
   border-radius: 3px;
   box-sizing: border-box;

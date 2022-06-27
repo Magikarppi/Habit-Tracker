@@ -59,10 +59,6 @@ const LogOutBtn = styled.button`
 `;
 
 const StyledLink = styled(Link)`
-  background: #cfccc2;
-  &:hover {
-    background: darkgray;
-  }
   border: 2px solid black;
   border-radius: 5px;
   font-size: 0.9em;

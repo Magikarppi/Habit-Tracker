@@ -6,14 +6,10 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { AddHabitProps, HabitInputValue } from '../types';
 
 const SubmitBtn = styled.button`
-  background: #fffba8;
-  &:hover {
-    background: #fff870;
-  }
   font-size: 0.9em;
   margin: 1em;
   padding: 0.25em 1em;
-  border: 2px solid #8f8d64;
+  border: 2px solid;
   border-radius: 3px;
   text-align: center;
 `;
@@ -28,12 +24,10 @@ const SubmitDiv = styled.div`
 const DivInput = styled.div`
   margin: auto;
   margin-bottom: 10px;
-  background: rgba(255, 255, 220, 0.5);
   text-align: center;
   width: 250px;
   height: 20%;
   overflow: hidden;
-  border: 2px solid #8f8d64;
   border-radius: 3px;
   color: black;
 `;
@@ -41,12 +35,12 @@ const DivInput = styled.div`
 const CancelBtn = styled.button`
   background: #cfccc2;
   &:hover {
-    background: #ff711f;
+    background: #6b6b6a;
   }
   font-size: 0.9em;
   margin: 1em;
   padding: 0.25em 1em;
-  border: 2px solid #8f8d64;
+  border: 2px solid;
   border-radius: 3px;
   text-align: center;
 `;

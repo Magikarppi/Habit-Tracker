@@ -27,7 +27,6 @@ const ParagraphSmall = styled.p`
 
 const ParagraphMed = styled(ParagraphSmall)`
   font-size: 20px;
-  color: #fffc37;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   @media (min-width: 767px) {
     font-size: 25px;
@@ -51,14 +50,10 @@ const Wrapper = styled.div`
 `;
 
 const NewHabitBtn = styled.button`
-  background: #f2f5b5;
-  &:hover {
-    background: #fff870;
-  }
   font-size: 0.9em;
   margin: 1em;
   padding: 0.25em 1em;
-  border: 2px solid #8f8d64;
+  border: 2px solid;
   border-radius: 3px;
   text-align: center;
 `;
@@ -74,7 +69,7 @@ const HabitWrapper = styled(animated.div)`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 220, 0.8);
+    background: #f9ffd9;
     border-radius: 10px;
     border: 2px solid black;
     overflow: hidden;
