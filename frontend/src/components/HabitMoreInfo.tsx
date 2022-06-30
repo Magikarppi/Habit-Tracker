@@ -6,6 +6,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 import { HabitMoreInfoProps } from '../types';
 import { stringShortener } from '../utils';
+import { colors } from '../globalStyle';
 
 const Wrapper = styled.div`
   margin-top: 50px;
@@ -21,10 +22,11 @@ const SuccessDaysWrapper = styled.div`
   padding: 10px;
   margin: auto;
   text-align: center;
+  color: ${colors.greenish};
 `;
 
 const TotalDaysDiv = styled.div`
-  background: rgba(255, 234, 31, 0.8);
+  background: ${colors.greenish};
   width: 170px;
   padding: 10px;
   margin: auto;
@@ -35,7 +37,6 @@ const TotalDaysDiv = styled.div`
 `;
 
 const H1 = styled.h1`
-  color: rgb(255, 234, 31);
   font-size: 2em;
   text-align: center;
   word-wrap: break-word;
@@ -47,25 +48,20 @@ const ParagraphSmall = styled.p`
   text-shadow: 1px 1px;
   text-align: center;
   padding: 0.25em 1em;
-  color: black;
+  color: ${colors.cWhite};
 `;
 
 const ParagraphNote = styled.p`
   margin: auto;
   margin-top: 20px;
-  text-shadow: 1px 1px;
   text-align: center;
   padding: 0.25em 1em;
-  color: black;
+  color: ${colors.cWhite};
   font-size: 15px;
   font-style: italic;
 `;
 
 const StyledLink = styled(Link)`
-  background: #cfccc2;
-  &:hover {
-    background: darkgray;
-  }
   font-size: 0.9em;
   margin: 0;
   padding: 0;
@@ -122,29 +118,29 @@ const HabitMoreInfo = ({ habit }: HabitMoreInfoProps) => {
     calendar: {
       cellSize: 25,
       cellColor: {
-        stroke: '#e3e3e3',
+        stroke: colors.cWhite,
         strokeOpacity: 0.5,
         strokeWidth: 1,
       },
       focusedCellColor: {
-        stroke: '#d3362d',
+        stroke: colors.cWhite,
         strokeOpacity: 1,
         strokeWidth: 1,
       },
       monthLabel: {
         fontName: 'Arial',
         fontSize: 12,
-        color: '#fad850',
+        color: colors.cWhite,
         bold: true,
         italic: true,
       },
       monthOutlineColor: {
-        stroke: '#fad850',
+        stroke: colors.cWhite,
         strokeOpacity: 0.8,
         strokeWidth: 3,
       },
       unusedMonthOutlineColor: {
-        stroke: '#bc5679',
+        stroke: colors.cGrey,
         strokeOpacity: 0.8,
         strokeWidth: 2,
       },
@@ -153,7 +149,7 @@ const HabitMoreInfo = ({ habit }: HabitMoreInfoProps) => {
       yearLabel: {
         fontName: 'Arial',
         fontSize: 32,
-        color: 'white',
+        color: colors.greenish,
         bold: true,
       },
     },

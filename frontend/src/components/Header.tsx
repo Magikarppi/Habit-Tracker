@@ -38,10 +38,6 @@ const LoggedInDiv = styled.div`
 `;
 
 const LogOutBtn = styled.button`
-  background: #fff870;
-  &:hover {
-    background: #bdbdbd;
-  }
   height: 30px;
   width: 80px;
   font-size: 0.6em;
@@ -50,7 +46,7 @@ const LogOutBtn = styled.button`
     font-size: 1vw;
     margin: 1em;
     padding: 0.25em 1em;
-    border: 2px solid #8f8d64;
+    border: 2px solid;
     border-radius: 3px;
     text-align: center;
     height: 30px;

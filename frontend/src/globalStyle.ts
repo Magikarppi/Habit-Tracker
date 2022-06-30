@@ -3,6 +3,8 @@ import { createGlobalStyle } from 'styled-components';
 export const colors = {
   greenish: '#eaff75',
   cWhite: '#f9ffd9',
+  cBlack: '#242424',
+  cGrey: '#6b6b6a',
 };
 
 const GlobalStyle = createGlobalStyle`
