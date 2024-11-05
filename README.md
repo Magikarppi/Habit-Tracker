@@ -1,7 +1,6 @@
 <h1>Simplify Success</h1>
 
 <p>A web app project that tracks user's habits. </p>
-<h2>https://simplify-success.netlify.app/</h2>
 
 <a href="https://www.youtube.com/watch?v=z9PlTGL7e5A" target="_blank"><h2>Presentation video of the app</h2></a>
 
