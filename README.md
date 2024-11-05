@@ -27,4 +27,3 @@
 <br />
 <p>Both frontend and backend have their own Readme documentation files in their respective folders</p>
 
-<h2>https://simplify-success.netlify.app/</h2>
